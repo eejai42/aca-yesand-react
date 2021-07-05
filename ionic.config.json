@@ -1,0 +1,7 @@
+{
+  "name": "aca-yesand-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
