@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router";
 import { GDS } from "../services/gds.service";
 
 
@@ -9,7 +10,7 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
 
         this.state = {
             shows: [],
-            reloadRequested : false,
+            reloadRequested : true,
             dataReady : false,
         };
 
@@ -18,23 +19,21 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
         
         console.error('STARTING PAGE', process.env.SHOWS );
     }
-    async onReady(ready: null) {
+
+    async onReady(ready : null) {
         console.error('GDS READY: ', ready);
         this.reloadShows();
     }
 
     async reloadShows() {
-        var shows = await this.gds.loadData(this.gds.guest);
-        var newState = { shows : shows, reloadRequested : true}
+        var reply = await this.gds.guest.GetShows({});
+        console.error('GOT SHOWS: ', reply);
+        var newState = { shows : reply.Shows, reloadRequested : true}
         this.setState(newState);
-        console.error('SHOWS RELOADED', newState);
-
-        this.setState({reloadRequested : true, dataReady : false, shows : shows});
     }
 
     shouldComponentUpdate() {
         if (this.state.reloadRequested) {
-            this.setState({shows : this.gds.shows || [], reloadRequested : false, dataReady : false});
             return true;
         } else return false;
     }
@@ -45,7 +44,7 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
     }
 
     componentDidMount() {
-        //console.error('COMPONENT MOUNTED...');
+        console.error('COMPONENT MOUNTED...');
         var self = this;
         this.gds = new GDS();
         self.gds.readiness$.subscribe((ready) => {
@@ -54,13 +53,20 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
     }
 
     render() {
+        console.error('rendering');
         const { shows } = this.state;
         return (            
             <div>
                 <div>
                     <button onClick={this.reloadShows}>Reload</button>
                 </div>
-                <div> SHOWS: {shows.map((show : any) => <div key={show.ShowId}>{show.Name}</div>)} </div>
+                <div> SHOWS: {shows.length} {shows.map((show : any) => 
+                    <div key={show.ShowId}>
+                        <h3>{show.Name}</h3>
+                        <a onClick={() => console.error('test')}>View</a>
+                    </div>
+                )} </div>
+                
             </div>
         );
     }
