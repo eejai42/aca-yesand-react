@@ -2,29 +2,65 @@ import React from "react";
 import { GDS } from "../services/gds.service";
 
 
-export default class TestComponent extends React.Component<{}, { shows : [] }>  {
+export default class TestComponent extends React.Component<{}, { shows : [], reloadRequested : boolean, dataReady : boolean }>  {
+    private gds: GDS;
     constructor(props : any) {
         super(props);
 
         this.state = {
-            shows: []
+            shows: [],
+            reloadRequested : false,
+            dataReady : false,
         };
+
+        this.reloadShows = this.reloadShows.bind(this);
 
         
         console.error('STARTING PAGE', process.env.SHOWS );
+    }
+    async onReady(ready: null) {
+        console.error('GDS READY: ', ready);
+        this.reloadShows();
+    }
+
+    async reloadShows() {
+        var shows = await this.gds.loadData(this.gds.guest);
+        var newState = { shows : shows, reloadRequested : true}
+        this.setState(newState);
+        console.error('SHOWS RELOADED', newState);
+
+        this.setState({reloadRequested : true, dataReady : false, shows : shows});
+    }
+
+    shouldComponentUpdate() {
+        if (this.state.reloadRequested) {
+            this.setState({shows : this.gds.shows || [], reloadRequested : false, dataReady : false});
+            return true;
+        } else return false;
+    }
+
+    componentDidUpdate() {
+        //console.error('COMPONENT UPDATED...');
+
+    }
+
+    componentDidMount() {
+        //console.error('COMPONENT MOUNTED...');
         var self = this;
-        var gds = new GDS();
-        gds.readiness$.subscribe((ready) => {
-            console.error('GOT SHOWS', gds.shows);
-            self.setState({shows : gds.shows});
+        this.gds = new GDS();
+        self.gds.readiness$.subscribe((ready) => {
+            if (ready) self.onReady(ready);
         })
     }
 
     render() {
         const { shows } = this.state;
-        return (
+        return (            
             <div>
-                <p> SHOWS: {shows.map((show : any) => <div>{show.Name}</div>)} </p>
+                <div>
+                    <button onClick={this.reloadShows}>Reload</button>
+                </div>
+                <div> SHOWS: {shows.map((show : any) => <div key={show.ShowId}>{show.Name}</div>)} </div>
             </div>
         );
     }

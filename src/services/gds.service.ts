@@ -3,7 +3,9 @@ import { filter, share, map, catchError, take, tap } from 'rxjs/operators';
 import generateGuestActor from '../sassymq/jsActors/smqGuest.js';
 
 export class GDS {
-  public readiness$: BehaviorSubject<null> = new BehaviorSubject(null);
+  guest: any;
+
+  public readiness$: BehaviorSubject<any> = new BehaviorSubject(false);
   accessToken: string = "";
   smqGuest: any = "";
   whoAmI: any = null;
@@ -24,14 +26,14 @@ export class GDS {
 
   constructor() {
     var self = this;
-    var guest : any = generateGuestActor();
-    guest.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
-    guest.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {
+    this.guest  = generateGuestActor();
+    this.guest.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
+    this.guest.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {
       console.error('MESSAGE', msg);
     }, (connected : any) => {
-      self.loadData(guest);
+      this.readiness$.next(true);
     });
-    console.error('connected', guest);
+    console.error('connected', this.guest);
   }
 
   groupBy = (key : any) => (array : any) =>
@@ -58,14 +60,13 @@ export class GDS {
     var reply = await guest.GetShows({});
     console.error('CONNECTED GUEST', reply);
     this.shows = reply.Shows;
-    this.readiness$.next(null);
     return reply.Shows;
   }  
 
   dontConnect() {
     console.error('NOT Connecting now');
     setTimeout(() => {
-      this.readiness$.next(null);
+      this.readiness$.next(true);
     }, 1000);
   }
  
@@ -128,13 +129,13 @@ export class GDS {
 
         gds.smqUser.connect(gds.vhost, gds.smqUsername, gds.smqPassword, function () { }, function () {
           gds.isGuestConnected = true;
-          gds.readiness$.next(null);
+          gds.readiness$.next(true);
         });
       } else {
-        gds.readiness$.next(null);
+        gds.readiness$.next(true);
       }
     } else {
-      gds.readiness$.next(null);
+      gds.readiness$.next(true);
     }
   }
 }
