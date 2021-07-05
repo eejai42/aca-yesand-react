@@ -1,6 +1,7 @@
+import { Stomp as sx } from '../stomp.js';
 
 
-function generateGuestActor() {
+export default function generateGuestActor() {
     var smqGuest = {
     };
     
@@ -29,12 +30,12 @@ function generateGuestActor() {
         smqGuest.messages = [];
         smqGuest.waitingReply = [];
         
-        smqGuest.client = Stomp.client(smqGuest.rabbitEndpoint);
+        smqGuest.client = window.Stomp.client(smqGuest.rabbitEndpoint);
 
         smqGuest.client.debug = function (m, p) {
             if (((m == ">>> PING") || (m == "<<< PONG")) && !smqGuest.showPingPongs) return;
             else {
-                if (m == "<<< ") delete m;
+                if (m == "<<< ") m = "";
                 let data = p || m || "STRING"; 
                 let indexOfContentLength = data.indexOf("content-length:");
                 let dataStart = data.indexOf("\n\n");
@@ -224,32 +225,16 @@ function generateGuestActor() {
             return deferred.promise;
         }
         
-        smqGuest.Search = function() {
-            smqGuest.Search('{}');
+        smqGuest.GetShows = function() {
+            smqGuest.GetShows('{}');
         }
 
-        smqGuest.Search = function(payload) {
+        smqGuest.GetShows = function(payload) {
             payload = smqGuest.stringifyValue(payload);
             var id = smqGuest.createUUID();
             var deferred = smqGuest.waitingReply[id] = smqGuest.defer();
-            if (smqGuest.showPingPongs) console.log('Search - ');
-            smqGuest.client.send('/exchange/guestmic/crudcoordinator.custom.guest.search', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqGuest.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqGuest.GetCategories = function() {
-            smqGuest.GetCategories('{}');
-        }
-
-        smqGuest.GetCategories = function(payload) {
-            payload = smqGuest.stringifyValue(payload);
-            var id = smqGuest.createUUID();
-            var deferred = smqGuest.waitingReply[id] = smqGuest.defer();
-            if (smqGuest.showPingPongs) console.log('Get Categories - ');
-            smqGuest.client.send('/exchange/guestmic/crudcoordinator.custom.guest.getcategories', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            if (smqGuest.showPingPongs) console.log('Get Shows - ');
+            smqGuest.client.send('/exchange/guestmic/crudcoordinator.crud.guest.getshows', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
             
             smqGuest.waitFor(id);
             

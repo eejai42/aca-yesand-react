@@ -1,36 +1,41 @@
-declare var generateAdminActor: any;
-declare var generateEmployeeActor: any;
-declare var generateManagerActor: any;
-declare var generateCustomerActor: any;
-
 import { Observable, BehaviorSubject, Subscription, timer, combineLatest } from 'rxjs';
 import { filter, share, map, catchError, take, tap } from 'rxjs/operators';
-import {generateAdminActor} from '../../public/assets/sassymq/jsActors/smqAdmin.js'; 
+import generateGuestActor from '../sassymq/jsActors/smqGuest.js';
 
 export class GDS {
-  private readiness$: BehaviorSubject<{}> = new BehaviorSubject(null);
-  accessToken: string;
-  smqGuest: any;
-  whoAmI: any;
-  isCustomer: boolean;
-  isAdmin: boolean;
-  isEmployee: boolean;
-  isManager: boolean;
-  role: string;
-  vhost: string;
-  smqUsername: string;
-  smqPassword: string;
-  smqUser: any;
-  rabbitEndpoint: string;
-  isGuestConnected: boolean;
-  firstLoad: boolean;
+  public readiness$: BehaviorSubject<null> = new BehaviorSubject(null);
+  accessToken: string = "";
+  smqGuest: any = "";
+  whoAmI: any = null;
+  isCustomer: boolean = false;
+  isAdmin: boolean = false;
+  isEmployee: boolean = false;
+  isManager: boolean = false;
+  role: string = "";
+  vhost: string = "";
+  smqUsername: string = "";
+  smqPassword: string = "";
+  smqUser: any = null;
+  rabbitEndpoint: string = "";
+  isGuestConnected: boolean = false;
+  firstLoad: boolean = false;
+  shows: any;
 
 
   constructor() {
+    var self = this;
+    var guest : any = generateGuestActor();
+    guest.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
+    guest.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {
+      console.error('MESSAGE', msg);
+    }, (connected : any) => {
+      self.loadData(guest);
+    });
+    console.error('connected', guest);
   }
 
-  groupBy = key => array =>
-    array.reduce((objectsByKeyValue, obj) => {
+  groupBy = (key : any) => (array : any) =>
+    array.reduce((objectsByKeyValue : any, obj : any) => {
       const value = obj[key];
       objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
       return objectsByKeyValue;
@@ -49,13 +54,21 @@ export class GDS {
     return true;
   }
 
+  async loadData(guest: any) {
+    var reply = await guest.GetShows({});
+    console.error('CONNECTED GUEST', reply);
+    this.shows = reply.Shows;
+    this.readiness$.next(null);
+    return reply.Shows;
+  }  
+
   dontConnect() {
     console.error('NOT Connecting now');
     setTimeout(() => {
-      this.readiness$.next({});
+      this.readiness$.next(null);
     }, 1000);
   }
-
+ 
   getDate(date: any) {
     if (date && date.getDate) return date;
     else if (typeof date === "string") {
@@ -72,7 +85,7 @@ export class GDS {
     gds.accessToken = accessToken;
     localStorage.setItem('accessToken', accessToken);
     gds.smqGuest.WhoAmI(gds.createPayload())
-      .then(function (waiReply) {
+      .then(function (waiReply : any) {
         gds.whoAmI = waiReply.SingletonAppUser;
         gds.connect();
       });
@@ -97,31 +110,31 @@ export class GDS {
     gds.isManager = false;
 
     if (gds.whoAmI && gds.whoAmI.Roles) {
-      if (gds.whoAmI.Roles.indexOf("Customer") >= 0) {
-        gds.role = 'Customer';
-        gds.isCustomer = true;
-        gds.smqUser = generateCustomerActor();
-      }
-      else if (gds.whoAmI.Roles.indexOf("Admin") >= 0) {
-        gds.role = 'Admin';
-        gds.isEmployee = true;
-        gds.isAdmin = true;
-        //gds.smqPayroll = generatePayrollActor();
-        gds.smqUser = generateAdminActor();
-      }
+      // if (gds.whoAmI.Roles.indexOf("Customer") >= 0) {
+      //   gds.role = 'Customer';
+      //   gds.isCustomer = true;
+      //   gds.smqUser = generateCustomerActor();
+      // }
+      // else if (gds.whoAmI.Roles.indexOf("Admin") >= 0) {
+      //   gds.role = 'Admin';
+      //   gds.isEmployee = true;
+      //   gds.isAdmin = true;
+      //   //gds.smqPayroll = generatePayrollActor();
+      //   gds.smqUser = generateAdminActor();
+      // }
 
       if (gds.smqUser) {
         gds.smqUser.rabbitEndpoint = gds.rabbitEndpoint;
 
         gds.smqUser.connect(gds.vhost, gds.smqUsername, gds.smqPassword, function () { }, function () {
           gds.isGuestConnected = true;
-          gds.readiness$.next({});
+          gds.readiness$.next(null);
         });
       } else {
-        gds.readiness$.next({});
+        gds.readiness$.next(null);
       }
     } else {
-      gds.readiness$.next({});
+      gds.readiness$.next(null);
     }
   }
 }
