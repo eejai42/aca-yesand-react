@@ -1,10 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { GlobalDataService } from "../GlobalDataService";
 import { GDS } from "../services/gds.service";
 
 
 export default class TestComponent extends React.Component<{}, { shows : [], reloadRequested : boolean, dataReady : boolean }>  {
-    private gds: GDS;
+
     constructor(props : any) {
         super(props);
 
@@ -14,11 +15,15 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
             dataReady : false,
         };
 
+
         this.reloadShows = this.reloadShows.bind(this);
 
         
         console.error('STARTING PAGE', process.env.SHOWS );
     }
+
+    static contextType = GlobalDataService;
+    context!: React.ContextType<typeof GlobalDataService>;
 
     async onReady(ready : null) {
         console.error('GDS READY: ', ready);
@@ -26,7 +31,7 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
     }
 
     async reloadShows() {
-        var reply = await this.gds.guest.GetShows({});
+        var reply = await this.context.moderator.GetShows(this.context.createPayload());
         console.error('GOT SHOWS: ', reply);
         var newState = { shows : reply.Shows, reloadRequested : true}
         this.setState(newState);
@@ -46,8 +51,7 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
     componentDidMount() {
         console.error('COMPONENT MOUNTED...');
         var self = this;
-        this.gds = new GDS();
-        self.gds.readiness$.subscribe((ready) => {
+        self.context.readiness$.subscribe((ready) => {
             if (ready) self.onReady(ready);
         })
     }
@@ -60,7 +64,7 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
                 <div>
                     <button onClick={this.reloadShows}>Reload</button>
                 </div>
-                <div> SHOWS: {shows.length} {shows.map((show : any) => 
+                <div> SHOWS: {shows?.length} {shows?.map((show : any) => 
                     <div key={show.ShowId}>
                         <h3>{show.Name}</h3>
                         <a onClick={() => console.error('test')}>View</a>

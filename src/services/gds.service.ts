@@ -1,7 +1,8 @@
+import * as React from 'react';
 import { Observable, BehaviorSubject, Subscription, timer, combineLatest } from 'rxjs';
 import { filter, share, map, catchError, take, tap } from 'rxjs/operators';
 import generateGuestActor from '../sassymq/jsActors/smqGuest.js';
-
+import generateModeratorActor from '../sassymq/jsActors/smqModerator.js';
 export class GDS {
   guest: any;
 
@@ -13,7 +14,7 @@ export class GDS {
   isAdmin: boolean = false;
   isEmployee: boolean = false;
   isManager: boolean = false;
-  role: string = "";
+  role: string = "Guest";
   vhost: string = "";
   smqUsername: string = "";
   smqPassword: string = "";
@@ -22,6 +23,7 @@ export class GDS {
   isGuestConnected: boolean = false;
   firstLoad: boolean = false;
   shows: any;
+  moderator: any;
 
 
   constructor() {
@@ -31,9 +33,18 @@ export class GDS {
     this.guest.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {
       console.error('MESSAGE', msg);
     }, (connected : any) => {
-      this.readiness$.next(true);
+      self.loginModerator();
     });
     console.error('connected', this.guest);
+  }
+  async loginModerator() {
+    var payload = {
+      EmailAddress : 'ej@ssot.me'
+    }
+    var reply = await this.guest.ValidateTemporaryAccessToken(payload)
+    if (this.hasNoErrors(reply)) {
+      this.saveAccessToken(reply.AccessToken);
+    }
   }
 
   groupBy = (key : any) => (array : any) =>
@@ -80,19 +91,25 @@ export class GDS {
     else return new Date(date);
   }
 
-  saveAccessToken(accessToken: string) {
+  async saveAccessToken(accessToken: string) {
     if (!accessToken) return;
     var gds = this;
     gds.accessToken = accessToken;
     localStorage.setItem('accessToken', accessToken);
-    gds.smqGuest.WhoAmI(gds.createPayload())
-      .then(function (waiReply : any) {
-        gds.whoAmI = waiReply.SingletonAppUser;
-        gds.connect();
-      });
+    var waiReply = await gds.guest.WhoAmI(gds.createPayload());
+    gds.whoAmI = waiReply.SingletonAppUser;
+    gds.connect();
   }
+
+  connect() {
+    this.moderator = generateModeratorActor();
+    this.moderator.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
+    this.moderator.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {}, () => {
+      this.readiness$.next(true);
+    });
+}
   createPayload(): any {
-    throw new Error('Method not implemented.');
+    return { AccessToken : this.accessToken };
   }
 
   public logout() {
@@ -100,42 +117,5 @@ export class GDS {
     this.isAdmin = false;
     this.isEmployee = false;
     this.whoAmI = null;
-  }
-
-  connect() {
-    console.error("LOADING ALL DATA");
-    var gds = this;
-    gds.isAdmin = false;
-    gds.isEmployee = false;
-    gds.isCustomer = false;
-    gds.isManager = false;
-
-    if (gds.whoAmI && gds.whoAmI.Roles) {
-      // if (gds.whoAmI.Roles.indexOf("Customer") >= 0) {
-      //   gds.role = 'Customer';
-      //   gds.isCustomer = true;
-      //   gds.smqUser = generateCustomerActor();
-      // }
-      // else if (gds.whoAmI.Roles.indexOf("Admin") >= 0) {
-      //   gds.role = 'Admin';
-      //   gds.isEmployee = true;
-      //   gds.isAdmin = true;
-      //   //gds.smqPayroll = generatePayrollActor();
-      //   gds.smqUser = generateAdminActor();
-      // }
-
-      if (gds.smqUser) {
-        gds.smqUser.rabbitEndpoint = gds.rabbitEndpoint;
-
-        gds.smqUser.connect(gds.vhost, gds.smqUsername, gds.smqPassword, function () { }, function () {
-          gds.isGuestConnected = true;
-          gds.readiness$.next(true);
-        });
-      } else {
-        gds.readiness$.next(true);
-      }
-    } else {
-      gds.readiness$.next(true);
-    }
   }
 }

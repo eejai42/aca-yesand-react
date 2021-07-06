@@ -42,8 +42,8 @@ const appPages: AppPage[] = [
     mdIcon: archiveSharp
   },
   {
-    title: 'Viewers',
-    url: '/page/Viewers',
+    title: 'Profile',
+    url: '/account/Profile',
     iosIcon: warningOutline,
     mdIcon: warningSharp
   }

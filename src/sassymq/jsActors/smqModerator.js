@@ -1,6 +1,6 @@
 
 
-function generateModeratorActor() {
+export default function generateModeratorActor() {
     var smqModerator = {
     };
     
@@ -29,12 +29,12 @@ function generateModeratorActor() {
         smqModerator.messages = [];
         smqModerator.waitingReply = [];
         
-        smqModerator.client = Stomp.client(smqModerator.rabbitEndpoint);
+        smqModerator.client = window.Stomp.client(smqModerator.rabbitEndpoint);
 
         smqModerator.client.debug = function (m, p) {
             if (((m == ">>> PING") || (m == "<<< PONG")) && !smqModerator.showPingPongs) return;
             else {
-                if (m == "<<< ") delete m;
+                if (m == "<<< ") m = "";
                 let data = p || m || "STRING"; 
                 let indexOfContentLength = data.indexOf("content-length:");
                 let dataStart = data.indexOf("\n\n");
