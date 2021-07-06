@@ -647,6 +647,7 @@
         exports.Stomp = Stomp;
     }
 
+    var self = this;
     if (typeof window !== "undefined" && window !== null) {
         window.Stomp = Stomp;
     } else if (!exports) {
