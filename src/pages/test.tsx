@@ -2,9 +2,9 @@ import React from "react";
 import { useHistory } from "react-router";
 import { GlobalDataService } from "../GlobalDataService";
 import { GDS } from "../services/gds.service";
+import { EffortlessBaseComponent } from '../services/EffortlessBaseComponent'
 
-
-export default class TestComponent extends React.Component<{}, { shows : [], reloadRequested : boolean, dataReady : boolean }>  {
+export default class TestComponent extends EffortlessBaseComponent<{}, { shows : [], reloadRequested : boolean, dataReady : boolean }>  {
 
     constructor(props : any) {
         super(props);
@@ -15,46 +15,24 @@ export default class TestComponent extends React.Component<{}, { shows : [], rel
             dataReady : false,
         };
 
-
-        this.reloadShows = this.reloadShows.bind(this);
-
-        
-        console.error('STARTING PAGE', process.env.SHOWS );
+        this.reloadShows = this.reloadShows.bind(this);        
     }
 
-    static contextType = GlobalDataService;
-    context!: React.ContextType<typeof GlobalDataService>;
 
-    async onReady(ready : null) {
-        console.error('GDS READY: ', ready);
+    async onReady() {
         this.reloadShows();
     }
 
     async reloadShows() {
         var reply = await this.context.moderator.GetShows(this.context.createPayload());
-        console.error('GOT SHOWS: ', reply);
         var newState = { shows : reply.Shows, reloadRequested : true}
         this.setState(newState);
     }
 
     shouldComponentUpdate() {
-        if (this.state.reloadRequested) {
-            return true;
-        } else return false;
+        return this.state.reloadRequested;
     }
 
-    componentDidUpdate() {
-        //console.error('COMPONENT UPDATED...');
-
-    }
-
-    componentDidMount() {
-        console.error('COMPONENT MOUNTED...');
-        var self = this;
-        self.context.readiness$.subscribe((ready) => {
-            if (ready) self.onReady(ready);
-        })
-    }
 
     render() {
         console.error('rendering');

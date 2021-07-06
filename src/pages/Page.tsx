@@ -5,11 +5,14 @@ import TestComponent from './test'
 import './Page.css';
 
 import { GDS } from '../services/gds.service'
+import { GlobalDataService } from '../GlobalDataService';
+import React from 'react';
 
 const Page: React.FC = () => {
 
   const { name } = useParams<{ name: string; }>();
 
+  //const context = React.useContext(GlobalDataService);
 
   return (
     <IonPage>
@@ -30,6 +33,9 @@ const Page: React.FC = () => {
         </IonHeader>
         <TestComponent />
         <ExploreContainer name={name} size={123} />
+        <div>
+          {/* ROLE: {context.whoAmI?.role} */}
+        </div>
       </IonContent>
     </IonPage>
   );

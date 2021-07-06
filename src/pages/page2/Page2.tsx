@@ -4,32 +4,28 @@ import ExploreContainer from '../../components/ExploreContainer';
 import './Page2.css';
 import { GDS } from '../../services/gds.service'
 import React from 'react';
-import { thumbsUpSharp } from 'ionicons/icons';
+import { person, thumbsUpSharp } from 'ionicons/icons';
 import { GlobalDataService } from '../../GlobalDataService'
+import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent';
 
-export class Page2 extends React.Component<{}, {name:string, people : any[]}> {
+export class Page2 extends EffortlessBaseComponent<{}, {people : any[]}> {
 
   constructor(props : any) {
     super(props)
 
     this.state = {
-      name : "unnamed",
       people : []
     };
   }
 
-  static contextType = GlobalDataService;
-  context!: React.ContextType<typeof GlobalDataService>;
+  async onReady() {
+    this.loadData();
+  }
 
-  componentDidMount() {
-    console.error('COMPONENT MOUNTED...');
-    var self = this;
-    self.context.readiness$.subscribe((ready:any) => {
-        if (ready) self.loadData(ready);
-    });
-}
-  async loadData(ready: any) {
-    var reply = await this.context.moderator.GetPeople(this.context.createPayload());
+  async loadData() {
+    var payload = this.context.createPayload();
+    payload.AirtableWhere = "Roles='Host'"
+    var reply = await this.context.moderator.GetPeople(payload);
     if (this.context.hasNoErrors(reply)) {
       this.setState({people: reply.People});
     }
@@ -37,7 +33,7 @@ export class Page2 extends React.Component<{}, {name:string, people : any[]}> {
 
 
   render() {
-    const { name, people } = this.state;
+    const {  people } = this.state;
     
     return (
       <IonPage>
@@ -46,21 +42,22 @@ export class Page2 extends React.Component<{}, {name:string, people : any[]}> {
             <IonButtons slot="start">
               <IonMenuButton />
             </IonButtons>
-            <IonTitle>PAGE 2 {name} changed</IonTitle>
+            <IonTitle>Hosts</IonTitle>
           </IonToolbar>
         </IonHeader>
   
         <IonContent fullscreen>
           <IonHeader collapse="condense">
             <IonToolbar>
-              <IonTitle size="large">{name + '123'}</IonTitle>
+              <IonTitle size="large">Hosts</IonTitle>
             </IonToolbar>
           </IonHeader>
-          <ExploreContainer name={name} size={123} />
           <div>
             PEOPLE: {people?.length}
           </div>
-
+          {people?.map(person => 
+            <div key={person.PersonId}>{person.Name}</div>
+          )};
         </IonContent>
       </IonPage>
     );
