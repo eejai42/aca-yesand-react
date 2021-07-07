@@ -4,7 +4,10 @@ import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Page from './pages/Page';
 import Page2 from './pages/page2/Page2';
-import Profile from './pages/profile/Profile'
+
+import D3demo from './pages/d3/d3demo'
+// import GlobalState from './GlobaleState';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,39 +27,35 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import React from 'react';
-import { GDS } from './services/gds.service';
-import { GlobalDataService } from './GlobalDataService'
 
-export class App extends React.Component {
 
-  render() {
-    return (
-      <IonApp>
-          <GlobalDataService.Provider value={new GDS()}>
-            <IonReactRouter>
-                <IonSplitPane contentId="main">
-                  <Menu />
-                  <IonRouterOutlet id="main">
-                    <Route path="/" exact={true}>
-                      <Redirect to="/page/Inbox" />
-                    </Route>
-                    <Route path="/page/:name" exact={true}>
-                      <Page />
-                    </Route>
-                    <Route path="/account/Profile" exact={true}>
-                      <Profile />
-                    </Route>
-                    <Route path="/page2/:name" exact={true}>
-                      <Page2 />
-                    </Route>
-                  </IonRouterOutlet>
-                </IonSplitPane>
-            </IonReactRouter>
-        </GlobalDataService.Provider>
-      </IonApp>
-    );
-  };
+const App: React.FC = () => {
+  return (
+    <IonApp>
+
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <Menu />
+          <IonRouterOutlet id="main">
+            <Route path="/" exact={true}>
+              <Redirect to="/page/Inbox" />
+            </Route>
+            <Route path="/page/:name" exact={true}>
+              <Page />
+            </Route>
+            <Route path="/page2/:name" exact={true}>
+              <Page2 />
+            </Route>
+
+            {/*Note:  Route bellow is for testing ... */}
+            <Route path="/d3" exact={true}>
+              <D3demo />
+            </Route>
+          </IonRouterOutlet>
+        </IonSplitPane>
+      </IonReactRouter>
+    </IonApp>
+  );
 };
 
 export default App;

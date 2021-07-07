@@ -46,6 +46,12 @@ const appPages: AppPage[] = [
     url: '/account/Profile',
     iosIcon: warningOutline,
     mdIcon: warningSharp
+  },
+  {
+    title: 'D3',
+    url: '/d3',
+    iosIcon: warningOutline,
+    mdIcon: warningSharp
   }
 ];
 
