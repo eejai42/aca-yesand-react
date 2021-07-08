@@ -19,6 +19,7 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "d3": "^6.0.0-rc.4",
     "ionicons": "^5.4.0",
     "react": "^17.0.1",
     "react-d3-library": "^1.1.8",
