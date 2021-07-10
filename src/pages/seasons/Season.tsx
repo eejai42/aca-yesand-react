@@ -18,15 +18,15 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class SeasonComponent extends EffortlessBaseComponent<{hostCode:string}, { host : any, reloadRequested: boolean, 
-                                                                            dataReady: boolean, hostCode : string }> {
+export default class SeasonComponent extends EffortlessBaseComponent<{seasonCode:string}, { season : any, reloadRequested: boolean, 
+                                                                            dataReady: boolean, seasonCode : string }> {
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            host : undefined,
-            hostCode : props.match.params.hostCode,
+            season : undefined,
+            seasonCode : props.match.params.seasonCode,
             reloadRequested: true,
             dataReady: false,
         };
@@ -40,12 +40,20 @@ export default class SeasonComponent extends EffortlessBaseComponent<{hostCode:s
     }
 
     async reloadSeason() {
+        console.error('LOADING SEASON', this.state.seasonCode);
         let payload = this.context.createPayload()
-        payload.AirtableWhere = "SeasonCode='" + this.state.hostCode +"'";
-        var reply = await this.context.moderator.GetSeasons(payload);
-        if (this.hasNoErrors(reply) && reply.Seasons && reply.Seasons.length) {
-            console.error('GOT SHOW: ', reply.Seasons[0]);
-            var newState = { host: reply.Seasons[0], reloadRequested: true }
+        payload.AirtableWhere = "Name='" + this.state.seasonCode +"'";
+        var reply = await this.context.moderator.GetShowSeasons(payload);
+        if (this.hasNoErrors(reply) && reply.ShowSeasons && reply.ShowSeasons.length) {
+            console.error('GOT REPLY TO SEASONS REQUEST: ', reply);
+            var season = reply.ShowSeasons[0];
+            payload.AirtableWhere = `ShowSeason='${season.Name}'`;
+            reply = await this.context.moderator.GetSeasonEpisodes(payload);
+            if (this.hasNoErrors(reply)) {
+                season.SeasonEpisodes = reply.SeasonEpisodes;
+            }
+
+            var newState = { season: season, reloadRequested: true }
             this.setState(newState);
         }
     }
@@ -57,21 +65,25 @@ export default class SeasonComponent extends EffortlessBaseComponent<{hostCode:s
 
     render() {
         console.error('rendering');
-        const { host } = this.state;
+        const { season } = this.state;
         return (
             <div>
-                <h1>Season - {this.state.hostCode}</h1>
+                <h1>Season - {this.state.seasonCode}</h1>
                 <div>
                     <button onClick={this.reloadSeason}>Reload</button>
 
                 </div>
                 <div>
-                    SHOW CODE: {this.props.hostCode}
+                    SEASON CODE: {this.props.seasonCode}
                 </div>
 
                 <div>
-                    <h3>{host?.Name}</h3>
-                    
+                    <h3>{season?.Name}</h3>
+                    {season?.SeasonEpisodes.map((episode : any) => {
+                        return <div key={episode.ShowEpisodeId}>
+                            <IonButton routerLink={"/episodes/" + episode.Name}> {episode?.Name}</IonButton>
+                        </div>
+                    })}
                 </div>
 
             </div>

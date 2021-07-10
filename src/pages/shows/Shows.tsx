@@ -85,7 +85,6 @@ export default class ShowsComponent extends EffortlessBaseComponent<{}, { shows:
                                 <h3>{show.Name}</h3>
                                 <IonButton routerLink={"/show/" + show.ShowCode} routerDirection="forward">View</IonButton>
                             </div>
-
                         )} </div>
 
                     </div>

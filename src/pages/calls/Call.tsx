@@ -18,15 +18,15 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class CallComponent extends EffortlessBaseComponent<{hostCode:string}, { host : any, reloadRequested: boolean, 
-                                                                            dataReady: boolean, hostCode : string }> {
+export default class CallComponent extends EffortlessBaseComponent<{callCode:string}, { call : any, reloadRequested: boolean, 
+                                                                            dataReady: boolean, callCode : string }> {
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            host : undefined,
-            hostCode : props.match.params.hostCode,
+            call : undefined,
+            callCode : props.match.params.callCode,
             reloadRequested: true,
             dataReady: false,
         };
@@ -41,11 +41,17 @@ export default class CallComponent extends EffortlessBaseComponent<{hostCode:str
 
     async reloadCall() {
         let payload = this.context.createPayload()
-        payload.AirtableWhere = "CallCode='" + this.state.hostCode +"'";
-        var reply = await this.context.moderator.GetCalls(payload);
-        if (this.hasNoErrors(reply) && reply.Calls && reply.Calls.length) {
-            console.error('GOT SHOW: ', reply.Calls[0]);
-            var newState = { host: reply.Calls[0], reloadRequested: true }
+        payload.AirtableWhere = "Name='" + this.state.callCode +"'";
+        var reply = await this.context.moderator.GetEpisodeCalls(payload);
+        if (this.hasNoErrors(reply) && reply.EpisodeCalls && reply.EpisodeCalls.length) {
+            var call = reply.EpisodeCalls[0];
+            payload.AirtableWhere = `EpisodeCall='${call.Name}'`
+            reply = await this.context.moderator.GetCallTopics(payload);
+            if (this.hasNoErrors(reply)) {
+                call.Topics = reply.CallTopics;
+            }
+
+            var newState = { call: call, reloadRequested: true }
             this.setState(newState);
         }
     }
@@ -57,21 +63,25 @@ export default class CallComponent extends EffortlessBaseComponent<{hostCode:str
 
     render() {
         console.error('rendering');
-        const { host } = this.state;
+        const { call } = this.state;
         return (
             <div>
-                <h1>Call - {this.state.hostCode}</h1>
+                <h1>Call - {this.state.callCode}</h1>
                 <div>
                     <button onClick={this.reloadCall}>Reload</button>
 
                 </div>
                 <div>
-                    SHOW CODE: {this.props.hostCode}
+                    CALL CODE: {this.props.callCode}
                 </div>
 
                 <div>
-                    <h3>{host?.Name}</h3>
-                    
+                    <h3>{call?.Name}</h3>
+                    {call?.Topics?.map((topic : any) => {
+                        return <div key={topic.CallTopicId}>
+                            TOPIC: {topic.Name}
+                        </div>     
+                    })}
                 </div>
 
             </div>

@@ -52,8 +52,14 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
         payload.AirtableWhere = "ShowCode='" + this.state.showCode + "'";
         var reply = await this.context.moderator.GetShows(payload);
         if (this.hasNoErrors(reply) && reply.Shows && reply.Shows.length) {
-            console.error('GOT SHOW: ', reply.Shows[0]);
-            var newState = { show: reply.Shows[0], reloadRequested: true }
+            var show = reply.Shows[0];
+            console.error('GOT SHOW: ', show);
+            payload.AirtableWhere = `Show='${show.Name}'`;
+            reply = await this.context.moderator.GetShowSeasons(payload);
+            if (this.hasNoErrors(reply)) {
+                show.ShowSeasons = reply.ShowSeasons;
+            }
+            var newState = { show: show, reloadRequested: true }
             this.setState(newState);
         }
     }
@@ -103,11 +109,23 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
                             <button onClick={this.reloadShow}>Reload</button>
                         </div>
                         <div>
-                            SHOW CODE: {this.props.showCode}
+                            Show Code: {this.props.showCode}
                         </div>
+
+    
 
                         <div>
                             <h3>{show?.Name}</h3>
+                            <div>
+                                <div>
+                                    Seasons: {show?.ShowSeasons?.length}
+                                </div>
+                                {show?.ShowSeasons?.map((season : any) => {
+                                    return <div key={season.Name}>
+                                        <IonButton routerLink={"/seasons/" + season.Name}> {season?.Name}</IonButton>
+                                    </div>
+                                })}
+                            </div>
                         </div>
                     </div>
                 </IonContent>

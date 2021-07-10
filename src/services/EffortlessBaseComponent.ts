@@ -23,6 +23,8 @@ export class EffortlessBaseComponent<P, S> extends React.Component<P, S> {
     }
 
     hasNoErrors(payload : any) {
-        return payload && !payload.ErrorMessage; 
+        var hasError = payload && payload.ErrorMessage;
+        if (hasError) console.error('ERROR: ', hasError);
+        return !hasError; 
     }
 }

@@ -18,15 +18,15 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class EpisodeComponent extends EffortlessBaseComponent<{hostCode:string}, { host : any, reloadRequested: boolean, 
-                                                                            dataReady: boolean, hostCode : string }> {
+export default class EpisodeComponent extends EffortlessBaseComponent<{episodeCode:string}, { episode : any, reloadRequested: boolean, 
+                                                                            dataReady: boolean, episodeCode : string }> {
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            host : undefined,
-            hostCode : props.match.params.hostCode,
+            episode : undefined,
+            episodeCode : props.match.params.episodeCode,
             reloadRequested: true,
             dataReady: false,
         };
@@ -41,11 +41,17 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{hostCode:
 
     async reloadEpisode() {
         let payload = this.context.createPayload()
-        payload.AirtableWhere = "EpisodeCode='" + this.state.hostCode +"'";
-        var reply = await this.context.moderator.GetEpisodes(payload);
-        if (this.hasNoErrors(reply) && reply.Episodes && reply.Episodes.length) {
-            console.error('GOT SHOW: ', reply.Episodes[0]);
-            var newState = { host: reply.Episodes[0], reloadRequested: true }
+        payload.AirtableWhere = "Name='" + this.state.episodeCode +"'";
+        var reply = await this.context.moderator.GetSeasonEpisodes(payload);
+        if (this.hasNoErrors(reply) && reply.SeasonEpisodes && reply.SeasonEpisodes.length) {
+            var episode = reply.SeasonEpisodes[0];
+            payload.AirtableWhere = `SeasonEpisode='${episode.Name}'`
+            reply = await this.context.moderator.GetEpisodeCalls(payload);
+            if (this.hasNoErrors(reply)) {
+                episode.Calls = reply.EpisodeCalls;
+            }
+            var newState = { episode: episode, reloadRequested: true }
+            console.error('NEW STATE: ', newState);
             this.setState(newState);
         }
     }
@@ -57,21 +63,25 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{hostCode:
 
     render() {
         console.error('rendering');
-        const { host } = this.state;
+        const { episode } = this.state;
         return (
             <div>
-                <h1>Episode - {this.state.hostCode}</h1>
+                <h1>Episode - {this.state.episodeCode}</h1>
                 <div>
                     <button onClick={this.reloadEpisode}>Reload</button>
 
                 </div>
                 <div>
-                    SHOW CODE: {this.props.hostCode}
+                    SHOW CODE: {this.props.episodeCode}
                 </div>
 
                 <div>
-                    <h3>{host?.Name}</h3>
-                    
+                    <h3>{episode?.Name}</h3>
+                    {episode?.Calls?.map((call:any) => {
+                        return <div key={call.EpisodeCallId}>
+                            <IonButton routerLink={"/calls/" + call.Name}> {call?.Name}</IonButton>
+                        </div>
+                    })}
                 </div>
 
             </div>
