@@ -2,31 +2,39 @@
 import React from "react";
 import {
     IonButton,
+    IonButtons,
     IonContent,
+    IonHeader,
     IonIcon,
     IonItem,
     IonLabel,
     IonList,
     IonListHeader,
     IonMenu,
+    IonMenuButton,
     IonMenuToggle,
     IonNote,
+    IonPage,
     IonRow,
+    IonTitle,
+    IonToolbar,
 } from '@ionic/react';
 import { useHistory, useParams } from "react-router";
 import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class EpisodeComponent extends EffortlessBaseComponent<{episodeCode:string}, { episode : any, reloadRequested: boolean, 
-                                                                            dataReady: boolean, episodeCode : string }> {
+export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeCode: string }, {
+    episode: any, reloadRequested: boolean,
+    dataReady: boolean, episodeCode: string
+}> {
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            episode : undefined,
-            episodeCode : props.match.params.episodeCode,
+            episode: undefined,
+            episodeCode: props.match.params.episodeCode,
             reloadRequested: true,
             dataReady: false,
         };
@@ -41,7 +49,7 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{episodeCo
 
     async reloadEpisode() {
         let payload = this.context.createPayload()
-        payload.AirtableWhere = "Name='" + this.state.episodeCode +"'";
+        payload.AirtableWhere = "Name='" + this.state.episodeCode + "'";
         var reply = await this.context.moderator.GetSeasonEpisodes(payload);
         if (this.hasNoErrors(reply) && reply.SeasonEpisodes && reply.SeasonEpisodes.length) {
             var episode = reply.SeasonEpisodes[0];
@@ -65,26 +73,46 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{episodeCo
         console.error('rendering');
         const { episode } = this.state;
         return (
-            <div>
-                <h1>Episode - {this.state.episodeCode}</h1>
-                <div>
-                    <button onClick={this.reloadEpisode}>Reload</button>
+            <IonPage>
+                <IonHeader>
+                    <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonMenuButton />
+                        </IonButtons>
+                        <IonTitle>{episode?.Name}</IonTitle>
+                    </IonToolbar>
+                </IonHeader>
 
-                </div>
-                <div>
-                    SHOW CODE: {this.props.episodeCode}
-                </div>
+                <IonContent fullscreen>
+                    <IonHeader collapse="condense">
+                        <IonToolbar>
+                            <IonTitle size="large">Episode</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
+                    <div>
+                        <IonButton routerLink={"/season/" + episode?.SeasonName}>{episode?.SeasonName}</IonButton>
+                        <h1>Episode - {this.state.episodeCode}</h1>
+                        <div>
+                            <button onClick={this.reloadEpisode}>Reload</button>
 
-                <div>
-                    <h3>{episode?.Name}</h3>
-                    {episode?.Calls?.map((call:any) => {
-                        return <div key={call.EpisodeCallId}>
-                            <IonButton routerLink={"/calls/" + call.Name}> {call?.Name}</IonButton>
                         </div>
-                    })}
-                </div>
+                        <div>
+                            SHOW CODE: {this.props.episodeCode}
+                        </div>
 
-            </div>
+                        <div>
+                            <h3>{episode?.Name}</h3>
+                            {episode?.Calls?.map((call: any) => {
+                                return <div key={call.EpisodeCallId}>
+                                    <IonButton routerLink={"/call/" + call.Name}> {call?.Name}</IonButton>
+                                </div>
+                            })}
+                        </div>
+
+                    </div>
+                </IonContent>
+            </IonPage>
+
         );
     }
 }

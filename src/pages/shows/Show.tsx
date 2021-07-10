@@ -110,7 +110,7 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
                                 </div>
                                 {show?.ShowSeasons?.map((season : any) => {
                                     return <div key={season.Name}>
-                                        <IonButton routerLink={"/seasons/" + season.Name}> {season?.Name}</IonButton>
+                                        <IonButton routerLink={"/season/" + season.Name}> {season?.Name}</IonButton>
                                     </div>
                                 })}
                             </div>
