@@ -24,7 +24,7 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class ShowComponent extends EffortlessBaseComponent<{ showCode: string }, {
+export default class ShowComponent extends EffortlessBaseComponent<{ showCode: string, location: any, match: any }, {
     show: any, reloadRequested: boolean,
     dataReady: boolean, showCode: string
 }> {
@@ -68,7 +68,12 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
     }
 
     shouldComponentUpdate() {
-        return this.state.reloadRequested;
+        var reload = this.props.location.pathname != this.props.match.url;
+        if (reload) {
+            this.tryReload();
+            console.error('RELOADING SHOW', this.state, this.props);
+        }
+        return this.state.reloadRequested || reload;
     }
 
 

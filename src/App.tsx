@@ -6,6 +6,12 @@ import Shows from './pages/shows/Shows';
 import Show from './pages/shows/Show';
 import Hosts from './pages/hosts/Hosts';
 import Host from './pages/hosts/Host';
+import Seasons from './pages/seasons/Seasons';
+import Season from './pages/seasons/Season';
+import Episodes from './pages/episodes/Episodes';
+import Episode from './pages/episodes/Episode';
+import Calls from './pages/calls/Calls';
+import Call from './pages/calls/Call';
 import Profile from './pages/profile/Profile';
 
 import D3demo from './pages/d3/d3demo'
@@ -47,6 +53,12 @@ const App: React.FC = () => {
             <Route path="/show/:showCode" exact={true} component={Show} />
             <Route path="/hosts" exact={true} component={Hosts} />
             <Route path="/hosts/:hostCode" exact={true} component={Host} />
+            <Route path="/seasons" exact={true} component={Seasons} />
+            <Route path="/seasons/:seasonCode" exact={true} component={Season} />
+            <Route path="/episodes" exact={true} component={Episodes} />
+            <Route path="/episodes/:episodeCode" exact={true} component={Episode} />
+            <Route path="/calls" exact={true} component={Calls} />
+            <Route path="/calls/:callCode" exact={true} component={Call} />
             <Route path="/moderators" exact={true} component={Hosts} />
             <Route path="/account" exact={true} component={Profile} />
 
