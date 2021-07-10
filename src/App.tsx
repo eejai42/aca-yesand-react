@@ -2,8 +2,11 @@ import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
-import Page from './pages/Page';
-import Page2 from './pages/page2/Page2';
+import Shows from './pages/shows/Shows';
+import Show from './pages/shows/Show';
+import Hosts from './pages/hosts/Hosts';
+import Host from './pages/hosts/Host';
+import Profile from './pages/profile/Profile';
 
 import D3demo from './pages/d3/d3demo'
 // import GlobalState from './GlobaleState';
@@ -38,14 +41,14 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
-              <Redirect to="/page/Inbox" />
+              <Redirect to="/shows" />
             </Route>
-            <Route path="/page/:name" exact={true}>
-              <Page />
-            </Route>
-            <Route path="/page2/:name" exact={true}>
-              <Page2 />
-            </Route>
+            <Route path="/shows" exact={true} component={Shows} />
+            <Route path="/show/:showCode" exact={true} component={Show} />
+            <Route path="/hosts" exact={true} component={Hosts} />
+            <Route path="/hosts/:hostCode" exact={true} component={Host} />
+            <Route path="/moderators" exact={true} component={Hosts} />
+            <Route path="/account" exact={true} component={Profile} />
 
             {/*Note:  Route bellow is for testing ... */}
             <Route path="/d3" exact={true}>

@@ -32,6 +32,7 @@ export class GDS {
   firstLoad: boolean = false;
   shows: any;
   moderator: any;
+  isReady: boolean = false;
 
 
   constructor() {
@@ -114,6 +115,7 @@ export class GDS {
     this.moderator = generateModeratorActor();
     this.moderator.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
     this.moderator.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {}, () => {
+      this.isReady = true;
       this.readiness$.next(true);
     });
 }

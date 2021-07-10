@@ -21,4 +21,8 @@ export class EffortlessBaseComponent<P, S> extends React.Component<P, S> {
     async onReady() {
 
     }
+
+    hasNoErrors(payload : any) {
+        return payload && !payload.ErrorMessage; 
+    }
 }

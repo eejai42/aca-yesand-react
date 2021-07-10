@@ -43,7 +43,7 @@ class D3demo extends EffortlessBaseComponent<{}, { data: number[] }> {
             .style("padding", "3px")
             .style("margin", "1px")
             .style("width", d => `${d * 10}px`)
-            .attr('onClick', d => `GDS.event$.next({event:'click', value:'${d}'})`)
+            .attr('onClick', d => `GDS.d3event$.next({event:'click', value:'${d}'})`)
             .text(d => d);
         return divElement.node()?.outerHTML + '';
     }

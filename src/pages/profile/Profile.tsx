@@ -1,7 +1,6 @@
 import React from "react";
 import {IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar} from "@ionic/react";
 import ExploreContainer from "../../components/ExploreContainer";
-import TestComponent from "../test";
 import { GDS } from "../../services/gds.service";
 import { GlobalDataService } from "../../GlobalDataService";
 
