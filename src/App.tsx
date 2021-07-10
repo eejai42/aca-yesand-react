@@ -52,13 +52,13 @@ const App: React.FC = () => {
             <Route path="/shows" exact={true} component={Shows} />
             <Route path="/show/:showCode" exact={true} component={Show} />
             <Route path="/hosts" exact={true} component={Hosts} />
-            <Route path="/hosts/:hostCode" exact={true} component={Host} />
+            <Route path="/host/:hostCode" exact={true} component={Host} />
             <Route path="/seasons" exact={true} component={Seasons} />
-            <Route path="/seasons/:seasonCode" exact={true} component={Season} />
+            <Route path="/season/:seasonCode" exact={true} component={Season} />
             <Route path="/episodes" exact={true} component={Episodes} />
-            <Route path="/episodes/:episodeCode" exact={true} component={Episode} />
+            <Route path="/episode/:episodeCode" exact={true} component={Episode} />
             <Route path="/calls" exact={true} component={Calls} />
-            <Route path="/calls/:callCode" exact={true} component={Call} />
+            <Route path="/call/:callCode" exact={true} component={Call} />
             <Route path="/moderators" exact={true} component={Hosts} />
             <Route path="/account" exact={true} component={Profile} />
 

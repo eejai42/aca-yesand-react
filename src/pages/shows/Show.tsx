@@ -45,6 +45,7 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
 
 
     async onReady() {
+        this.reloadShow();
     }
 
     async reloadShow() {
@@ -64,21 +65,8 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
         }
     }
 
-    componentDidMount() {
-        this.didMount = true;
-        this.tryReload();
-    }
-
-    tryReload() {
-        if ((this.state.show == undefined) && this.context.isReady && this.didMount) this.reloadShow();
-    }
-
     shouldComponentUpdate() {
         var reload = this.props.location.pathname != this.props.match.url;
-        if (reload) {
-            this.tryReload();
-            console.error('RELOADING SHOW', this.state, this.props);
-        }
         return this.state.reloadRequested || reload;
     }
 
