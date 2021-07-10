@@ -3,10 +3,18 @@ import { Observable, BehaviorSubject, Subscription, timer, combineLatest } from 
 import { filter, share, map, catchError, take, tap } from 'rxjs/operators';
 import generateGuestActor from '../sassymq/jsActors/smqGuest.js';
 import generateModeratorActor from '../sassymq/jsActors/smqModerator.js';
+
+declare global {
+  interface Window {
+    GDS:any;
+  }
+}
+
 export class GDS {
   guest: any;
 
   public readiness$: BehaviorSubject<any> = new BehaviorSubject(false);
+  public d3event$: BehaviorSubject<any> = new BehaviorSubject(false);
   accessToken: string = "";
   smqGuest: any = "";
   whoAmI: any = null;
@@ -28,6 +36,7 @@ export class GDS {
 
   constructor() {
     var self = this;
+    window.GDS = this;
     this.guest  = generateGuestActor();
     this.guest.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
     this.guest.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {

@@ -2,12 +2,14 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, I
 import React from 'react';
 // import rd3 from 'react-d3-library'
 import * as d3 from 'd3'
+import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent';
+import { take } from 'rxjs/operators';
 // import rd3 from 'react-d3-library'
 // import * as d3Scale from 'd3-scale';
 // import * as d3Array from 'd3-array';
 // import * as d3Axis from 'd3-axis';
 
-class D3demo extends React.Component<{}, { data: number[] }> {
+class D3demo extends EffortlessBaseComponent<{}, { data: number[] }> {
 
     constructor(props: any) {
         super(props);
@@ -17,10 +19,18 @@ class D3demo extends React.Component<{}, { data: number[] }> {
     }
 
     componentDidMount() {
-
+        console.error('COMPONENT DID MOUNT');
+        window.GDS.d3event$.subscribe((value: any) => {
+            if (value) {
+                alert('CONTROLLER EVENT: ' + JSON.stringify(value));
+                this.setState({
+                    data: [23, 42, 8, 4, 15, 16]
+                });
+            }
+        });
     }
 
-    bar() {
+    loadData(): string {
         const divNode = document.createElement('div')
         const divElement = d3.select(divNode)
             .style("font", "10px sans-serif")
@@ -33,9 +43,9 @@ class D3demo extends React.Component<{}, { data: number[] }> {
             .style("padding", "3px")
             .style("margin", "1px")
             .style("width", d => `${d * 10}px`)
+            .attr('onClick', d => `GDS.event$.next({event:'click', value:'${d}'})`)
             .text(d => d);
-        console.log("D3 Node:: ", divElement.node())
-        return <div> {divElement.node()} </div>;
+        return divElement.node()?.outerHTML + '';
     }
     render() {
         return (
@@ -51,27 +61,12 @@ class D3demo extends React.Component<{}, { data: number[] }> {
 
                 <IonContent fullscreen>
                     <h1>hello world </h1>
-                    <span dangerouslySetInnerHTML={{__html: 
-                        `<div style="font: 10px sans-serif; text-align: right; color: white;">
-                            
-                            <div style="background: steelblue; padding: 3px; margin: 1px; width: 40px;">4</div>
-                            <div onclick="alert('Test')" style="background: steelblue; padding: 3px; margin: 1px; width: 80px;">8</div>
-                            <div style="background: steelblue; padding: 3px; margin: 1px; width: 150px;">15</div>
-                            <div style="background: steelblue; padding: 3px; margin: 1px; width: 160px;">16</div>
-                            <div style="background: steelblue; padding: 3px; margin: 1px; width: 230px;">23</div>
-                            <div style="background: steelblue; padding: 3px; margin: 1px; width: 420px;">42</div></div>`
-                    }
-                    } />
-<IonButton onClick={ this.test}>Btn</IonButton>
-                    {/* {this.bar()} */}
+                    <span dangerouslySetInnerHTML={{ __html: this.loadData() }} />
                 </IonContent>
             </IonPage>
         );
     }
-    test(): React.MouseEventHandler<HTMLIonButtonElement> | undefined {
-        alert("Controller handler");
-        return undefined
-    }
+
 };
 
 export default D3demo;
