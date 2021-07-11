@@ -23,7 +23,8 @@ import { useHistory, useParams } from "react-router";
 import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
-import TopicComponent from './Topic'
+import Topic from './Topic'
+import Participant from './Participant'
 
 export default class CallComponent extends EffortlessBaseComponent<{ callCode: string }, {
     call: any, reloadRequested: boolean,
@@ -41,6 +42,12 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         };
 
         this.reloadCall = this.reloadCall.bind(this);
+        this.participantChanged = this.participantChanged.bind(this);
+        this.topicChanged = this.topicChanged.bind(this);
+    }
+
+    shouldComponentUpdate() {
+        return this.state.reloadRequested;
     }
 
 
@@ -49,6 +56,7 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
     }
 
     async reloadCall() {
+        console.error('RELOADING CALL NOW');
         let payload = this.context.createPayload()
         payload.AirtableWhere = "Name='" + this.state.callCode + "'";
         var reply = await this.context.moderator.GetEpisodeCalls(payload);
@@ -59,21 +67,52 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
             if (this.hasNoErrors(reply)) {
                 call.Topics = reply.CallTopics;
             }
+            reply = await this.context.moderator.GetCallParticipants(payload);
+            if (this.hasNoErrors(reply)) {
+                call.Participants = reply.CallParticipants;
+            }
 
             console.error('ABOUT TO RENDER CALL: ', call);
             var newState = { call: call, reloadRequested: true }
             this.setState(newState);
+        } else {
+            console.error('GOT ERROR RELOADING CALL NOW!');
         }
     }
 
-    shouldComponentUpdate() {
-        return this.state.reloadRequested;
+    async participantChanged(participantId : any) {
+        console.error('GOT RELOAD CALL REQUEST FROM EVENT', participantId);
+        this.state.call.CurrentParticipant = participantId;
+        var payload = this.context.createPayload();
+        payload.EpisodeCall = JSON.parse(JSON.stringify(this.state.call));
+        delete payload.EpisodeCall.Topics;
+        delete payload.EpisodeCall.Participants;
+        var reply = await this.context.moderator.UpdateEpisodeCall(payload);
+        if (this.hasNoErrors(reply)) {
+            reply.EpisodeCall.Topics = this.state.call.Topics;
+            reply.EpisodeCall.Participants = this.state.call.Participants;
+            this.setState({call: reply.EpisodeCall, reloadRequested: true});
+        }
+    }
+
+    async topicChanged(topicId : any) {
+        this.state.call.CurrentTopic = topicId;
+        var payload = this.context.createPayload();
+        payload.EpisodeCall = JSON.parse(JSON.stringify(this.state.call));
+        delete payload.EpisodeCall.Topics;
+        delete payload.EpisodeCall.Participants;
+        var reply = await this.context.moderator.UpdateEpisodeCall(payload);
+        if (this.hasNoErrors(reply)) {
+            reply.EpisodeCall.Topics = this.state.call.Topics;
+            reply.EpisodeCall.Participants = this.state.call.Participants;
+            this.setState({call: reply.EpisodeCall, reloadRequested: true});
+        }
     }
 
 
     render() {
-        console.error('rendering');
         const { call } = this.state;
+        console.error('rendering call', call);
         return (
             <IonPage>
             <IonHeader>
@@ -92,20 +131,32 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
                         <IonTitle size="large">Call</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-              
+                <div style={{overflow:"scroll",height: "100%"}}>
                 <div style={{float: 'right'}}>
                     <button onClick={this.reloadCall}>Reload</button>
                 </div>
+                <h3>
+                Speaker: {call?.CurrentParticipantName || '...'}<br />
+                Subject: {call?.CurrentTopicSubject || 'loading...'}
+                </h3>
                 <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
-                <div style={{overflow:"scroll",height: "100%"}}>
+                <h3>Participants</h3>
                 <div>
-                    {call?.Topics?.filter((topic : any) => !topic.ParentTopic).map((topic: any) => {
-                        return <div key={topic.CallTopicId}>
-                            <TopicComponent call={call} topic={topic} key={topic.CallTopicId}/>
+                    {call?.Participants?.map((participant: any) => {
+                        return <div key={participant.CallParticipantId + call.LastModifiedTime}>
+                            <Participant call={call} participant={participant} changed={this.participantChanged} />
                         </div>
                     })}
                 </div>
 
+
+                <div>
+                    {call?.Topics?.filter((topic : any) => !topic.ParentTopic).map((topic: any) => {
+                        return <div key={topic.CallTopicId + call.LastModifiedTime}>
+                            <Topic call={call} topic={topic} key={topic.CallTopicId} changed={this.topicChanged}/>
+                        </div>
+                    })}
+                </div>
             </div>
             </IonContent>
         </IonPage>
