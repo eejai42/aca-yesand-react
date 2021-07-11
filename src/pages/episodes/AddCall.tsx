@@ -78,7 +78,6 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
             Subject : this.state.subject
         };
         var reply = await this.context.moderator.AddEpisodeCall(payload);
-                
     }
 
 
@@ -109,6 +108,10 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
                         </div>
                         <div>
                             Add a Call
+                        </div>
+                        <input value={this.state.subject} onChange={this.onChange} />
+                        <div>
+                            Guest
                         </div>
                         <input value={this.state.subject} onChange={this.onChange} />
                     </div>

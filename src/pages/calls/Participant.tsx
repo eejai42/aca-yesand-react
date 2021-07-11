@@ -64,10 +64,18 @@ export default class ParticipantComponent extends EffortlessBaseComponent<{ call
         const { call, participant } = this.state;
         console.error('Rendering Participant', call, participant);
         return (
-            <div style={{ fontSize: '1.25em', padding: '0.25em'}}>
-                        <input type="radio" name="currentParticipant" id={participant.CallParticipantId} value={participant.CallParticipantId} 
-                            checked={call.CurrentParticipant == participant.CallParticipantId} onChange={this.onChange} />
-                        <label htmlFor={participant.CallParticipantId}>{participant?.DisplayName}</label>
+            <div>
+                {call?.CurrentParticipant != participant?.CallParticipantId ?
+                <div style={{ fontSize: '1.25em', padding: '0.25em'}}>                
+                            <input type="radio" name="currentParticipant" id={participant.CallParticipantId} value={participant.CallParticipantId} 
+                                checked={call.CurrentParticipant == participant.CallParticipantId} onChange={this.onChange} />
+                            <label htmlFor={participant.CallParticipantId}>{participant?.DisplayName}</label>
+                </div> : 
+                <div style={{ fontSize: '1.5em', padding: '0.25em', fontWeight: 'bold'}}>
+                    <input type="radio" name="currentParticipant" id={participant.CallParticipantId} value={participant.CallParticipantId} 
+                                checked={call.CurrentParticipant == participant.CallParticipantId} onChange={this.onChange} />
+                            <label htmlFor={participant.CallParticipantId}>{participant?.DisplayName}</label>
+                </div>}
             </div>
         );
     }

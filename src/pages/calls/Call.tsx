@@ -80,7 +80,7 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         }
     }
 
-    async participantChanged(participantId : any) {
+    async participantChanged(participantId: any) {
         console.error('GOT RELOAD CALL REQUEST FROM EVENT', participantId);
         this.state.call.CurrentParticipant = participantId;
         var payload = this.context.createPayload();
@@ -91,12 +91,40 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         if (this.hasNoErrors(reply)) {
             reply.EpisodeCall.Topics = this.state.call.Topics;
             reply.EpisodeCall.Participants = this.state.call.Participants;
-            this.setState({call: reply.EpisodeCall, reloadRequested: true});
+            this.setState({ call: reply.EpisodeCall, reloadRequested: true });
         }
     }
 
-    async topicChanged(topicId : any) {
-        this.state.call.CurrentTopic = topicId;
+    async topicChanged(changeRequest : any) {
+        let relatedTopicSubject = changeRequest.relatedTopicSubject;
+        let callTopicId = changeRequest.callTopicId;
+        console.error('relatedTopicSubject: ', changeRequest);
+        if (callTopicId)  {
+            await this.setCurrentTopic(callTopicId);
+        } else if (relatedTopicSubject) {
+            await this.addRelatedTopic(relatedTopicSubject);
+        }
+    }
+    async addRelatedTopic(relatedTopicSubject: any) {
+        var payload = this.context.createPayload();
+        payload.CallTopic = {
+            EpisodeCall: this.state.call.EpisodeCallId,
+            ParentTopic : this.state.call.CurrentTopic,
+            Subject: relatedTopicSubject
+        }
+        var reply = await this.context.moderator.AddCallTopic(payload);
+        if (this.hasNoErrors(reply)) {
+            console.error('UPDATING CALL', reply);
+            var newTopic = reply.CallTopic;
+            this.state.call.Topics.push(newTopic);
+            this.state.call.CallTopics.push(newTopic.CallTopicId);
+            this.setState({call: this.state.call});
+        }
+    }
+
+
+    private async setCurrentTopic(callTopicId: any) {
+        this.state.call.CurrentTopic = callTopicId;
         var payload = this.context.createPayload();
         payload.EpisodeCall = JSON.parse(JSON.stringify(this.state.call));
         delete payload.EpisodeCall.Topics;
@@ -105,61 +133,58 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         if (this.hasNoErrors(reply)) {
             reply.EpisodeCall.Topics = this.state.call.Topics;
             reply.EpisodeCall.Participants = this.state.call.Participants;
-            this.setState({call: reply.EpisodeCall, reloadRequested: true});
+            this.setState({ call: reply.EpisodeCall, reloadRequested: true });
         }
     }
-
 
     render() {
         const { call } = this.state;
         console.error('rendering call', call);
         return (
             <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonButtons slot="start">
-                        <IonMenuButton />
-                    </IonButtons>
-                    <div style={{float: 'right'}}>{call?.Name}</div>
-                    <IonTitle>{call?.Subject || 'Loading call...'}</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-
-            <IonContent fullscreen>
-                <IonHeader collapse="condense">
+                <IonHeader>
                     <IonToolbar>
-                        <IonTitle size="large">Call</IonTitle>
+                        <IonButtons slot="start">
+                            <IonMenuButton />
+                        </IonButtons>
+                        <div style={{ float: 'right' }}>{call?.Name}</div>
+                        <IonTitle>{call?.Subject || 'Loading call...'}</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <div style={{overflow:"scroll",height: "100%"}}>
-                <div style={{float: 'right'}}>
-                    <button onClick={this.reloadCall}>Reload</button>
-                </div>
-                <h3>
-                Speaker: {call?.CurrentParticipantName || '...'}<br />
-                Subject: {call?.CurrentTopicSubject || 'loading...'}
-                </h3>
-                <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
-                <h3>Participants</h3>
-                <div>
-                    {call?.Participants?.map((participant: any) => {
-                        return <div key={participant.CallParticipantId + call.LastModifiedTime}>
-                            <Participant call={call} participant={participant} changed={this.participantChanged} />
-                        </div>
-                    })}
-                </div>
 
-
-                <div>
-                    {call?.Topics?.filter((topic : any) => !topic.ParentTopic).map((topic: any) => {
-                        return <div key={topic.CallTopicId + call.LastModifiedTime}>
-                            <Topic call={call} topic={topic} key={topic.CallTopicId} changed={this.topicChanged}/>
+                <IonContent fullscreen>
+                    <IonHeader collapse="condense">
+                        <IonToolbar>
+                            <IonTitle size="large">Call</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
+                    <div style={{ overflow: "scroll", height: "100%" }}>
+                        <div style={{ float: 'right' }}>
+                            <button onClick={this.reloadCall}>Reload</button>
                         </div>
-                    })}
-                </div>
-            </div>
-            </IonContent>
-        </IonPage>
+                        <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
+                        <div style={{padding: '2em'}}>
+                            {call?.Participants?.map((participant: any) => {
+                                return <div key={participant.CallParticipantId + call.LastModifiedTime} style={{ float: 'left' }}>
+                                    <Participant call={call} participant={participant} changed={this.participantChanged} />
+                                </div>
+                            })}
+                            <h2 style={{clear: 'both', textAlign: 'center'}}>{call?.CurrentTopicSubject || 'loading...'}</h2>
+                        </div>
+
+                        <div style={{clear: 'both', borderTop: 'solid black 1px'}}>
+                            <hr />
+                            <div>
+                                {call?.Topics?.filter((topic: any) => !topic.ParentTopic).map((topic: any) => {
+                                    return <div key={topic.CallTopicId + call.LastModifiedTime}>
+                                        <Topic call={call} topic={topic} key={topic.CallTopicId} changed={this.topicChanged} />
+                                    </div>
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </IonContent>
+            </IonPage>
 
         );
     }
