@@ -81,26 +81,24 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
                     <IonButtons slot="start">
                         <IonMenuButton />
                     </IonButtons>
-                    <IonTitle>{call?.Name}</IonTitle>
+                    <div style={{float: 'right'}}>{call?.Name}</div>
+                    <IonTitle>{call?.Subject || 'Loading call...'}</IonTitle>
                 </IonToolbar>
             </IonHeader>
 
             <IonContent fullscreen>
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle size="large">Episode</IonTitle>
+                        <IonTitle size="large">Call</IonTitle>
                     </IonToolbar>
                 </IonHeader>
               
-                <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
-            <div style={{overflow:"scroll",height: "100%"}}>
-                <h1>Call - {this.state.callCode}</h1>
-                <div>
+                <div style={{float: 'right'}}>
                     <button onClick={this.reloadCall}>Reload</button>
-
                 </div>
+                <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
+                <div style={{overflow:"scroll",height: "100%"}}>
                 <div>
-                    <h3>{call?.Name}</h3>
                     {call?.Topics?.filter((topic : any) => !topic.ParentTopic).map((topic: any) => {
                         return <div key={topic.CallTopicId}>
                             <TopicComponent call={call} topic={topic} key={topic.CallTopicId}/>

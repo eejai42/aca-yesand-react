@@ -64,7 +64,7 @@ export default class ShowsComponent extends EffortlessBaseComponent<{}, { shows:
                         <IonButtons slot="start">
                             <IonMenuButton />
                         </IonButtons>
-                        <IonTitle>All Shows</IonTitle>
+                        <IonTitle>All {shows?.length} Shows</IonTitle>
                     </IonToolbar>
                 </IonHeader>
 
@@ -80,7 +80,7 @@ export default class ShowsComponent extends EffortlessBaseComponent<{}, { shows:
 
                         </div>
 
-                        <div> SHOWS: {shows?.length} {shows?.map((show: any) =>
+                        <div>{shows?.map((show: any) =>
                             <div key={show.ShowId}>
                                 <h3>{show.Name}</h3>
                                 <IonButton routerLink={"/show/" + show.ShowCode} routerDirection="forward">View</IonButton>

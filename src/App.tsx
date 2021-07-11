@@ -10,6 +10,7 @@ import Seasons from './pages/seasons/Seasons';
 import Season from './pages/seasons/Season';
 import Episodes from './pages/episodes/Episodes';
 import Episode from './pages/episodes/Episode';
+import AddEpisodeCall from './pages/episodes/AddCall';
 import Calls from './pages/calls/Calls';
 import Call from './pages/calls/Call';
 import Profile from './pages/profile/Profile';
@@ -57,6 +58,7 @@ const App: React.FC = () => {
             <Route path="/season/:seasonCode" exact={true} component={Season} />
             <Route path="/episodes" exact={true} component={Episodes} />
             <Route path="/episode/:episodeCode" exact={true} component={Episode} />
+            <Route path="/episode/:episodeCode/addcall" exact={true} component={AddEpisodeCall} />
             <Route path="/calls" exact={true} component={Calls} />
             <Route path="/call/:callCode" exact={true} component={Call} />
             <Route path="/moderators" exact={true} component={Hosts} />

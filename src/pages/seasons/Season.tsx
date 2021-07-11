@@ -81,7 +81,10 @@ export default class SeasonComponent extends EffortlessBaseComponent<{ seasonCod
                         <IonButtons slot="start">
                             <IonMenuButton />
                         </IonButtons>
-                        <IonTitle>{season?.Name}</IonTitle>
+                        <div style={{float: 'right'}}>
+                            <button onClick={this.reloadSeason}>Reload</button>
+                        </div>
+                        <IonTitle>Season {season?.SeasonNumber || '... loading ...'}</IonTitle>
                     </IonToolbar>
                 </IonHeader>
 
@@ -92,16 +95,24 @@ export default class SeasonComponent extends EffortlessBaseComponent<{ seasonCod
                         </IonToolbar>
                     </IonHeader>
                     <div>
-                        <IonButton routerLink={"/show/" + season?.ShowCode}>{season?.ShowName}</IonButton>
-                        <h1>Season - {this.state.seasonCode}</h1>
                         <div>
-                            <button onClick={this.reloadSeason}>Reload</button>
-                        </div>
-                        <div>
+                            <IonButton routerLink={"/show/" + season?.ShowCode} style={{float: 'right'}}>
+                                {season?.ShowName || "..."}
+                            </IonButton>
+                            <div>
+                                <div>
+                                    <b>Description:</b>
+                                </div>
+                                {season?.Attachments?.length ? <div>{season?.Attachments[0].url}<img src={season?.Attachments[0].url} style={{width: '3em', float: 'left'}} /></div> : undefined}
+                                {season?.Description}
+                            </div>
+
                             <h3>Episodes</h3>
-                            {season?.SeasonEpisodes.map((episode: any) => {
+                            {season?.SeasonEpisodes
+                                    ?.sort((a: any, b: any) => a.EpisodeNumber > b.EpisodeNumber ? 1 : -1)
+                                    .map((episode: any) => {
                                 return <div key={episode.SeasonEpisodeId}>
-                                    <IonButton routerLink={"/episode/" + episode.Name}> {episode?.Name}</IonButton>
+                                    <IonButton routerLink={"/episode/" + episode.Name} style={{float: 'left'}}> {episode?.Name}</IonButton>
                                 </div>
                             })}
                         </div>

@@ -81,7 +81,10 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
                         <IonButtons slot="start">
                             <IonMenuButton />
                         </IonButtons>
-                        <IonTitle>All Shows</IonTitle>
+                        <div style={{float: 'right'}}>
+                            <button onClick={this.reloadShow}>Reload</button>
+                        </div>
+                        <IonTitle>{show?.Name || 'Loading show...'}</IonTitle>
                     </IonToolbar>
                 </IonHeader>
 
@@ -92,27 +95,23 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
                         </IonToolbar>
                     </IonHeader>
                     <div>
-                        <h1>Show - {this.state.showCode}</h1>
                         <div>
-                            <button onClick={this.reloadShow}>Reload</button>
-                        </div>
-                        <div>
-                            Show Code: {this.props.showCode}
-                        </div>
-
-    
-
-                        <div>
-                            <h3>{show?.Name}</h3>
+                            {show?.Attachments?.length ? <div><img src={show?.Attachments[0].url} style={{width: '6em', float: 'left'}} /></div> : undefined}
+                            <h3>{show?.ShowSeasons?.length} Seasons </h3>
                             <div>
-                                <div>
-                                    Seasons: {show?.ShowSeasons?.length}
-                                </div>
-                                {show?.ShowSeasons?.map((season : any) => {
-                                    return <div key={season.Name}>
-                                        <IonButton routerLink={"/season/" + season.Name}> {season?.Name}</IonButton>
-                                    </div>
-                                })}
+                                <b>Description: </b>
+                            </div>
+                            <div>
+                            {show?.Notes || 'no description yet...'}
+                            </div>
+                            <div style={{clear: 'both'}}>
+                                {show?.ShowSeasons
+                                    ?.sort((a: any, b: any) => a.SeasonNumber > b.SeasonNumber ? 1 : -1)
+                                    .map((season: any) => {
+                                        return <div key={season.Name}>
+                                            <IonButton routerLink={"/season/" + season.Name} style={{float:'left'}}> {season?.Name}</IonButton>
+                                        </div>
+                                    })}
                             </div>
                         </div>
                     </div>

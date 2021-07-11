@@ -23,9 +23,10 @@ import { useHistory, useParams } from "react-router";
 import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
+import { curveNatural } from "d3";
 
-export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeCode: string }, {
-    episode: any, reloadRequested: boolean,
+export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ episodeCode: string }, {
+    episode: any, reloadRequested: boolean, subject : string,
     dataReady: boolean, episodeCode: string
 }> {
 
@@ -34,12 +35,15 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
 
         this.state = {
             episode: undefined,
+            subject : "",            
             episodeCode: props.match.params.episodeCode,
             reloadRequested: true,
             dataReady: false,
         };
 
         this.reloadEpisode = this.reloadEpisode.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.addEpisode = this.addEpisode.bind(this);
     }
 
 
@@ -53,19 +57,28 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
         var reply = await this.context.moderator.GetSeasonEpisodes(payload);
         if (this.hasNoErrors(reply) && reply.SeasonEpisodes && reply.SeasonEpisodes.length) {
             var episode = reply.SeasonEpisodes[0];
-            payload.AirtableWhere = `SeasonEpisode='${episode.Name}'`
-            reply = await this.context.moderator.GetEpisodeCalls(payload);
-            if (this.hasNoErrors(reply)) {
-                episode.Calls = reply.EpisodeCalls;
-            }
             var newState = { episode: episode, reloadRequested: true }
-            console.error('NEW STATE: ', newState);
             this.setState(newState);
         }
     }
 
+    onChange(event : any) {
+        this.setState({subject: event.target.value});
+    }
+
     shouldComponentUpdate() {
         return this.state.reloadRequested;
+    }
+
+    async addEpisode() {
+        console.error('Adding episode', this.state.subject)
+        var payload = this.context.createPayload();
+        payload.EpisodeCall = {
+            SeasonEpisode: this.state.episode.SeasonEpisodeId,
+            Subject : this.state.subject
+        };
+        var reply = await this.context.moderator.AddEpisodeCall(payload);
+                
     }
 
 
@@ -90,24 +103,18 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
                         </IonToolbar>
                     </IonHeader>
                     <div>
-                        <IonButton routerLink={"/season/" + episode?.SeasonName}>{episode?.SeasonName}</IonButton>
+                        <IonButton routerLink={"/episode/" + episode?.Name}>{episode?.Name}</IonButton>
                         <div style={{float: 'right'}}>
                             <button onClick={this.reloadEpisode}>Reload</button>
                         </div>
                         <div>
-                            <h3>{episode?.Name} Calls</h3>
-                            {episode?.Calls
-                                    ?.sort((a: any, b: any) => a.AutoNumber > b.AutoNumber ? 1 : -1)
-                                    ?.map((call: any) => {
-                                        return <div key={call.EpisodeCallId}>
-                                            <IonButton routerLink={"/call/" + call.Name}> {call?.Subject}</IonButton>
-                                        </div>
-                                    })}
+                            Add a Call
                         </div>
-                        <div>
-                        <IonButton routerLink={"/episode/" + episode?.Name + "/addcall"}>Add Call Now</IonButton>
-                        </div>
-                        
+                        <input value={this.state.subject} onChange={this.onChange} />
+                    </div>
+
+                    <div>
+                        <IonButton onClick={this.addEpisode} disabled={this.state.subject.length < 4}>Add</IonButton>
                     </div>
                 </IonContent>
             </IonPage>

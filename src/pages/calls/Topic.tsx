@@ -26,7 +26,7 @@ export default class TopicComponent extends React.Component<{ call: any, topic: 
         this.state = {
             call: props.call,
             topic: props.topic,
-            callCode: props.callCode
+            callCode: props.callCode,
         };
 
     }
@@ -37,7 +37,7 @@ export default class TopicComponent extends React.Component<{ call: any, topic: 
         const childTopics = call?.Topics?.filter((childTopic:any) => childTopic.ParentTopic == topic.CallTopicId);
         return (
             <div>
-                <h3>{topic?.Subject} {(childTopics.length > 0) && <span>({childTopics.length})</span>}</h3>
+                <h3> - {topic?.Subject} {(childTopics.length > 0) && <span>({childTopics.length})</span>}</h3>
                 {(childTopics.length > 0) && <div>
                     <div style={{ marginLeft: "1.5em" }}>
                         {childTopics.map((childTopic: any) => {
