@@ -29,7 +29,7 @@ import TopicParticipant from './TopicParticipant'
 export default class TopicComponent extends EffortlessBaseComponent<{ call: any, topic: any, changed: any },
     {
         call: any, topic: any, callCode: string, editDlgOpen: boolean,
-        changed: any, relatedTopicSubject: string
+        changed: any, addAgreementDlg : boolean
     }> {
 
     constructor(props: any) {
@@ -40,8 +40,8 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
             topic: props.topic,
             callCode: props.callCode,
             editDlgOpen: false,
-            changed: props.changed,
-            relatedTopicSubject: ""
+            addAgreementDlg : false,
+            changed: props.changed
         };
         this.handleClickToOpen = this.handleClickToOpen.bind(this);
         this.handleToClose = this.handleToClose.bind(this);
@@ -50,26 +50,36 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         this.onTopicLeave = this.onTopicLeave.bind(this);
         this.handleToDelete = this.handleToDelete.bind(this);        
         this.onChange = this.onChange.bind(this);
-        this.addRelatedTopic = this.addRelatedTopic.bind(this);
-        this.relatedTopicSubjectChanged = this.relatedTopicSubjectChanged.bind(this);
+        this.showAgreementDlg = this.showAgreementDlg.bind(this);
+        this.handleCloseAgreementDlg = this.handleCloseAgreementDlg.bind(this);
     }
 
     handleClickToOpen() {
+        delete this.state.topic.relatedTopicSubject;
         this.setState({ editDlgOpen: true });
     };
 
     handleToClose() {
-        console.error('CLOSING TOPIC WITHOUT SAVING')
         this.setState({ editDlgOpen: false });
     };
 
+    handleCloseAgreementDlg() {
+        this.setState({ addAgreementDlg: false });
+    };
+
     async handleToSave() {
-        console.error('SAVING TOPIC', this.state.topic)
-        var payload = this.context.createPayload();
-        payload.CallTopic = this.state.topic;
-        var reply = await this.context.moderator.UpdateCallTopic(payload);
-        if (this.hasNoErrors(reply)) {
-            this.setState({ editDlgOpen: false, topic: payload.CallTopic });
+        console.error('TOPIC SAVED :: ', this.state.topic, this.state.topic.relatedTopicSubject, 'foo')
+        if (this.state.topic.relatedTopicSubject) {
+            this.state.changed({relatedTopicSubject : this.state.topic.relatedTopicSubject});
+            this.setState({editDlgOpen: false});
+        } else {
+
+            var payload = this.context.createPayload();
+            payload.CallTopic = this.state.topic;
+            var reply = await this.context.moderator.UpdateCallTopic(payload);
+            if (this.hasNoErrors(reply)) {
+                this.setState({ editDlgOpen: false, topic: payload.CallTopic });
+            }        
         }
     }
 
@@ -99,17 +109,13 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         this.state.changed({ callTopicId: event.target.value });
     }
 
-    async relatedTopicSubjectChanged(event: any) {
-        this.setState({ relatedTopicSubject: event.target.value });
-    }
-
-    async addRelatedTopic() {
-        this.state.changed({ relatedTopicSubject: this.state.relatedTopicSubject });
-        this.setState({relatedTopicSubject:""});
-    }
 
     participantChanged() {
         console.error('PARTICIPANT CHANGED');
+    }
+
+    showAgreementDlg() {        
+        this.setState({addAgreementDlg : true});
     }
 
     render() {
@@ -118,36 +124,19 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         const childTopics = call?.Topics?.filter((childTopic: any) => childTopic.ParentTopic == topic.CallTopicId);
         const isActive = call.CurrentTopic == topic.CallTopicId;
         return (
-            <div onMouseEnter={this.onTopicEnter} onMouseLeave={this.onTopicLeave}>
-                {topic.inHover && <Button variant="outlined" color="primary" style={{ float: 'right' }}
-                    onClick={this.handleClickToOpen}>
-                    [Edit]
-                </Button>}
-                <h3>
+            <div onMouseEnter={this.onTopicEnter} onMouseLeave={this.onTopicLeave} style={{padding: '0.25em'}}>
+                <b>
                     <div>
                         <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
                             checked={isActive} onChange={this.onChange} />
                         <label htmlFor={topic.CallTopicId}>{topic?.Subject}</label>
                     </div>
-                </h3>
+                </b>
                 {isActive && <div>
                     <div>
-                        <div style={{padding: '2em'}}>
-                            {call?.Participants?.map((callparticipant: any) => {
-                                return <div key={callparticipant.CallParticipantId + call.LastModifiedTime} >
-                                    <TopicParticipant call={call} callparticipant={callparticipant} changed={this.participantChanged} />
-                                </div>
-                            })}
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <label htmlFor="newSubTopic">Related topic</label>
-                            <input type="text" name="newSubTopic" value={this.state.relatedTopicSubject} onChange={this.relatedTopicSubjectChanged} autoFocus />
-                        </div>
-                        <IonButton onClick={this.addRelatedTopic}>Add Sub-Topic</IonButton>
-                    </div>
-                    <hr />
+                        <IonButton onClick={this.showAgreementDlg}>Add Agreement</IonButton>
+                        <Button variant="outlined" color="primary" style={{ float: 'right' }}
+                    onClick={this.handleClickToOpen}>[Edit]</Button>                    </div>
                 </div>}
 
                 {(childTopics.length > 0) && <div>
@@ -159,6 +148,27 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                         })}
                     </div>
                 </div>}
+
+                <Dialog open={this.state.addAgreementDlg} onClose={this.handleToClose}>
+                    <DialogTitle>{topic?.Subject}</DialogTitle>
+                    <DialogContent >
+                        <div>
+                            <div style={{padding: '0.75em'}}>
+                                {call?.Participants?.map((callparticipant: any) => {
+                                    return <div key={callparticipant.CallParticipantId + call.LastModifiedTime} >
+                                        <TopicParticipant call={call} callparticipant={callparticipant} 
+                                            changed={this.participantChanged} />
+                                    </div>
+                                })}
+                            </div>
+                        </div>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleCloseAgreementDlg} color="primary" autoFocus>
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
 
                 <Dialog open={this.state.editDlgOpen} onClose={this.handleToClose}>
                     <DialogTitle>{topic?.Subject}</DialogTitle>
