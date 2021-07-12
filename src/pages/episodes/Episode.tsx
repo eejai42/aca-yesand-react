@@ -58,6 +58,12 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
             if (this.hasNoErrors(reply)) {
                 episode.Calls = reply.EpisodeCalls;
             }
+
+            var reply = await this.context.moderator.GetEpisodeHosts(payload)
+            if (this.hasNoErrors(reply)) {
+                episode.Hosts = reply.EpisodeHosts;
+            }
+
             var newState = { episode: episode, reloadRequested: true }
             console.error('NEW STATE: ', newState);
             this.setState(newState);
@@ -93,6 +99,13 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
                         <IonButton routerLink={"/season/" + episode?.SeasonName}>{episode?.SeasonName}</IonButton>
                         <div style={{float: 'right'}}>
                             <button onClick={this.reloadEpisode}>Reload</button>
+                        </div>
+
+                        <div>
+                            <h2>Hosts ({episode?.Hosts?.length})</h2>
+                            {episode?.Hosts.map((host : any) => {
+                                return <div>{host.HostName} - {host.Role}</div>
+                            })}
                         </div>
                         <div>
                             <h3>{episode?.Name} Calls</h3>

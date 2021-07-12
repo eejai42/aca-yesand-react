@@ -104,6 +104,7 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
 
     async addRelatedTopic() {
         this.state.changed({ relatedTopicSubject: this.state.relatedTopicSubject });
+        this.setState({relatedTopicSubject:""});
     }
 
     render() {
@@ -128,7 +129,7 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                     <div>
                         <div>
                             <label htmlFor="newSubTopic">Related topic</label>
-                            <input type="text" name="newSubTopic" onChange={this.relatedTopicSubjectChanged} />
+                            <input type="text" name="newSubTopic" value={this.state.relatedTopicSubject} onChange={this.relatedTopicSubjectChanged} autoFocus />
                         </div>
                         <IonButton onClick={this.addRelatedTopic}>Add Sub-Topic</IonButton>
                     </div>

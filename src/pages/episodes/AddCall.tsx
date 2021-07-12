@@ -78,6 +78,40 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
             Subject : this.state.subject
         };
         var reply = await this.context.moderator.AddEpisodeCall(payload);
+        // add hosts and player
+        if (this.hasNoErrors(reply)) {
+            var call = reply.EpisodeCall;
+            payload.AirtableWhere = `SeasonEpisode='${call.SeasonEpisodeName}'`
+            var reply = await this.context.moderator.GetEpisodeHosts(payload)
+            if (this.hasNoErrors(reply)) {
+                reply.EpisodeHosts.forEach(async (host : any) => {
+                    payload = this.context.createPayload();
+                    payload.CallParticipant = {
+                        EpisodeCall: call.EpisodeCallId,
+                        ChosenName: host.DisplayName,
+                        Person: host.ShowHost,
+                        Role: host.Role
+                    };
+                    var hostReply = await this.context.moderator.AddCallParticipant(payload);
+                    if (this.hasNoErrors(hostReply)) {
+                        var participant = hostReply.CallParticipant;
+                        call.Participants = call.Participants || [];
+                        call.Participants.push(participant);
+                        call.CallParticipants = call.CallParticipants || [];
+                        call.CallParticipants.push(participant.CallParticipantId);
+                    }
+                });
+            }
+            payload.CallTopic = {
+                EpisodeCall: call.EpisodeCallId,
+                Subject : call.Subject
+            };
+            reply = await this.context.moderator.AddCallTopic(payload);
+            if (this.hasNoErrors(reply)) {
+                call.Topics = [reply.CallTopic];
+                call.CallTopics = [reply.CallTopic.CallTopicId];
+            }
+        }
     }
 
 
