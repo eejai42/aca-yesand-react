@@ -27,7 +27,7 @@ import { curveNatural } from "d3";
 
 export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ episodeCode: string }, {
     episode: any, reloadRequested: boolean, subject : string,
-    dataReady: boolean, episodeCode: string
+    dataReady: boolean, episodeCode: string, guestName : string
 }> {
 
     constructor(props: any) {
@@ -35,14 +35,16 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
 
         this.state = {
             episode: undefined,
-            subject : "",            
+            subject : "",   
+            guestName : "",         
             episodeCode: props.match.params.episodeCode,
             reloadRequested: true,
             dataReady: false,
         };
 
         this.reloadEpisode = this.reloadEpisode.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.subjectChanged = this.subjectChanged.bind(this);
+        this.guestNameChanged = this.guestNameChanged.bind(this);
         this.addEpisode = this.addEpisode.bind(this);
     }
 
@@ -62,8 +64,12 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
         }
     }
 
-    onChange(event : any) {
+    subjectChanged(event : any) {
         this.setState({subject: event.target.value});
+    }
+
+    guestNameChanged(event : any) {
+        this.setState({guestName: event.target.value});
     }
 
     shouldComponentUpdate() {
@@ -85,23 +91,13 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
             var reply = await this.context.moderator.GetEpisodeHosts(payload)
             if (this.hasNoErrors(reply)) {
                 reply.EpisodeHosts.forEach(async (host : any) => {
-                    payload = this.context.createPayload();
-                    payload.CallParticipant = {
-                        EpisodeCall: call.EpisodeCallId,
-                        ChosenName: host.DisplayName,
-                        Person: host.ShowHost,
-                        Role: host.Role
-                    };
-                    var hostReply = await this.context.moderator.AddCallParticipant(payload);
-                    if (this.hasNoErrors(hostReply)) {
-                        var participant = hostReply.CallParticipant;
-                        call.Participants = call.Participants || [];
-                        call.Participants.push(participant);
-                        call.CallParticipants = call.CallParticipants || [];
-                        call.CallParticipants.push(participant.CallParticipantId);
-                    }
+                    let chosenName = host.DisplayName;
+                    let personId = host.ShowHost;
+                    let role = host.Role;
+                    await this.AddCallParticipant(call, chosenName, personId, role);
                 });
             }
+            this.AddCallParticipant(call, this.state.guestName, null, "Caller");
             payload.CallTopic = {
                 EpisodeCall: call.EpisodeCallId,
                 Subject : call.Subject
@@ -114,6 +110,25 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
         }
     }
 
+
+    private async AddCallParticipant(call: any, chosenName: any, personId: any, role: any) {
+        var payload = this.context.createPayload();
+        payload.CallParticipant = {
+            EpisodeCall: call.EpisodeCallId,
+            ChosenName: chosenName,
+            Person: personId,
+            Role: role
+        };
+        var hostReply = await this.context.moderator.AddCallParticipant(payload);
+        if (this.hasNoErrors(hostReply)) {
+            var participant = hostReply.CallParticipant;
+            call.Participants = call.Participants || [];
+            call.Participants.push(participant);
+            call.CallParticipants = call.CallParticipants || [];
+            call.CallParticipants.push(participant.CallParticipantId);
+        }
+        return payload;
+    }
 
     render() {
         console.error('rendering');
@@ -143,11 +158,11 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ e
                         <div>
                             Add a Call
                         </div>
-                        <input value={this.state.subject} onChange={this.onChange} />
+                        <input value={this.state.subject} onChange={this.subjectChanged} />
                         <div>
                             Guest
                         </div>
-                        <input value={this.state.subject} onChange={this.onChange} />
+                        <input value={this.state.guestName} onChange={this.guestNameChanged} />
                     </div>
 
                     <div>

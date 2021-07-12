@@ -110,6 +110,7 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         payload.CallTopic = {
             EpisodeCall: this.state.call.EpisodeCallId,
             ParentTopic : this.state.call.CurrentTopic,
+            CallParticipant : this.state.call.CurrentParticipant,
             Subject: relatedTopicSubject
         }
         var reply = await this.context.moderator.AddCallTopic(payload);
@@ -169,10 +170,10 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
                                     <Participant call={call} participant={participant} changed={this.participantChanged} />
                                 </div>
                             })}
-                            <h2 style={{clear: 'both', textAlign: 'center'}}>{call?.CurrentTopicSubject || 'loading...'}</h2>
                         </div>
 
                         <div style={{clear: 'both', borderTop: 'solid black 1px'}}>
+                            <h2 style={{clear: 'both', textAlign: 'center'}}>{call?.CurrentTopicSubject || 'loading...'}</h2>
                             <hr />
                             <div>
                                 {call?.Topics?.filter((topic: any) => !topic.ParentTopic).map((topic: any) => {

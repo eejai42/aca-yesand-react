@@ -24,6 +24,7 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import EditTopic from './EditTopic'
+import TopicParticipant from './TopicParticipant'
 
 export default class TopicComponent extends EffortlessBaseComponent<{ call: any, topic: any, changed: any },
     {
@@ -107,6 +108,10 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         this.setState({relatedTopicSubject:""});
     }
 
+    participantChanged() {
+        console.error('PARTICIPANT CHANGED');
+    }
+
     render() {
         console.error('Rendering TOPIC');
         const { call, topic } = this.state;
@@ -127,12 +132,22 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                 </h3>
                 {isActive && <div>
                     <div>
+                        <div style={{padding: '2em'}}>
+                            {call?.Participants?.map((callparticipant: any) => {
+                                return <div key={callparticipant.CallParticipantId + call.LastModifiedTime} >
+                                    <TopicParticipant call={call} callparticipant={callparticipant} changed={this.participantChanged} />
+                                </div>
+                            })}
+                        </div>
+                    </div>
+                    <div>
                         <div>
                             <label htmlFor="newSubTopic">Related topic</label>
                             <input type="text" name="newSubTopic" value={this.state.relatedTopicSubject} onChange={this.relatedTopicSubjectChanged} autoFocus />
                         </div>
                         <IonButton onClick={this.addRelatedTopic}>Add Sub-Topic</IonButton>
                     </div>
+                    <hr />
                 </div>}
 
                 {(childTopics.length > 0) && <div>
