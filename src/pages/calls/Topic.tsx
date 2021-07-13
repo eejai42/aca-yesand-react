@@ -123,13 +123,14 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         const { call, topic } = this.state;
         const childTopics = call?.Topics?.filter((childTopic: any) => childTopic.ParentTopic == topic.CallTopicId);
         const isActive = call.CurrentTopic == topic.CallTopicId;
+        
         return (
             <div onMouseEnter={this.onTopicEnter} onMouseLeave={this.onTopicLeave} style={{padding: '0.25em'}}>
                 <b>
                     <div>
                         <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
                             checked={isActive} onChange={this.onChange} />
-                        <label htmlFor={topic.CallTopicId}>{topic?.Subject}</label>
+                        <label htmlFor={topic.CallTopicId}>{topic?.Subject} / {topic?.HasDisagreement?'disagreement':''}{topic?.HasAgreement?'agreement':''}</label>
                     </div>
                 </b>
                 {isActive && <div>
@@ -138,12 +139,16 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                         <Button variant="outlined" color="primary" style={{ float: 'right' }}
                     onClick={this.handleClickToOpen}>[Edit]</Button>                    </div>
                 </div>}
+                {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId).map((agreement: any) => <div> {agreement.Name}</div>)}
 
                 {(childTopics.length > 0) && <div>
                     <div style={{ marginLeft: "1.5em" }}>
                         {childTopics.map((childTopic: any) => {
                             return <div key={childTopic.CallTopicId}>
                                 <TopicComponent call={call} topic={childTopic} changed={this.state.changed} />
+                                
+                              
+                           
                             </div>
                         })}
                     </div>

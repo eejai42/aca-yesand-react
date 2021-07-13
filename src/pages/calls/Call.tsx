@@ -71,6 +71,10 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
             if (this.hasNoErrors(reply)) {
                 call.Participants = reply.CallParticipants;
             }
+            reply = await this.context.moderator.GetTopicAgreements(payload);
+            if (this.hasNoErrors(reply)) {
+                call.Agreements = reply.TopicAgreements;
+            }
 
             console.error('ABOUT TO RENDER CALL: ', call);
             var newState = { call: call, reloadRequested: true }
@@ -87,10 +91,13 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         payload.EpisodeCall = JSON.parse(JSON.stringify(this.state.call));
         delete payload.EpisodeCall.Topics;
         delete payload.EpisodeCall.Participants;
+        delete payload.EpisodeCall.Agreements;
+
         var reply = await this.context.moderator.UpdateEpisodeCall(payload);
         if (this.hasNoErrors(reply)) {
             reply.EpisodeCall.Topics = this.state.call.Topics;
             reply.EpisodeCall.Participants = this.state.call.Participants;
+            reply.EpisodeCall.Agreements = this.state.call.Agreements;
             this.setState({ call: reply.EpisodeCall, reloadRequested: true });
         }
     }
@@ -130,10 +137,12 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         payload.EpisodeCall = JSON.parse(JSON.stringify(this.state.call));
         delete payload.EpisodeCall.Topics;
         delete payload.EpisodeCall.Participants;
+        delete payload.EpisodeCall.Agreements;
         var reply = await this.context.moderator.UpdateEpisodeCall(payload);
         if (this.hasNoErrors(reply)) {
             reply.EpisodeCall.Topics = this.state.call.Topics;
             reply.EpisodeCall.Participants = this.state.call.Participants;
+            reply.EpisodeCall.Agreements = this.state.call.Agreements;
             this.setState({ call: reply.EpisodeCall, reloadRequested: true });
         }
     }
@@ -154,16 +163,14 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
                 </IonHeader>
 
                 <IonContent fullscreen>
-                    <IonHeader collapse="condense">
-                        <IonToolbar>
-                            <IonTitle size="large">Call</IonTitle>
-                        </IonToolbar>
-                    </IonHeader>
+          
                     <div style={{ overflow: "scroll", height: "100%" }}>
                         <div style={{ float: 'right' }}>
                             <button onClick={this.reloadCall}>Reload</button>
                         </div>
+
                         <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
+
                         <div style={{padding: '2em'}}>
                             {call?.Participants?.map((participant: any) => {
                                 return <div key={participant.CallParticipantId + call.LastModifiedTime} style={{ float: 'left' }}>
