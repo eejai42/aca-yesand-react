@@ -191,8 +191,8 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
                         </div> */}
 
                         <div style={{clear: 'both', borderTop: 'solid black 1px'}}>
-                            <h2 style={{clear: 'both', textAlign: 'center'}}>{call?.CurrentTopicSubject || 'loading...'}</h2>
-                            <hr />
+                            {/* <h2 style={{clear: 'both', textAlign: 'center'}}>{call?.CurrentTopicSubject || 'loading...'}</h2>
+                            <hr /> */}
                             <div>
                                 {call?.Topics?.filter((topic: any) => !topic.ParentTopic).map((topic: any) => {
                                     return <div key={topic.CallTopicId + call.LastModifiedTime}>

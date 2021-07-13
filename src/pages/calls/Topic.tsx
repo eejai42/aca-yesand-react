@@ -137,7 +137,7 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         const isActive = call.CurrentTopic == topic.CallTopicId;
 
         return (
-            <div style={{ padding: '0.25em' }}>
+            <div style={{ padding: '0.25em', clear: 'both', borderTop:'solid gray 1px' }}>
                 {isActive && <div>
                     <div>
                         <Button variant="outlined" color="primary" style={{ float: 'right' }}
@@ -145,21 +145,22 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                     </div>
                 </div>}
 
-                <b>
-                    <div className={topic?.HasDisagreement ? 'disagree' : (topic?.HasAgreement ? 'agree' : '')}>
-                        <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
-                            checked={isActive} onChange={this.onChange} />
-                        <label htmlFor={topic.CallTopicId}>{topic?.Subject}</label>
-                    </div>
-                </b>
+                <div style={{float: 'right'}}>
                 {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
                     .map((agreement: any) => <div className={(agreement.Status + '').toLowerCase()}>
                         {agreement.CallParticipantAvatar && agreement.CallParticipantAvatar.length && <div style={{ clear: 'both', display: 'table' }}>
                             <img src={agreement.CallParticipantAvatar[0].url} style={{ width: '2em', verticalAlign: 'middle' }} />
-                            {agreement.CallParticipantDisplayName} <IonButton size="small" onClick={() => this.removeAgreement(agreement)}>x</IonButton>
+                             <IonButton color={agreement.Status == 'Agree' ? 'success' : 'danger'} size="small" onClick={() => this.removeAgreement(agreement)}>x</IonButton>
                         </div>}
                     </div>)}
-
+                    </div>
+                <b>
+                    <div className={topic?.HasDisagreement ? 'disagree' : (topic?.HasAgreement ? 'agree' : '')}>
+                        <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
+                            checked={isActive} onChange={this.onChange} style={{display:'none'}} />
+                        <label htmlFor={topic.CallTopicId}> -- {topic?.Subject}</label>
+                    </div>
+                </b>
                 {isActive && <div>
                     <div>
                         <div style={{ padding: '0.75em' }}>
