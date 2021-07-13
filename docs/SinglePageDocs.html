@@ -1,5 +1,5 @@
 <html><head><title>ACAYesAndWebApp - Single Page Doc s</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" /></head><body style="padding: 0.8em;"><h1>        
-ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.html"><<&nbsp;Back Interactive Object Explorer</a><h3>Table of Contents</h3><ol><li><a href="#EpisodeHost">EpisodeHost</a></li><li><a href="#TopicAgreement">TopicAgreement</a></li><li><a href="#CallTopic">CallTopic</a></li><li><a href="#EpisodeCall">EpisodeCall</a></li><li><a href="#CallParticipant">CallParticipant</a></li><li><a href="#Person">Person</a></li><li><a href="#ShowSeason">ShowSeason</a></li><li><a href="#Show">Show</a></li><li><a href="#SeasonEpisode">SeasonEpisode</a></li></ol><table style="width: 100%"><tr><td colspan="3"><span id="EpisodeHost" />
+ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.html"><<&nbsp;Back Interactive Object Explorer</a><h3>Table of Contents</h3><ol><li><a href="#EpisodeHost">EpisodeHost</a></li><li><a href="#Fallacy">Fallacy</a></li><li><a href="#TopicAgreement">TopicAgreement</a></li><li><a href="#CallTopic">CallTopic</a></li><li><a href="#EpisodeCall">EpisodeCall</a></li><li><a href="#OpenIssue">OpenIssue</a></li><li><a href="#CallParticipant">CallParticipant</a></li><li><a href="#Person">Person</a></li><li><a href="#TopicFallacy">TopicFallacy</a></li><li><a href="#ShowSeason">ShowSeason</a></li><li><a href="#Show">Show</a></li><li><a href="#SeasonEpisode">SeasonEpisode</a></li></ol><table style="width: 100%"><tr><td colspan="3"><span id="EpisodeHost" />
                 <div style="clear: both"></div><div class="row"><div class="col-md-12">
                         <a name="EpisodeHost"></a>
                         <hr /><h2>
@@ -46,14 +46,65 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
                                     
                                     <a href="#Person">HostName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Person">HostAvatar</a>
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
-                        Role</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">EpisodeHost Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> EpisodeHostId, Name, Notes, Attachments, Status, SeasonEpisode, ShowHost, ShowName, ShowCode, Show, HostInitials, HostName, Role
+                        Role</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">EpisodeHost Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> EpisodeHostId, Name, Notes, Attachments, Status, SeasonEpisode, ShowHost, ShowName, ShowCode, Show, HostInitials, HostName, Role, HostAvatar
 
 <b>FROM</b> EpisodeHost
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="Fallacy" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="Fallacy"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            Fallacy  <span class="pull-right" style="font-size: 0.7em;">(originally - Fallacies)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each Fallacy may have zero or more associated
+                          
+                            
+                                <a href="#TopicFallacy">
+                                
+                                    TopicFallacies
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#TopicFallacy">
+                                
+                                    TopicFallacies
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#TopicFallacy">
+                                
+                                    TopicFallacies
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        FallacyId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#TopicFallacy">TopicFallacies</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        fallacy</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        definition</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        example</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Definition</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Example</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">Fallacy Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> FallacyId, fallacy, definition, example, notes, Name, Definition, Example, Notes, TopicFallacies
+
+<b>FROM</b> Fallacy
 
 </div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="TopicAgreement" />
                 <div style="clear: both"></div><div class="row"><div class="col-md-12">
@@ -69,6 +120,20 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                           
                             
                                 <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
                                 
                                     CallTopics
                                     
@@ -91,12 +156,18 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
                                     
                                     <a href="#CallParticipant">CallParticipant</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipantAvatar</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipantDisplayName</a>
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
-                        CreatedTime</td><td>DateTime</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">TopicAgreement Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> TopicAgreementId, Name, Notes, Attachments, Status, CreatedTime, Topic, CallParticipants, CallParticipant
+                        CreatedTime</td><td>DateTime</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">TopicAgreement Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> TopicAgreementId, Name, Notes, Attachments, Status, CreatedTime, Topic, CallParticipants, CallParticipant, CallParticipantAvatar, CallParticipantDisplayName
 
 <b>FROM</b> TopicAgreement
 
@@ -147,9 +218,44 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </a>
                         
                             
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
                                 , <a href="#CallParticipant">
                                 
                                     CallParticipants
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#TopicFallacy">
+                                
+                                    TopicFallacies
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#TopicFallacy">
+                                
+                                    TopicFallacies
                                     
                                 </a>
                         
@@ -178,6 +284,33 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
                                     
                                     <a href="#EpisodeCall">CallStartTime</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">EpisodeCalls</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">CallParticipantDisplayNames</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">CallParticipantsDisplayNames</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipantDisplayName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipantAvatar</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#TopicFallacy">TopicFallacies</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#TopicAgreement">AgreementStatuses</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#TopicAgreement">AgreementStatusList</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">CallParticipantCount</a>
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
@@ -186,7 +319,11 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                         Subject</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         AutoNumber</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         CreatedTime</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
-                        Timstamp</td><td>Decimal</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">CallTopic Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> CallTopicId, Name, Notes, Attachments, Status, EpisodeCall, Subject, ParentTopic, SeasonEpisode, AutoNumber, ParentTopicSubject, CallParticipant, TopicAgreement, CallParticpants, CallStartTime, CreatedTime, Timstamp
+                        Timstamp</td><td>Decimal</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        HasInternalDisagreement</td><td>Int32</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        HasDisagreement</td><td>Int32</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        TopicAgreementCount</td><td>Int32</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        HasAgreement</td><td>Int32</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">CallTopic Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> CallTopicId, Name, Notes, Attachments, Status, EpisodeCall, Subject, ParentTopic, SeasonEpisode, AutoNumber, ParentTopicSubject, CallParticipant, TopicAgreement, CallParticpants, CallStartTime, CreatedTime, Timstamp, EpisodeCalls, CallParticipantDisplayNames, CallParticipantsDisplayNames, CallParticipantDisplayName, CallParticipantAvatar, TopicFallacies, AgreementStatuses, AgreementStatusList, HasInternalDisagreement, HasDisagreement, TopicAgreementCount, CallParticipantCount, HasAgreement
 
 <b>FROM</b> CallTopic
 
@@ -226,6 +363,41 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 , <a href="#CallTopic">
                                 
                                     CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
                                     
                                 </a>
                         
@@ -283,6 +455,30 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
                                     
                                     <a href="#SeasonEpisode">EpisodeShow</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">SeasonEpisodeName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CurrentParticipant</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">CurrentTopic</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CurrentParticipantName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">CurrentTopicName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">CurrentTopicSubject</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CurrentParticipantDisplayName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipantDisplayNames</a>
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
@@ -292,9 +488,30 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                         AutoNumber</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         LongName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         ShortName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
-                        CallStartTime</td><td>DateTime</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">EpisodeCall Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> EpisodeCallId, Name, Notes, Attachments, Status, SeasonEpisode, CallParticpants, Subject, EpisodeHosts, CallTopics, AutoNumber, LongName, ShortName, CallStartTime, EpisodeShowName, EpisodeShow
+                        CallStartTime</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        CreatedTime</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        LastModifiedTime</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        CallParticipantCount</td><td>Int32</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">EpisodeCall Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> EpisodeCallId, Name, Notes, Attachments, Status, SeasonEpisode, CallParticpants, Subject, EpisodeHosts, CallTopics, AutoNumber, LongName, ShortName, CallStartTime, EpisodeShowName, EpisodeShow, SeasonEpisodeName, CurrentParticipant, CurrentTopic, CurrentParticipantName, CurrentTopicName, CurrentTopicSubject, CreatedTime, LastModifiedTime, CurrentParticipantDisplayName, CallParticipantDisplayNames, CallParticipantCount
 
 <b>FROM</b> EpisodeCall
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="OpenIssue" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="OpenIssue"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            OpenIssue  <span class="pull-right" style="font-size: 0.7em;">(originally - OpenIssues)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        OpenIssueId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Who</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">OpenIssue Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> OpenIssueId, Name, Notes, Attachments, Status, Who
+
+<b>FROM</b> OpenIssue
 
 </div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="CallParticipant" />
                 <div style="clear: both"></div><div class="row"><div class="col-md-12">
@@ -315,9 +532,65 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </a>
                         
                             
+                                , <a href="#TopicAgreement">
+                                
+                                    TopicAgreements
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#TopicAgreement">
+                                
+                                    TopicAgreements
+                                    
+                                </a>
+                        
+                            
                                 , <a href="#CallTopic">
                                 
                                     CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
                                     
                                 </a>
                         
@@ -360,6 +633,12 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
                                     
                                     <a href="#EpisodeCall">EpisodeShowName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">EpisodeCalls</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Person">ParticipantAvatar</a>
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
@@ -367,7 +646,8 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                         Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         AutoNumber</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         DisplayName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
-                        ChosenName</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">CallParticipant Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> CallParticipantId, Name, Notes, Attachments, Status, EpisodeCall, Person, CallTopics, AutoNumber, PersonRoles, TopicAgreement, DisplayName, ChosenName, CallSubject, SeasonEpisode, EpisodeShowName
+                        ChosenName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Role</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">CallParticipant Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> CallParticipantId, Name, Notes, Attachments, Status, EpisodeCall, Person, CallTopics, AutoNumber, PersonRoles, TopicAgreement, DisplayName, ChosenName, CallSubject, SeasonEpisode, EpisodeShowName, Role, EpisodeCalls, ParticipantAvatar
 
 <b>FROM</b> CallParticipant
 
@@ -404,6 +684,20 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </a>
                         
                             
+                                , <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                            
                                 , <a href="#CallParticipant">
                                 
                                     CallParticipants
@@ -436,6 +730,55 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                         EmailAddress</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">Person Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> PersonId, Name, Notes, Attachments, Roles, Location, CallParticipants, DisplayName, AutoNumber, EpisodeHosts, Initials, EmailAddress
 
 <b>FROM</b> Person
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="TopicFallacy" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="TopicFallacy"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            TopicFallacy  <span class="pull-right" style="font-size: 0.7em;">(originally - TopicFallacies)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each TopicFallacy may have zero or more associated
+                          
+                            
+                                <a href="#Fallacy">
+                                
+                                    Fallacies
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        TopicFallacyId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">CallTopic</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Fallacy">Fallacy</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">TopicSubject</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Fallacy">FallacyDescription</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Fallacy">FallacyExample</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">TopicFallacy Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> TopicFallacyId, Name, Notes, Attachments, Status, CallTopic, Fallacy, TopicSubject, FallacyDescription, FallacyExample
+
+<b>FROM</b> TopicFallacy
 
 </div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="ShowSeason" />
                 <div style="clear: both"></div><div class="row"><div class="col-md-12">
@@ -487,6 +830,13 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 , <a href="#Show">
                                 
                                     Shows
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
                                     
                                 </a>
                         
@@ -632,7 +982,8 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                         Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         ShowCode</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
-                        StartDate</td><td>DateTime</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">Show Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> ShowId, Name, Notes, Attachments, Status, ShowCode, StartDate, ShowSeasons, CurrentSeason, CurrentSeasonNumber, LastEpisodeNumber, NextEpisodeNumber, CurrentSeasonName
+                        StartDate</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Color</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">Show Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> ShowId, Name, Notes, Attachments, Status, ShowCode, StartDate, ShowSeasons, CurrentSeason, CurrentSeasonNumber, LastEpisodeNumber, NextEpisodeNumber, CurrentSeasonName, Color
 
 <b>FROM</b> Show
 
@@ -672,6 +1023,13 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 , <a href="#EpisodeHost">
                                 
                                     EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
                                     
                                 </a>
                         
@@ -746,6 +1104,9 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
                                     
                                     <a href="#ShowSeason">ShowSeasonId</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">SeasonName</a>
                                 </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
@@ -755,7 +1116,7 @@ ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.ht
                         AirDate</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         LongName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
                         ShortName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
-                        EpisodeCallCount</td><td>Int32</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">SeasonEpisode Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> SeasonEpisodeId, Name, Notes, Attachments, Status, ShowSeason, Show, ShowName, ShowCode, EpisodeNumber, AirDate, EpisodeHosts, EpisodeCalls, LongName, ShortName, EpisodeCallCount, ShowSeasonId
+                        EpisodeCallCount</td><td>Int32</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">SeasonEpisode Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> SeasonEpisodeId, Name, Notes, Attachments, Status, ShowSeason, Show, ShowName, ShowCode, EpisodeNumber, AirDate, EpisodeHosts, EpisodeCalls, LongName, ShortName, EpisodeCallCount, ShowSeasonId, SeasonName
 
 <b>FROM</b> SeasonEpisode
 

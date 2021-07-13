@@ -208,6 +208,70 @@ function generateAdminActor() {
             return deferred.promise;
         }
         
+        smqAdmin.AddFallacy = function() {
+            smqAdmin.AddFallacy('{}');
+        }
+
+        smqAdmin.AddFallacy = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Fallacy - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.GetFallacies = function() {
+            smqAdmin.GetFallacies('{}');
+        }
+
+        smqAdmin.GetFallacies = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Fallacies - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getfallacies', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.UpdateFallacy = function() {
+            smqAdmin.UpdateFallacy('{}');
+        }
+
+        smqAdmin.UpdateFallacy = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Fallacy - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatefallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.DeleteFallacy = function() {
+            smqAdmin.DeleteFallacy('{}');
+        }
+
+        smqAdmin.DeleteFallacy = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Fallacy - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletefallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
         smqAdmin.AddTopicAgreement = function() {
             smqAdmin.AddTopicAgreement('{}');
         }
@@ -400,6 +464,70 @@ function generateAdminActor() {
             return deferred.promise;
         }
         
+        smqAdmin.AddOpenIssue = function() {
+            smqAdmin.AddOpenIssue('{}');
+        }
+
+        smqAdmin.AddOpenIssue = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Open Issue - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.GetOpenIssues = function() {
+            smqAdmin.GetOpenIssues('{}');
+        }
+
+        smqAdmin.GetOpenIssues = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Open Issues - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getopenissues', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.UpdateOpenIssue = function() {
+            smqAdmin.UpdateOpenIssue('{}');
+        }
+
+        smqAdmin.UpdateOpenIssue = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Open Issue - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.DeleteOpenIssue = function() {
+            smqAdmin.DeleteOpenIssue('{}');
+        }
+
+        smqAdmin.DeleteOpenIssue = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Open Issue - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
         smqAdmin.AddCallParticipant = function() {
             smqAdmin.AddCallParticipant('{}');
         }
@@ -522,6 +650,70 @@ function generateAdminActor() {
             var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
             if (smqAdmin.showPingPongs) console.log('Delete Person - ');
             smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.AddTopicFallacy = function() {
+            smqAdmin.AddTopicFallacy('{}');
+        }
+
+        smqAdmin.AddTopicFallacy = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Topic Fallacy - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addtopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.GetTopicFallacies = function() {
+            smqAdmin.GetTopicFallacies('{}');
+        }
+
+        smqAdmin.GetTopicFallacies = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Topic Fallacies - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.gettopicfallacies', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.UpdateTopicFallacy = function() {
+            smqAdmin.UpdateTopicFallacy('{}');
+        }
+
+        smqAdmin.UpdateTopicFallacy = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Topic Fallacy - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatetopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqAdmin.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqAdmin.DeleteTopicFallacy = function() {
+            smqAdmin.DeleteTopicFallacy('{}');
+        }
+
+        smqAdmin.DeleteTopicFallacy = function(payload) {
+            payload = smqAdmin.stringifyValue(payload);
+            var id = smqAdmin.createUUID();
+            var deferred = smqAdmin.waitingReply[id] = smqAdmin.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Topic Fallacy - ');
+            smqAdmin.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletetopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
             
             smqAdmin.waitFor(id);
             

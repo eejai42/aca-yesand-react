@@ -140,10 +140,21 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         delete payload.EpisodeCall.Agreements;
         var reply = await this.context.moderator.UpdateEpisodeCall(payload);
         if (this.hasNoErrors(reply)) {
-            reply.EpisodeCall.Topics = this.state.call.Topics;
-            reply.EpisodeCall.Participants = this.state.call.Participants;
-            reply.EpisodeCall.Agreements = this.state.call.Agreements;
-            this.setState({ call: reply.EpisodeCall, reloadRequested: true });
+            var episodeCall = reply.EpisodeCall;
+            episodeCall.Topics = this.state.call.Topics;
+            episodeCall.Participants = this.state.call.Participants;
+            episodeCall.Agreements = this.state.call.Agreements;
+
+            payload.AirtableWhere = `RECORD_ID()='${callTopicId}'`;
+            reply = await this.context.moderator.GetCallTopics(payload);
+            if (this.hasNoErrors(reply)) {
+                var newTopic = reply.CallTopics[0];
+                var existingTopic = episodeCall.Topics.filter((topic:any) => topic.CallTopicId == callTopicId)[0];
+                var index = episodeCall.Topics.indexOf(existingTopic);
+                console.error('GOT UPDATED VERSION OF TOPIC: ', reply, existingTopic, index);
+                episodeCall.Topics[index] = newTopic;
+                this.setState({ call: episodeCall, reloadRequested: true });
+            }
         }
     }
 
@@ -171,13 +182,13 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
 
                         <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
 
-                        <div style={{padding: '2em'}}>
+                        {/* <div style={{padding: '2em'}}>
                             {call?.Participants?.map((participant: any) => {
                                 return <div key={participant.CallParticipantId + call.LastModifiedTime} style={{ float: 'left' }}>
                                     <Participant call={call} participant={participant} changed={this.participantChanged} />
                                 </div>
                             })}
-                        </div>
+                        </div> */}
 
                         <div style={{clear: 'both', borderTop: 'solid black 1px'}}>
                             <h2 style={{clear: 'both', textAlign: 'center'}}>{call?.CurrentTopicSubject || 'loading...'}</h2>

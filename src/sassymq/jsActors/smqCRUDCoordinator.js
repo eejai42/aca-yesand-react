@@ -163,6 +163,62 @@ function generateCRUDCoordinatorActor() {
                     }
                 }
             
+                if (smqCRUDCoordinator.onAdminAddFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.addfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminAddFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminGetFallacies) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.getfallacies'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminGetFallacies(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminUpdateFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.updatefallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminUpdateFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminDeleteFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.deletefallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminDeleteFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorAddFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.addfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorAddFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorGetFallacies) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.getfallacies'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorGetFallacies(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorUpdateFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.updatefallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorUpdateFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorDeleteFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.deletefallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorDeleteFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
                 if (smqCRUDCoordinator.onAdminAddTopicAgreement) {
                     if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.addtopicagreement'))) {
                         var rpayload = smqCRUDCoordinator.onAdminAddTopicAgreement(msg.body, msg);
@@ -331,6 +387,62 @@ function generateCRUDCoordinatorActor() {
                     }
                 }
             
+                if (smqCRUDCoordinator.onAdminAddOpenIssue) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.addopenissue'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminAddOpenIssue(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminGetOpenIssues) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.getopenissues'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminGetOpenIssues(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminUpdateOpenIssue) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.updateopenissue'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminUpdateOpenIssue(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminDeleteOpenIssue) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.deleteopenissue'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminDeleteOpenIssue(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorAddOpenIssue) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.addopenissue'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorAddOpenIssue(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorGetOpenIssues) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.getopenissues'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorGetOpenIssues(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorUpdateOpenIssue) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.updateopenissue'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorUpdateOpenIssue(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorDeleteOpenIssue) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.deleteopenissue'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorDeleteOpenIssue(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
                 if (smqCRUDCoordinator.onAdminAddCallParticipant) {
                     if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.addcallparticipant'))) {
                         var rpayload = smqCRUDCoordinator.onAdminAddCallParticipant(msg.body, msg);
@@ -439,6 +551,62 @@ function generateCRUDCoordinatorActor() {
                 if (smqCRUDCoordinator.onModeratorDeletePerson) {
                     if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.deleteperson'))) {
                         var rpayload = smqCRUDCoordinator.onModeratorDeletePerson(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminAddTopicFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.addtopicfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminAddTopicFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminGetTopicFallacies) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.gettopicfallacies'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminGetTopicFallacies(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminUpdateTopicFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.updatetopicfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminUpdateTopicFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onAdminDeleteTopicFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.admin.deletetopicfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onAdminDeleteTopicFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorAddTopicFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.addtopicfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorAddTopicFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorGetTopicFallacies) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.gettopicfallacies'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorGetTopicFallacies(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorUpdateTopicFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.updatetopicfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorUpdateTopicFallacy(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                if (smqCRUDCoordinator.onModeratorDeleteTopicFallacy) {
+                    if (msg.headers && (msg.headers.destination.includes('crudcoordinator.crud.moderator.deletetopicfallacy'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorDeleteTopicFallacy(msg.body, msg);
                         if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
                     }
                 }
@@ -620,9 +788,16 @@ function generateCRUDCoordinatorActor() {
             
                 // Can also hear what 'Guest' can hear.
                 
-                // Can also hear what 'Admin' can hear.
-                
                 // Can also hear what 'Moderator' can hear.
+                
+                if (smqCRUDCoordinator.onModeratorCallUpdated) {
+                    if (msg.headers && (msg.headers.destination.includes('moderator.custom.moderator.callupdated'))) {
+                        var rpayload = smqCRUDCoordinator.onModeratorCallUpdated(msg.body, msg);
+                        if (rpayload) smqCRUDCoordinator.sendReply(rpayload, msg);
+                    }
+                }
+            
+                // Can also hear what 'Admin' can hear.
                 
                
         }
@@ -861,605 +1036,6 @@ function generateCRUDCoordinatorActor() {
             return deferred.promise;
         }
         
-            // Can also say what 'Admin' can say.
-            
-        
-        smqCRUDCoordinator.waitFor = function (id) {
-            setTimeout(function () {
-                var waiting = smqCRUDCoordinator.waitingReply[id];
-                if (waiting) {
-                    waiting.reject("Timed out waiting for reply");
-                }
-            }, 30000)
-        }
-        
-        smqCRUDCoordinator.createUUID = function() {
-          function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-              .toString(16)
-              .substring(1);
-          }
-          return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-        }
-
-
-        
-        smqCRUDCoordinator.AdminAddEpisodeHost = function() {
-            smqCRUDCoordinator.AdminAddEpisodeHost('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddEpisodeHost = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Episode Host - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addepisodehost', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetEpisodeHosts = function() {
-            smqCRUDCoordinator.AdminGetEpisodeHosts('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetEpisodeHosts = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Episode Hosts - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getepisodehosts', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateEpisodeHost = function() {
-            smqCRUDCoordinator.AdminUpdateEpisodeHost('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateEpisodeHost = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Episode Host - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateepisodehost', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteEpisodeHost = function() {
-            smqCRUDCoordinator.AdminDeleteEpisodeHost('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteEpisodeHost = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Episode Host - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteepisodehost', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddTopicAgreement = function() {
-            smqCRUDCoordinator.AdminAddTopicAgreement('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddTopicAgreement = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Topic Agreement - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addtopicagreement', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetTopicAgreements = function() {
-            smqCRUDCoordinator.AdminGetTopicAgreements('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetTopicAgreements = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Topic Agreements - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.gettopicagreements', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateTopicAgreement = function() {
-            smqCRUDCoordinator.AdminUpdateTopicAgreement('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateTopicAgreement = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Topic Agreement - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatetopicagreement', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteTopicAgreement = function() {
-            smqCRUDCoordinator.AdminDeleteTopicAgreement('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteTopicAgreement = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Topic Agreement - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletetopicagreement', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddCallTopic = function() {
-            smqCRUDCoordinator.AdminAddCallTopic('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddCallTopic = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Call Topic - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addcalltopic', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetCallTopics = function() {
-            smqCRUDCoordinator.AdminGetCallTopics('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetCallTopics = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Call Topics - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getcalltopics', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateCallTopic = function() {
-            smqCRUDCoordinator.AdminUpdateCallTopic('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateCallTopic = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Call Topic - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatecalltopic', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteCallTopic = function() {
-            smqCRUDCoordinator.AdminDeleteCallTopic('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteCallTopic = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Call Topic - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletecalltopic', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddEpisodeCall = function() {
-            smqCRUDCoordinator.AdminAddEpisodeCall('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddEpisodeCall = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Episode Call - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addepisodecall', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetEpisodeCalls = function() {
-            smqCRUDCoordinator.AdminGetEpisodeCalls('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetEpisodeCalls = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Episode Calls - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getepisodecalls', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateEpisodeCall = function() {
-            smqCRUDCoordinator.AdminUpdateEpisodeCall('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateEpisodeCall = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Episode Call - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateepisodecall', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteEpisodeCall = function() {
-            smqCRUDCoordinator.AdminDeleteEpisodeCall('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteEpisodeCall = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Episode Call - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteepisodecall', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddCallParticipant = function() {
-            smqCRUDCoordinator.AdminAddCallParticipant('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddCallParticipant = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Call Participant - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addcallparticipant', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetCallParticipants = function() {
-            smqCRUDCoordinator.AdminGetCallParticipants('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetCallParticipants = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Call Participants - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getcallparticipants', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateCallParticipant = function() {
-            smqCRUDCoordinator.AdminUpdateCallParticipant('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateCallParticipant = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Call Participant - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatecallparticipant', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteCallParticipant = function() {
-            smqCRUDCoordinator.AdminDeleteCallParticipant('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteCallParticipant = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Call Participant - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletecallparticipant', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddPerson = function() {
-            smqCRUDCoordinator.AdminAddPerson('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddPerson = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Person - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetPeople = function() {
-            smqCRUDCoordinator.AdminGetPeople('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetPeople = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get People - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getpeople', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdatePerson = function() {
-            smqCRUDCoordinator.AdminUpdatePerson('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdatePerson = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Person - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeletePerson = function() {
-            smqCRUDCoordinator.AdminDeletePerson('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeletePerson = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Person - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddShowSeason = function() {
-            smqCRUDCoordinator.AdminAddShowSeason('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddShowSeason = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Show Season - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addshowseason', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetShowSeasons = function() {
-            smqCRUDCoordinator.AdminGetShowSeasons('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetShowSeasons = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Show Seasons - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getshowseasons', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateShowSeason = function() {
-            smqCRUDCoordinator.AdminUpdateShowSeason('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateShowSeason = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Show Season - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateshowseason', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteShowSeason = function() {
-            smqCRUDCoordinator.AdminDeleteShowSeason('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteShowSeason = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Show Season - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteshowseason', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddShow = function() {
-            smqCRUDCoordinator.AdminAddShow('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddShow = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Show - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addshow', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetShows = function() {
-            smqCRUDCoordinator.AdminGetShows('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetShows = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Shows - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getshows', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateShow = function() {
-            smqCRUDCoordinator.AdminUpdateShow('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateShow = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Show - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateshow', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteShow = function() {
-            smqCRUDCoordinator.AdminDeleteShow('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteShow = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Show - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteshow', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminAddSeasonEpisode = function() {
-            smqCRUDCoordinator.AdminAddSeasonEpisode('{}');
-        }
-
-        smqCRUDCoordinator.AdminAddSeasonEpisode = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Add Season Episode - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addseasonepisode', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminGetSeasonEpisodes = function() {
-            smqCRUDCoordinator.AdminGetSeasonEpisodes('{}');
-        }
-
-        smqCRUDCoordinator.AdminGetSeasonEpisodes = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Get Season Episodes - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getseasonepisodes', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminUpdateSeasonEpisode = function() {
-            smqCRUDCoordinator.AdminUpdateSeasonEpisode('{}');
-        }
-
-        smqCRUDCoordinator.AdminUpdateSeasonEpisode = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Update Season Episode - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateseasonepisode', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
-        smqCRUDCoordinator.AdminDeleteSeasonEpisode = function() {
-            smqCRUDCoordinator.AdminDeleteSeasonEpisode('{}');
-        }
-
-        smqCRUDCoordinator.AdminDeleteSeasonEpisode = function(payload) {
-            payload = smqCRUDCoordinator.stringifyValue(payload);
-            var id = smqCRUDCoordinator.createUUID();
-            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
-            if (smqAdmin.showPingPongs) console.log('Delete Season Episode - ');
-            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteseasonepisode', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
-            
-            smqCRUDCoordinator.waitFor(id);
-            
-            return deferred.promise;
-        }
-        
             // Can also say what 'Moderator' can say.
             
         
@@ -1482,6 +1058,22 @@ function generateCRUDCoordinatorActor() {
         }
 
 
+        
+        smqCRUDCoordinator.ModeratorCallUpdated = function() {
+            smqCRUDCoordinator.ModeratorCallUpdated('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorCallUpdated = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Call Updated - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/moderator.custom.moderator.callupdated', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
         
         smqCRUDCoordinator.ModeratorAddEpisodeHost = function() {
             smqCRUDCoordinator.ModeratorAddEpisodeHost('{}');
@@ -1541,6 +1133,70 @@ function generateCRUDCoordinatorActor() {
             var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
             if (smqModerator.showPingPongs) console.log('Delete Episode Host - ');
             smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.deleteepisodehost', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorAddFallacy = function() {
+            smqCRUDCoordinator.ModeratorAddFallacy('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorAddFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Add Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.addfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorGetFallacies = function() {
+            smqCRUDCoordinator.ModeratorGetFallacies('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorGetFallacies = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Get Fallacies - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.getfallacies', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorUpdateFallacy = function() {
+            smqCRUDCoordinator.ModeratorUpdateFallacy('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorUpdateFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Update Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.updatefallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorDeleteFallacy = function() {
+            smqCRUDCoordinator.ModeratorDeleteFallacy('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorDeleteFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Delete Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.deletefallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
             
             smqCRUDCoordinator.waitFor(id);
             
@@ -1739,6 +1395,70 @@ function generateCRUDCoordinatorActor() {
             return deferred.promise;
         }
         
+        smqCRUDCoordinator.ModeratorAddOpenIssue = function() {
+            smqCRUDCoordinator.ModeratorAddOpenIssue('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorAddOpenIssue = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Add Open Issue - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.addopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorGetOpenIssues = function() {
+            smqCRUDCoordinator.ModeratorGetOpenIssues('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorGetOpenIssues = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Get Open Issues - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.getopenissues', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorUpdateOpenIssue = function() {
+            smqCRUDCoordinator.ModeratorUpdateOpenIssue('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorUpdateOpenIssue = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Update Open Issue - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.updateopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorDeleteOpenIssue = function() {
+            smqCRUDCoordinator.ModeratorDeleteOpenIssue('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorDeleteOpenIssue = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Delete Open Issue - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.deleteopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
         smqCRUDCoordinator.ModeratorAddCallParticipant = function() {
             smqCRUDCoordinator.ModeratorAddCallParticipant('{}');
         }
@@ -1861,6 +1581,70 @@ function generateCRUDCoordinatorActor() {
             var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
             if (smqModerator.showPingPongs) console.log('Delete Person - ');
             smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.deleteperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorAddTopicFallacy = function() {
+            smqCRUDCoordinator.ModeratorAddTopicFallacy('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorAddTopicFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Add Topic Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.addtopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorGetTopicFallacies = function() {
+            smqCRUDCoordinator.ModeratorGetTopicFallacies('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorGetTopicFallacies = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Get Topic Fallacies - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.gettopicfallacies', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorUpdateTopicFallacy = function() {
+            smqCRUDCoordinator.ModeratorUpdateTopicFallacy('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorUpdateTopicFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Update Topic Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.updatetopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.ModeratorDeleteTopicFallacy = function() {
+            smqCRUDCoordinator.ModeratorDeleteTopicFallacy('{}');
+        }
+
+        smqCRUDCoordinator.ModeratorDeleteTopicFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqModerator.showPingPongs) console.log('Delete Topic Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.deletetopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
             
             smqCRUDCoordinator.waitFor(id);
             
@@ -2053,6 +1837,797 @@ function generateCRUDCoordinatorActor() {
             var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
             if (smqModerator.showPingPongs) console.log('Delete Season Episode - ');
             smqCRUDCoordinator.client.send('/exchange/moderatormic/crudcoordinator.crud.moderator.deleteseasonepisode', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+            // Can also say what 'Admin' can say.
+            
+        
+        smqCRUDCoordinator.waitFor = function (id) {
+            setTimeout(function () {
+                var waiting = smqCRUDCoordinator.waitingReply[id];
+                if (waiting) {
+                    waiting.reject("Timed out waiting for reply");
+                }
+            }, 30000)
+        }
+        
+        smqCRUDCoordinator.createUUID = function() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+        }
+
+
+        
+        smqCRUDCoordinator.AdminAddEpisodeHost = function() {
+            smqCRUDCoordinator.AdminAddEpisodeHost('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddEpisodeHost = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Episode Host - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addepisodehost', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetEpisodeHosts = function() {
+            smqCRUDCoordinator.AdminGetEpisodeHosts('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetEpisodeHosts = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Episode Hosts - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getepisodehosts', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateEpisodeHost = function() {
+            smqCRUDCoordinator.AdminUpdateEpisodeHost('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateEpisodeHost = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Episode Host - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateepisodehost', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteEpisodeHost = function() {
+            smqCRUDCoordinator.AdminDeleteEpisodeHost('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteEpisodeHost = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Episode Host - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteepisodehost', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddFallacy = function() {
+            smqCRUDCoordinator.AdminAddFallacy('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetFallacies = function() {
+            smqCRUDCoordinator.AdminGetFallacies('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetFallacies = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Fallacies - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getfallacies', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateFallacy = function() {
+            smqCRUDCoordinator.AdminUpdateFallacy('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatefallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteFallacy = function() {
+            smqCRUDCoordinator.AdminDeleteFallacy('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletefallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddTopicAgreement = function() {
+            smqCRUDCoordinator.AdminAddTopicAgreement('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddTopicAgreement = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Topic Agreement - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addtopicagreement', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetTopicAgreements = function() {
+            smqCRUDCoordinator.AdminGetTopicAgreements('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetTopicAgreements = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Topic Agreements - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.gettopicagreements', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateTopicAgreement = function() {
+            smqCRUDCoordinator.AdminUpdateTopicAgreement('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateTopicAgreement = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Topic Agreement - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatetopicagreement', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteTopicAgreement = function() {
+            smqCRUDCoordinator.AdminDeleteTopicAgreement('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteTopicAgreement = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Topic Agreement - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletetopicagreement', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddCallTopic = function() {
+            smqCRUDCoordinator.AdminAddCallTopic('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddCallTopic = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Call Topic - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addcalltopic', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetCallTopics = function() {
+            smqCRUDCoordinator.AdminGetCallTopics('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetCallTopics = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Call Topics - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getcalltopics', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateCallTopic = function() {
+            smqCRUDCoordinator.AdminUpdateCallTopic('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateCallTopic = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Call Topic - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatecalltopic', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteCallTopic = function() {
+            smqCRUDCoordinator.AdminDeleteCallTopic('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteCallTopic = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Call Topic - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletecalltopic', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddEpisodeCall = function() {
+            smqCRUDCoordinator.AdminAddEpisodeCall('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddEpisodeCall = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Episode Call - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addepisodecall', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetEpisodeCalls = function() {
+            smqCRUDCoordinator.AdminGetEpisodeCalls('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetEpisodeCalls = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Episode Calls - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getepisodecalls', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateEpisodeCall = function() {
+            smqCRUDCoordinator.AdminUpdateEpisodeCall('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateEpisodeCall = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Episode Call - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateepisodecall', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteEpisodeCall = function() {
+            smqCRUDCoordinator.AdminDeleteEpisodeCall('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteEpisodeCall = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Episode Call - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteepisodecall', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddOpenIssue = function() {
+            smqCRUDCoordinator.AdminAddOpenIssue('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddOpenIssue = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Open Issue - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetOpenIssues = function() {
+            smqCRUDCoordinator.AdminGetOpenIssues('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetOpenIssues = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Open Issues - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getopenissues', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateOpenIssue = function() {
+            smqCRUDCoordinator.AdminUpdateOpenIssue('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateOpenIssue = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Open Issue - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteOpenIssue = function() {
+            smqCRUDCoordinator.AdminDeleteOpenIssue('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteOpenIssue = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Open Issue - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteopenissue', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddCallParticipant = function() {
+            smqCRUDCoordinator.AdminAddCallParticipant('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddCallParticipant = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Call Participant - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addcallparticipant', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetCallParticipants = function() {
+            smqCRUDCoordinator.AdminGetCallParticipants('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetCallParticipants = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Call Participants - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getcallparticipants', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateCallParticipant = function() {
+            smqCRUDCoordinator.AdminUpdateCallParticipant('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateCallParticipant = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Call Participant - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatecallparticipant', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteCallParticipant = function() {
+            smqCRUDCoordinator.AdminDeleteCallParticipant('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteCallParticipant = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Call Participant - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletecallparticipant', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddPerson = function() {
+            smqCRUDCoordinator.AdminAddPerson('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddPerson = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Person - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetPeople = function() {
+            smqCRUDCoordinator.AdminGetPeople('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetPeople = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get People - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getpeople', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdatePerson = function() {
+            smqCRUDCoordinator.AdminUpdatePerson('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdatePerson = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Person - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeletePerson = function() {
+            smqCRUDCoordinator.AdminDeletePerson('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeletePerson = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Person - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteperson', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddTopicFallacy = function() {
+            smqCRUDCoordinator.AdminAddTopicFallacy('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddTopicFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Topic Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addtopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetTopicFallacies = function() {
+            smqCRUDCoordinator.AdminGetTopicFallacies('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetTopicFallacies = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Topic Fallacies - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.gettopicfallacies', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateTopicFallacy = function() {
+            smqCRUDCoordinator.AdminUpdateTopicFallacy('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateTopicFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Topic Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updatetopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteTopicFallacy = function() {
+            smqCRUDCoordinator.AdminDeleteTopicFallacy('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteTopicFallacy = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Topic Fallacy - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deletetopicfallacy', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddShowSeason = function() {
+            smqCRUDCoordinator.AdminAddShowSeason('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddShowSeason = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Show Season - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addshowseason', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetShowSeasons = function() {
+            smqCRUDCoordinator.AdminGetShowSeasons('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetShowSeasons = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Show Seasons - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getshowseasons', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateShowSeason = function() {
+            smqCRUDCoordinator.AdminUpdateShowSeason('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateShowSeason = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Show Season - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateshowseason', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteShowSeason = function() {
+            smqCRUDCoordinator.AdminDeleteShowSeason('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteShowSeason = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Show Season - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteshowseason', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddShow = function() {
+            smqCRUDCoordinator.AdminAddShow('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddShow = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Show - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addshow', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetShows = function() {
+            smqCRUDCoordinator.AdminGetShows('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetShows = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Shows - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getshows', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateShow = function() {
+            smqCRUDCoordinator.AdminUpdateShow('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateShow = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Show - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateshow', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteShow = function() {
+            smqCRUDCoordinator.AdminDeleteShow('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteShow = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Show - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteshow', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminAddSeasonEpisode = function() {
+            smqCRUDCoordinator.AdminAddSeasonEpisode('{}');
+        }
+
+        smqCRUDCoordinator.AdminAddSeasonEpisode = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Add Season Episode - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.addseasonepisode', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminGetSeasonEpisodes = function() {
+            smqCRUDCoordinator.AdminGetSeasonEpisodes('{}');
+        }
+
+        smqCRUDCoordinator.AdminGetSeasonEpisodes = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Get Season Episodes - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.getseasonepisodes', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminUpdateSeasonEpisode = function() {
+            smqCRUDCoordinator.AdminUpdateSeasonEpisode('{}');
+        }
+
+        smqCRUDCoordinator.AdminUpdateSeasonEpisode = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Update Season Episode - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.updateseasonepisode', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
+            
+            smqCRUDCoordinator.waitFor(id);
+            
+            return deferred.promise;
+        }
+        
+        smqCRUDCoordinator.AdminDeleteSeasonEpisode = function() {
+            smqCRUDCoordinator.AdminDeleteSeasonEpisode('{}');
+        }
+
+        smqCRUDCoordinator.AdminDeleteSeasonEpisode = function(payload) {
+            payload = smqCRUDCoordinator.stringifyValue(payload);
+            var id = smqCRUDCoordinator.createUUID();
+            var deferred = smqCRUDCoordinator.waitingReply[id] = smqCRUDCoordinator.defer();
+            if (smqAdmin.showPingPongs) console.log('Delete Season Episode - ');
+            smqCRUDCoordinator.client.send('/exchange/adminmic/crudcoordinator.crud.admin.deleteseasonepisode', { "content-type": "text/plain", "reply-to":"/temp-queue/response-queue", "correlation-id":id }, payload);
             
             smqCRUDCoordinator.waitFor(id);
             

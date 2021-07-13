@@ -86,8 +86,8 @@ export default class ParticipantComponent extends EffortlessBaseComponent<{ call
                             <label htmlFor={participant.CallParticipantId}>{participant?.DisplayName}</label>
                         </div>
                         
-                        <TopicParticipant  call={call} callparticipant={participant.callparticipant} 
-                                            changed={this.participantChanged} />
+                        {/* <TopicParticipant  call={call} callparticipant={participant.callparticipant} 
+                                           changed={this.participantChanged} /> */}
                         
                         {/* <div>
                             <div style={{ float: 'right', width: '25%' }}>
