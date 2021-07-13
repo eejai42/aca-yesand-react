@@ -55,7 +55,7 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
         if (this.hasNoErrors(reply) && reply.Shows && reply.Shows.length) {
             var show = reply.Shows[0];
             console.error('GOT SHOW: ', show);
-            payload.AirtableWhere = `Show='${show.Name}'`;
+            payload.AirtableWhere = `Show='${show.Name.replace("'", "\\'")}'`;
             reply = await this.context.moderator.GetShowSeasons(payload);
             if (this.hasNoErrors(reply)) {
                 show.ShowSeasons = reply.ShowSeasons;

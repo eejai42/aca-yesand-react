@@ -33,6 +33,17 @@
       "Name": "SmqlToJavascriptRabbitMQ",
       "RelativePath": "/src/sassymq",
       "CommandLine": "sassymq/smql-to-javascript-rabbitmq -i ..\\..\\SassyMQ\\Lexicon.smql -p legacy=false -p angular=false"
+    },
+    {
+      "MatchedTranspiler": {
+        "TranspilerId": "8defe7a3-89cf-4989-b679-d9226519f622",
+        "Name": "OdxmlToNodeJSDocs",
+        "Description": "Creates easy to read/navigate html documentation for an Odxml Schema."
+      },
+      "ProjectTranspilerId": "d2de1d22-c5ed-461b-8346-9f6e4ac84c25",
+      "Name": "OdxmlToNodeJSDocs",
+      "RelativePath": "/docs",
+      "CommandLine": "odxml42/odxml-to-nodejs-docs -i ../ODXML/DataSchema.odxml"
     }
   ]
 }

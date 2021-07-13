@@ -102,12 +102,13 @@ export default class SeasonComponent extends EffortlessBaseComponent<{ seasonCod
                             <div>
                                 <div>
                                     <b>Description:</b>
+                                    {season?.Notes}
                                 </div>
                                 {season?.Attachments?.length ? <div>{season?.Attachments[0].url}<img src={season?.Attachments[0].url} style={{width: '3em', float: 'left'}} /></div> : undefined}
                                 {season?.Description}
                             </div>
 
-                            <h3>Episodes</h3>
+                            <h3>{season?.SeasonEpisodes?.length} Episodes</h3>
                             {season?.SeasonEpisodes
                                     ?.sort((a: any, b: any) => a.EpisodeNumber > b.EpisodeNumber ? 1 : -1)
                                     .map((episode: any) => {

@@ -1,0 +1,762 @@
+<html><head><title>ACAYesAndWebApp - Single Page Doc s</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" /></head><body style="padding: 0.8em;"><h1>        
+ACAYesAndWebApp  Data model</h1><a class="btn btn-sm btn-primary" href="Index.html"><<&nbsp;Back Interactive Object Explorer</a><h3>Table of Contents</h3><ol><li><a href="#EpisodeHost">EpisodeHost</a></li><li><a href="#TopicAgreement">TopicAgreement</a></li><li><a href="#CallTopic">CallTopic</a></li><li><a href="#EpisodeCall">EpisodeCall</a></li><li><a href="#CallParticipant">CallParticipant</a></li><li><a href="#Person">Person</a></li><li><a href="#ShowSeason">ShowSeason</a></li><li><a href="#Show">Show</a></li><li><a href="#SeasonEpisode">SeasonEpisode</a></li></ol><table style="width: 100%"><tr><td colspan="3"><span id="EpisodeHost" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="EpisodeHost"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            EpisodeHost  <span class="pull-right" style="font-size: 0.7em;">(originally - EpisodeHosts)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each EpisodeHost may have zero or more associated
+                          
+                            
+                                <a href="#Person">
+                                
+                                    People
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        EpisodeHostId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">SeasonEpisode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Person">ShowHost</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">ShowName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">ShowCode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">Show</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Person">HostInitials</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Person">HostName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Role</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">EpisodeHost Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> EpisodeHostId, Name, Notes, Attachments, Status, SeasonEpisode, ShowHost, ShowName, ShowCode, Show, HostInitials, HostName, Role
+
+<b>FROM</b> EpisodeHost
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="TopicAgreement" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="TopicAgreement"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            TopicAgreement  
+                        </h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each TopicAgreement may have zero or more associated
+                          
+                            
+                                <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        TopicAgreementId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">Topic</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">CallParticipants</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipant</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        CreatedTime</td><td>DateTime</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">TopicAgreement Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> TopicAgreementId, Name, Notes, Attachments, Status, CreatedTime, Topic, CallParticipants, CallParticipant
+
+<b>FROM</b> TopicAgreement
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="CallTopic" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="CallTopic"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            CallTopic  <span class="pull-right" style="font-size: 0.7em;">(originally - CallTopics)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each CallTopic may have zero or more associated
+                          
+                            
+                                <a href="#TopicAgreement">
+                                
+                                    TopicAgreements
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#TopicAgreement">
+                                
+                                    TopicAgreements
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        CallTopicId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">EpisodeCall</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">ParentTopic</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">SeasonEpisode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">ParentTopicSubject</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipant</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#TopicAgreement">TopicAgreement</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">CallParticpants</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">CallStartTime</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Subject</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        AutoNumber</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        CreatedTime</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Timstamp</td><td>Decimal</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">CallTopic Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> CallTopicId, Name, Notes, Attachments, Status, EpisodeCall, Subject, ParentTopic, SeasonEpisode, AutoNumber, ParentTopicSubject, CallParticipant, TopicAgreement, CallParticpants, CallStartTime, CreatedTime, Timstamp
+
+<b>FROM</b> CallTopic
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="EpisodeCall" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="EpisodeCall"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            EpisodeCall  <span class="pull-right" style="font-size: 0.7em;">(originally - EpisodeCalls)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each EpisodeCall may have zero or more associated
+                          
+                            
+                                <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        EpisodeCallId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">SeasonEpisode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticpants</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">EpisodeHosts</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">CallTopics</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">EpisodeShowName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">EpisodeShow</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Subject</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        AutoNumber</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        LongName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        ShortName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        CallStartTime</td><td>DateTime</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">EpisodeCall Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> EpisodeCallId, Name, Notes, Attachments, Status, SeasonEpisode, CallParticpants, Subject, EpisodeHosts, CallTopics, AutoNumber, LongName, ShortName, CallStartTime, EpisodeShowName, EpisodeShow
+
+<b>FROM</b> EpisodeCall
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="CallParticipant" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="CallParticipant"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            CallParticipant  <span class="pull-right" style="font-size: 0.7em;">(originally - CallParticipants)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each CallParticipant may have zero or more associated
+                          
+                            
+                                <a href="#TopicAgreement">
+                                
+                                    TopicAgreements
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallTopic">
+                                
+                                    CallTopics
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#Person">
+                                
+                                    People
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        CallParticipantId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">EpisodeCall</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Person">Person</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallTopic">CallTopics</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Person">PersonRoles</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#TopicAgreement">TopicAgreement</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">CallSubject</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">SeasonEpisode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">EpisodeShowName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        AutoNumber</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        DisplayName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        ChosenName</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">CallParticipant Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> CallParticipantId, Name, Notes, Attachments, Status, EpisodeCall, Person, CallTopics, AutoNumber, PersonRoles, TopicAgreement, DisplayName, ChosenName, CallSubject, SeasonEpisode, EpisodeShowName
+
+<b>FROM</b> CallParticipant
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="Person" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="Person"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            Person  <span class="pull-right" style="font-size: 0.7em;">(originally - People)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each Person may have zero or more associated
+                          
+                            
+                                <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#CallParticipant">
+                                
+                                    CallParticipants
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        PersonId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#CallParticipant">CallParticipants</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeHost">EpisodeHosts</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Roles</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Location</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        DisplayName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        AutoNumber</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Initials</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        EmailAddress</td><td>String</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">Person Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> PersonId, Name, Notes, Attachments, Roles, Location, CallParticipants, DisplayName, AutoNumber, EpisodeHosts, Initials, EmailAddress
+
+<b>FROM</b> Person
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="ShowSeason" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="ShowSeason"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            ShowSeason  <span class="pull-right" style="font-size: 0.7em;">(originally - ShowSeasons)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each ShowSeason may have zero or more associated
+                          
+                            
+                                <a href="#Show">
+                                
+                                    Shows
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#Show">
+                                
+                                    Shows
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#Show">
+                                
+                                    Shows
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#Show">
+                                
+                                    Shows
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#Show">
+                                
+                                    Shows
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#Show">
+                                
+                                    Shows
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#SeasonEpisode">
+                                
+                                    SeasonEpisodes
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        ShowSeasonId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Show">Show</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Show">ShowName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Show">ShowCode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">SeasonEpisodes</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Show">ShowStartDate</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#Show">Shows</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">LastEpisode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#SeasonEpisode">LastEpisodeNumber</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        SeasonNumber</td><td>Int32</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        SeasonYear</td><td>Int32</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        NextEpisodeNumber</td><td>Int32</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">ShowSeason Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> ShowSeasonId, Name, Notes, Attachments, Status, Show, SeasonNumber, ShowName, ShowCode, SeasonEpisodes, ShowStartDate, SeasonYear, Shows, LastEpisode, LastEpisodeNumber, NextEpisodeNumber
+
+<b>FROM</b> ShowSeason
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="Show" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="Show"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            Show  <span class="pull-right" style="font-size: 0.7em;">(originally - Shows)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each Show may have zero or more associated
+                          
+                            
+                                <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        ShowId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">ShowSeasons</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">CurrentSeason</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">CurrentSeasonNumber</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">LastEpisodeNumber</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">NextEpisodeNumber</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">CurrentSeasonName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        ShowCode</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        StartDate</td><td>DateTime</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">Show Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> ShowId, Name, Notes, Attachments, Status, ShowCode, StartDate, ShowSeasons, CurrentSeason, CurrentSeasonNumber, LastEpisodeNumber, NextEpisodeNumber, CurrentSeasonName
+
+<b>FROM</b> Show
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr><tr><td colspan="3"><span id="SeasonEpisode" />
+                <div style="clear: both"></div><div class="row"><div class="col-md-12">
+                        <a name="SeasonEpisode"></a>
+                        <hr /><h2>
+                            
+                            
+                            
+                            
+                            SeasonEpisode  <span class="pull-right" style="font-size: 0.7em;">(originally - SeasonEpisodes)</span></h2><div style="padding: 0.25em; font-size: 0.8em; font-weight: bold;"></div><div style="padding: 1em;">
+                            Each SeasonEpisode may have zero or more associated
+                          
+                            
+                                <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeHost">
+                                
+                                    EpisodeHosts
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#EpisodeCall">
+                                
+                                    EpisodeCalls
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                            
+                                , <a href="#ShowSeason">
+                                
+                                    ShowSeasons
+                                    
+                                </a>
+                        
+                        </div></div></div></td></tr><tr><th align="left" style="width: 5em;">CRUD</th><th align="left">Name</th><th align="left">Type</th><th align="left">Original Name</th></tr><tr><td style="padding: 0.25em; width: 5em;"><img style="width: 1em;" src="images/primary-key.png" /></td><td>
+                        SeasonEpisodeId</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">ShowSeason</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">Show</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">ShowName</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">ShowCode</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeHost">EpisodeHosts</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#EpisodeCall">EpisodeCalls</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"><span></span></td><td>
+                                    
+                                    <a href="#ShowSeason">ShowSeasonId</a>
+                                </td><td>Parent</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Name</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Notes</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Attachments</td><td>AirtableAttachment</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        Status</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        EpisodeNumber</td><td>Int32</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        AirDate</td><td>DateTime</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        LongName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        ShortName</td><td>String</td><td></td></tr><tr><td style="padding: 0.25em; width: 5em;"></td><td>
+                        EpisodeCallCount</td><td>Int32</td><td></td></tr><tr><th colspan="3" style="padding-top: 1em;">SeasonEpisode Query</th></tr><tr><td colspan="3"><div style="white-space: pre-wrap; font-size: 0.9em; font-family: monospace; padding: 0.8em;"><b>SELECT</b> SeasonEpisodeId, Name, Notes, Attachments, Status, ShowSeason, Show, ShowName, ShowCode, EpisodeNumber, AirDate, EpisodeHosts, EpisodeCalls, LongName, ShortName, EpisodeCallCount, ShowSeasonId
+
+<b>FROM</b> SeasonEpisode
+
+</div></td></tr><tr><td colspan="3" style="font-size: 0.8em; padding: 0.25em;"></td></tr></table></body></html>
