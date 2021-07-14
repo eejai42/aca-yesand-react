@@ -166,7 +166,7 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         return (
             <div style={{ padding: '0.25em', paddingRight: 0, clear: 'both', borderTop: 'solid gray 1px', cursor: 'pointer' }}>
                 <div style={{ float: 'right' }}>
-                    <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
+                    <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2.5em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
                     {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
                         .map((agreement: any) =>
