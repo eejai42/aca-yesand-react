@@ -158,15 +158,14 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
     }
 
     render() {
-        console.error('Rendering TOPIC');
         const { call, topic } = this.state;
         const childTopics = call?.Topics?.filter((childTopic: any) => childTopic.ParentTopic == topic.CallTopicId);
         const isActive = call.CurrentTopic == topic.CallTopicId;
 
         return (
-            <div style={{ padding: '0.25em', paddingRight: 0, clear: 'both', borderTop: 'solid gray 1px', cursor: 'pointer' }}>
+            <div style={{ padding: '0.25em', paddingRight: 0, clear: 'both', borderTop: 'solid gray 1px', cursor: 'pointer' }}  className={isActive ? 'activeTopic' : ''}>
                 <div style={{ float: 'right' }}>
-                    <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2.5em', verticalAlign: 'middle', padding: '0.25em' }} />
+                    <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
                     {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
                         .map((agreement: any) =>
@@ -180,13 +179,13 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                             </div>)}
                 </div>
                 <div onClick={() => this.topicChanged(topic)}>
-                <b>
-                    <div className={topic?.HasDisagreement ? 'disagree' : (topic?.HasAgreement ? 'agree' : '')}>
-                        <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
-                            checked={isActive} onChange={this.onChange} style={{ display: 'none' }} />
-                        <label style={{ cursor: 'pointer' }} htmlFor={topic.CallTopicId}> -- {topic?.Subject}</label>
-                    </div>
-                </b>
+                    <b>
+                        <div className={topic?.HasDisagreement ? 'disagree' : (topic?.HasAgreement ? 'agree' : '')}>
+                            <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
+                                checked={isActive} onChange={this.onChange} style={{ display: 'none' }} />
+                            <label style={{ cursor: 'pointer' }} htmlFor={topic.CallTopicId}> -- {topic?.Subject}</label>
+                        </div>
+                    </b>
                 </div>
                 {isActive && <div>
                     <div>

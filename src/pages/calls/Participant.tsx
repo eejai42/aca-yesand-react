@@ -70,7 +70,6 @@ export default class ParticipantComponent extends EffortlessBaseComponent<{ call
 
     render() {
         const { call, participant } = this.state;
-        console.error('Rendering Participant', call, participant);
         return (
             <div>
                 {call?.CurrentParticipant != participant?.CallParticipantId ?

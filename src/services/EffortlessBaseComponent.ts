@@ -11,7 +11,6 @@ export class EffortlessBaseComponent<P, S> extends React.Component<P, S> {
     context!: React.ContextType<typeof GlobalDataService>;
 
     componentDidMount() {
-        console.error('COMPONENT MOUNTED...');
         var self = this;
         self.context.readiness$.subscribe((ready:any) => {
             if (ready) self.onReady();

@@ -106,7 +106,7 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
     async topicChanged(changeRequest : any) {
         let relatedTopicSubject = changeRequest.relatedTopicSubject;
         let callTopicId = changeRequest.callTopicId;
-        console.error('relatedTopicSubject: ', changeRequest);
+        console.error('Change Request: ', changeRequest);
         if (callTopicId)  {
             await this.setCurrentTopic(callTopicId);
         } else if (relatedTopicSubject) {
@@ -164,7 +164,6 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
 
     render() {
         const { call } = this.state;
-        console.error('rendering call', call);
         return (
             <IonPage>
                 <IonHeader>

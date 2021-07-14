@@ -23,3 +23,11 @@
     margin: 0.25em;
     margin-left: 3em;
 }
+
+.activeTopic {
+    font-size: 1.3em;
+    font-weight: bold;
+    background-color: #EEE;
+    border-radius: 0.5em;
+    margin: 0.25em;
+}

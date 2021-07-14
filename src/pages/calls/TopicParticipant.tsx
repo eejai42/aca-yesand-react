@@ -121,7 +121,6 @@ export default class TopicParticipantComponent extends EffortlessBaseComponent<{
 
     render() {
         const { call, callparticipant } = this.state;
-        console.error('Rendering Participant', call, callparticipant);
         return (
             <div style={{ clear: 'both' }} className={(call.CurrentParticipant == callparticipant.CallParticipantId) ? 'speaking' : 'notspeaking'}>
                 <div style={{ float: 'right', width: '25%', padding: '0.4em' }}>
