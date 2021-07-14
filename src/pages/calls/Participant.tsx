@@ -84,27 +84,8 @@ export default class ParticipantComponent extends EffortlessBaseComponent<{ call
                             <input type="radio" name="currentParticipant" id={participant.CallParticipantId} value={participant.CallParticipantId}
                                 checked={call.CurrentParticipant == participant.CallParticipantId} onChange={this.onChange} />
                             <label htmlFor={participant.CallParticipantId}>{participant?.DisplayName}</label>
-                        </div>
-                        
-                        {/* <TopicParticipant  call={call} callparticipant={participant.callparticipant} 
-                                           changed={this.participantChanged} /> */}
-                        
-                        {/* <div>
-                            <div style={{ float: 'right', width: '25%' }}>
-                                <IonButton size="small" color="secondary" style={{ float: 'left' }}>Agree</IonButton>
-                                <IonButton size="small" color="danger" style={{ float: 'left' }}>Disagree </IonButton>
-                            </div>
-                            <div style={{ fontSize: '1.25em', padding: '0.25em' }}>
-                                <label>
-                                    {(participant.callparticipant?.ParticipantAvatar && participant.callparticipant?.ParticipantAvatar.length) ?
-                                        <img style={{ width: '2em' }} src={participant.callparticipant?.ParticipantAvatar[0].url} /> :
-                                        <div style={{ width: '2em', float: 'left', backgroundColor: 'red' }}></div>}{participant.callparticipant?.DisplayName}</label>
-                            </div>
-                        </div> */}
-
+                        </div>                    
                     </div>
-
-
                 }
             </div>
         );

@@ -38,7 +38,6 @@ export default class EditTopicComponent extends EffortlessBaseComponent<{ call: 
 
         this.reloadTopic = this.reloadTopic.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.relatedTopicSubjectChanged = this.relatedTopicSubjectChanged.bind(this);
     }
 
 
@@ -76,7 +75,8 @@ export default class EditTopicComponent extends EffortlessBaseComponent<{ call: 
                 <div>
                         <div>
                             <label htmlFor="newSubTopic">Related topic</label>
-                            <input type="text" name="newSubTopic" value={topic.relatedTopicSubject} onChange={this.relatedTopicSubjectChanged} autoFocus />
+                            <input type="text" name="newSubTopic" value={topic.relatedTopicSubject} 
+                            onChange={(event) => this.relatedTopicSubjectChanged(event)} autoFocus />
                         </div>
                     </div>
 

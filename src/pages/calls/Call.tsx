@@ -92,6 +92,7 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         delete payload.EpisodeCall.Topics;
         delete payload.EpisodeCall.Participants;
         delete payload.EpisodeCall.Agreements;
+        payload.EpisodeCall.Status = payload.EpisodeCall.Status == "On" ? "Off" : "On";
 
         var reply = await this.context.moderator.UpdateEpisodeCall(payload);
         if (this.hasNoErrors(reply)) {
@@ -126,6 +127,7 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
             var newTopic = reply.CallTopic;
             this.state.call.Topics.push(newTopic);
             this.state.call.CallTopics.push(newTopic.CallTopicId);
+            this.state.call.LastModified = new Date();
             this.setState({call: this.state.call});
         }
     }
@@ -138,6 +140,8 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
         delete payload.EpisodeCall.Topics;
         delete payload.EpisodeCall.Participants;
         delete payload.EpisodeCall.Agreements;
+        payload.EpisodeCall.Status = payload.EpisodeCall.Status == "On" ? "Off" : "On";
+        
         var reply = await this.context.moderator.UpdateEpisodeCall(payload);
         if (this.hasNoErrors(reply)) {
             var episodeCall = reply.EpisodeCall;
@@ -182,21 +186,14 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
 
                         <IonButton routerLink={"/episode/" + call?.ShortName}>{call?.ShortName}</IonButton>
 
-                        {/* <div style={{padding: '2em'}}>
-                            {call?.Participants?.map((participant: any) => {
-                                return <div key={participant.CallParticipantId + call.LastModifiedTime} style={{ float: 'left' }}>
-                                    <Participant call={call} participant={participant} changed={this.participantChanged} />
-                                </div>
-                            })}
-                        </div> */}
-
                         <div style={{clear: 'both', borderTop: 'solid black 1px'}}>
                             {/* <h2 style={{clear: 'both', textAlign: 'center'}}>{call?.CurrentTopicSubject || 'loading...'}</h2>
                             <hr /> */}
                             <div>
                                 {call?.Topics?.filter((topic: any) => !topic.ParentTopic).map((topic: any) => {
                                     return <div key={topic.CallTopicId + call.LastModifiedTime}>
-                                        <Topic call={call} topic={topic} key={topic.CallTopicId} changed={this.topicChanged} />
+                                        <Topic call={call} topic={topic} key={topic.CallTopicId} topicChanged={(callTopicId:any) => this.topicChanged(callTopicId)}
+                                        participantChanged={this.participantChanged} />
                                     </div>
                                 })}
                             </div>

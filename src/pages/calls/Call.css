@@ -5,3 +5,21 @@
 .disagree {
     color: red;
 }
+
+
+.speaking {
+    background-color: orange;
+    width: 80%;
+    border-radius: 1em;
+    margin: 0.25em;
+    margin-left: 3em;
+}
+
+.notspeaking {
+    background-color: white;
+    width: 80%;
+    border-radius: 1em;
+    border: solid lightgray 1px;
+    margin: 0.25em;
+    margin-left: 3em;
+}

@@ -26,10 +26,10 @@ import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import EditTopic from './EditTopic'
 import TopicParticipant from './TopicParticipant'
 
-export default class TopicComponent extends EffortlessBaseComponent<{ call: any, topic: any, changed: any },
+export default class TopicComponent extends EffortlessBaseComponent<{ call: any, topic: any, topicChanged: any, participantChanged: any },
     {
         call: any, topic: any, callCode: string, editDlgOpen: boolean,
-        changed: any, addAgreementDlg: boolean
+        topicChanged: any, addAgreementDlg: boolean, participantChanged: any
     }> {
 
     constructor(props: any) {
@@ -41,7 +41,8 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
             callCode: props.callCode,
             editDlgOpen: false,
             addAgreementDlg: false,
-            changed: props.changed
+            topicChanged: props.topicChanged,
+            participantChanged: props.participantChanged
         };
         this.handleClickToOpen = this.handleClickToOpen.bind(this);
         this.handleToClose = this.handleToClose.bind(this);
@@ -70,7 +71,7 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
     async handleToSave() {
         console.error('TOPIC SAVED :: ', this.state.topic, this.state.topic.relatedTopicSubject, 'foo')
         if (this.state.topic.relatedTopicSubject) {
-            this.state.changed({ relatedTopicSubject: this.state.topic.relatedTopicSubject });
+            this.state.topicChanged({ relatedTopicSubject: this.state.topic.relatedTopicSubject });
             this.setState({ editDlgOpen: false });
         } else {
 
@@ -106,12 +107,7 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
     }
 
     async onChange(event: any) {
-        this.state.changed({ callTopicId: event.target.value });
-    }
-
-
-    participantChanged() {
-        this.state.changed({ callTopicId: this.state.topic.CallTopicId });
+        this.state.topicChanged({ callTopicId: event.target.value });
     }
 
     showAgreementDlg() {
@@ -126,7 +122,38 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         if (this.hasNoErrors(reply)) {
             var index = this.state.call.Agreements.indexOf(agreement);
             if (index >= 0) this.state.call.Agreements.splice(index, 1);
-            this.state.changed({callTopicId: this.state.topic.CallTopicId})
+            this.state.topicChanged({ callTopicId: this.state.topic.CallTopicId })
+        }
+    }
+
+    getAgreementUrl(agreement: any) {
+        return (agreement.CallParticipantAvatar && agreement.CallParticipantAvatar.length) ?
+            agreement.CallParticipantAvatar[0].url : '/assets/avatar.png';
+    }
+
+    getTopicUrl(topic: any) {
+        return (topic.CallParticipantAvatar && topic.CallParticipantAvatar.length) ?
+            topic.CallParticipantAvatar[0].url : '/assets/avatar.png';
+    }
+
+    async relatedTopicSubjectChanged(event: any) {
+        this.state.topic.relatedTopicSubject = event.target.value;
+        this.setState({ topic: this.state.topic });
+    }
+
+    topicChanged(topic:any) {
+        console.error('TOPIC CHANGED: ', topic);
+        if (topic.CallTopicId != this.state.call.CurrentTopic) {
+            this.state.topicChanged({callTopicId:topic.CallTopicId});
+        }
+    }
+
+    keyPressed(event: any) {
+        if (event?.code == 'Enter') {
+            this.handleToSave();
+            this.state.topic.relatedTopicSubject = "";
+
+            this.setState({ topic: this.state.topic });
         }
     }
 
@@ -137,37 +164,38 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         const isActive = call.CurrentTopic == topic.CallTopicId;
 
         return (
-            <div style={{ padding: '0.25em', clear: 'both', borderTop:'solid gray 1px' }}>
-                {isActive && <div>
-                    <div>
-                        <Button variant="outlined" color="primary" style={{ float: 'right' }}
-                            onClick={this.handleClickToOpen}>[Edit]</Button>
+            <div style={{ padding: '0.25em', paddingRight: 0, clear: 'both', borderTop: 'solid gray 1px', cursor: 'pointer' }}>
+                <div style={{ float: 'right' }}>
+                    <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
-                </div>}
-
-                <div style={{float: 'right'}}>
-                {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
-                    .map((agreement: any) => <div className={(agreement.Status + '').toLowerCase()}>
-                        {agreement.CallParticipantAvatar && agreement.CallParticipantAvatar.length && <div style={{ clear: 'both', display: 'table' }}>
-                            <img src={agreement.CallParticipantAvatar[0].url} style={{ width: '2em', verticalAlign: 'middle' }} />
-                             <IonButton color={agreement.Status == 'Agree' ? 'success' : 'danger'} size="small" onClick={() => this.removeAgreement(agreement)}>x</IonButton>
-                        </div>}
-                    </div>)}
-                    </div>
+                    {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
+                        .map((agreement: any) =>
+                            <div className={(agreement.Status + '').toLowerCase()} style={{ float: 'right' }}>
+                                <div style={{ clear: 'both', display: 'table' }}>
+                                    <IonButton color={agreement.Status == 'Agree' ? 'success' : 'danger'} size="small"
+                                        onClick={() => this.removeAgreement(agreement)}>
+                                        <img src={this.getAgreementUrl(agreement)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
+                                        x</IonButton>
+                                </div>
+                            </div>)}
+                </div>
+                <div onClick={() => this.topicChanged(topic)}>
                 <b>
                     <div className={topic?.HasDisagreement ? 'disagree' : (topic?.HasAgreement ? 'agree' : '')}>
                         <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
-                            checked={isActive} onChange={this.onChange} style={{display:'none'}} />
-                        <label htmlFor={topic.CallTopicId}> -- {topic?.Subject}</label>
+                            checked={isActive} onChange={this.onChange} style={{ display: 'none' }} />
+                        <label style={{ cursor: 'pointer' }} htmlFor={topic.CallTopicId}> -- {topic?.Subject}</label>
                     </div>
                 </b>
+                </div>
                 {isActive && <div>
                     <div>
                         <div style={{ padding: '0.75em' }}>
                             {call?.Participants?.map((callparticipant: any) => {
                                 return <div key={callparticipant.CallParticipantId + call.LastModifiedTime} >
                                     <TopicParticipant call={call} callparticipant={callparticipant}
-                                        topic={topic} changed={() => this.participantChanged()}  />
+                                        topic={topic} topicChanged={(event: any) => this.state.topicChanged(event)}
+                                        participantChanged={(participantId: any) => this.state.participantChanged(participantId)} />
                                 </div>
                             })}
                         </div>
@@ -178,7 +206,8 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                     <div style={{ marginLeft: "1.5em" }}>
                         {childTopics.map((childTopic: any) => {
                             return <div key={childTopic.CallTopicId}>
-                                <TopicComponent call={call} topic={childTopic} changed={this.state.changed} />
+                                <TopicComponent call={call} topic={childTopic} topicChanged={this.state.topicChanged}
+                                    participantChanged={this.state.participantChanged} />
                             </div>
                         })}
                     </div>
