@@ -33,10 +33,7 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent {
         this.state = {
             episode: undefined,
             subject : "",   
-            guestName : "",         
-            episodeCode: props.match.params.episodeCode,
-            reloadRequested: true,
-            dataReady: false,
+            guestName : ""
         };
 
         this.reloadEpisode = this.reloadEpisode.bind(this);
@@ -46,17 +43,13 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent {
     }
 
 
-    async onReady() {
-        this.reloadEpisode();
-    }
-
     async reloadEpisode() {
         let payload = this.context.createPayload()
-        payload.AirtableWhere = "Name='" + this.state.episodeCode + "'";
+        payload.AirtableWhere = "Name='" + this.props.match.params.episodeCode + "'";
         var reply = await this.context.moderator.GetSeasonEpisodes(payload);
         if (this.hasNoErrors(reply) && reply.SeasonEpisodes && reply.SeasonEpisodes.length) {
             var episode = reply.SeasonEpisodes[0];
-            var newState = { episode: episode, reloadRequested: true }
+            var newState = { episode: episode }
             this.setState(newState);
         }
     }
@@ -69,12 +62,14 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent {
         this.setState({guestName: event.target.value});
     }
 
-    shouldComponentUpdate() {
-        return this.state.reloadRequested;
+    componentDidUpdate() {
+        if (this.state.isReady && (!this.state.episode || (this.state.episode.Name != this.props.match.params.episodeCode))) {
+            this.reloadEpisode();
+        }
     }
 
     async addEpisode() {
-        console.error('Adding episode', this.state.subject)
+        console.error('Adding episode', this.state.subject, this.state.episode);
         var payload = this.context.createPayload();
         payload.EpisodeCall = {
             SeasonEpisode: this.state.episode.SeasonEpisodeId,
@@ -148,7 +143,7 @@ export default class AddEpisodeCallComponent extends EffortlessBaseComponent {
                         </IonToolbar>
                     </IonHeader>
                     <div>
-                        <IonButton routerLink={"/episode/" + episode?.Name}>{episode?.Name}</IonButton>
+                        <IonButton routerLink={"/episode/" + episode?.Name}>{episode?.DisplayName}</IonButton>
                         <div style={{float: 'right'}}>
                             <button onClick={this.reloadEpisode}>Reload</button>
                         </div>

@@ -102,8 +102,6 @@ export default class TopicParticipantComponent extends EffortlessBaseComponent {
                     callparticipant.ParticipantAvatar[0].url : '/assets/avatar.png';
     }
 
-
-    
     async relatedTopicSubjectChanged(event: any) {
         this.state.call.relatedTopicSubject = event.target.value;
         this.setState({ call: this.state.call });
@@ -127,8 +125,8 @@ export default class TopicParticipantComponent extends EffortlessBaseComponent {
                     <IonButton size="small" color="danger" style={{ float: 'right' }} onClick={() => this.addDisagreement()}><IonIcon slot="start" icon={thumbsDownOutline} /> </IonButton>
                 </div>
                 <div style={{ fontSize: '1.25em', padding: '0.25em' }} onClick={() => this.state.participantChanged(callparticipant.CallParticipantId)}>
-                    <label><img style={{ width: '2em', verticalAlign: 'middle', padding: '0.1em' }} src={this.getParticipantUrl(callparticipant)} />
-                            {callparticipant?.DisplayName}</label>
+                    <img style={{ width: '2em', verticalAlign: 'middle', padding: '0.1em' }} src={this.getParticipantUrl(callparticipant)} />
+                    <label>{callparticipant?.DisplayName}</label>
                 </div>
 
                 {call.CurrentParticipant == callparticipant.CallParticipantId && <div style={{margin: '0.5em', marginLeft: '2em'}}>

@@ -163,7 +163,9 @@ export default class TopicComponent extends EffortlessBaseComponent {
                 <div style={{ float: 'left' }}>
                     <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
-                    {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
+                </div>
+                <div style={{float: 'right'}}>                        
+                {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
                         .map((agreement: any) =>
                             <div className={(agreement.Status + '').toLowerCase()} style={{ float: 'right' }}>
                                 <div style={{ clear: 'both', display: 'table' }}>
@@ -173,19 +175,19 @@ export default class TopicComponent extends EffortlessBaseComponent {
                                         x</IonButton>
                                 </div>
                             </div>)}
+                    {isActive && <IonButton size="small">Fallacies</IonButton>}
                 </div>
                 <div onClick={() => this.topicChanged(topic)}>
                     <b>
                         <div className={topic?.HasDisagreement ? 'disagree' : (topic?.HasAgreement ? 'agree' : '')}>
                             <input type="radio" name="currentTopic" id={topic.CallTopicId} value={topic.CallTopicId}
                                 checked={isActive} onChange={this.onChange} style={{ display: 'none' }} />
-                            <label style={{ cursor: 'pointer' }} htmlFor={topic.CallTopicId}> -- {topic?.Subject}</label>
+                            <label style={{ cursor: 'pointer' }} htmlFor={topic.CallTopicId}> {topic?.Subject}</label>
                         </div>
                     </b>
                 </div>
                 {isActive && <div>
                     <div>
-                        <IonButton style={{ float: 'right' }}>Fallacies</IonButton>
                         <div style={{ padding: '0.75em' }}>
                             {call?.Participants?.map((callparticipant: any) => {
                                 return <div key={callparticipant.CallParticipantId + call.LastModifiedTime} >

@@ -22,6 +22,7 @@ import {
 import { useHistory, useParams } from "react-router";
 import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
+import { thumbsDownOutline, thumbsUpOutline, thumbsUpSharp, addOutline } from "ionicons/icons";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
 export default class SeasonComponent extends EffortlessBaseComponent {
@@ -31,23 +32,13 @@ export default class SeasonComponent extends EffortlessBaseComponent {
 
         this.state = {
             season: undefined,
-            seasonCode: props.match.params.seasonCode,
-            reloadRequested: true,
-            dataReady: false,
+            dataReady: false
         };
-
-        this.reloadSeason = this.reloadSeason.bind(this);
-    }
-
-
-    async onReady() {
-        this.reloadSeason();
     }
 
     async reloadSeason() {
-        console.error('LOADING SEASON', this.state.seasonCode);
         let payload = this.context.createPayload()
-        payload.AirtableWhere = "Name='" + this.state.seasonCode + "'";
+        payload.AirtableWhere = "Name='" + this.props.match.params.seasonCode + "'";
         var reply = await this.context.moderator.GetShowSeasons(payload);
         if (this.hasNoErrors(reply) && reply.ShowSeasons && reply.ShowSeasons.length) {
             console.error('GOT REPLY TO SEASONS REQUEST: ', reply);
@@ -63,8 +54,11 @@ export default class SeasonComponent extends EffortlessBaseComponent {
         }
     }
 
-    shouldComponentUpdate() {
-        return this.state.reloadRequested;
+    componentDidUpdate() {
+        if (this.state.isReady && 
+            (!this.state.season || (this.state.season.Name != this.props.match.params.seasonCode))) {
+            this.reloadSeason();
+        }
     }
 
 
@@ -79,24 +73,22 @@ export default class SeasonComponent extends EffortlessBaseComponent {
                             <IonMenuButton />
                         </IonButtons>
                         <div style={{float: 'right'}}>
-                            <button onClick={this.reloadSeason}>Reload</button>
+                            <button onClick={() => this.reloadSeason()}>Reload</button>
                         </div>
-                        <IonTitle>Season {season?.SeasonNumber || '... loading ...'}</IonTitle>
+                        <IonTitle>{season?.ShowName || "..."} - Season {season?.SeasonNumber || '... loading ...'}</IonTitle>
                     </IonToolbar>
                 </IonHeader>
 
                 <IonContent fullscreen>
-                    <IonHeader collapse="condense">
-                        <IonToolbar>
-                            <IonTitle size="large">Season</IonTitle>
-                        </IonToolbar>
-                    </IonHeader>
                     <div>
                         <div>
                             <IonButton routerLink={"/show/" + season?.ShowCode} style={{float: 'right'}}>
                                 {season?.ShowName || "..."}
                             </IonButton>
                             <div>
+                                {season?.ShowLogo?.length && <div style={{float: 'left'}}>
+                                    <img src={season.ShowLogo[0].url} style={{width: '5em'}} />
+                                </div>}
                                 <div>
                                     <b>Description:</b>
                                     {season?.Notes}
@@ -110,9 +102,10 @@ export default class SeasonComponent extends EffortlessBaseComponent {
                                     ?.sort((a: any, b: any) => a.EpisodeNumber > b.EpisodeNumber ? 1 : -1)
                                     .map((episode: any) => {
                                 return <div key={episode.SeasonEpisodeId}>
-                                    <IonButton routerLink={"/episode/" + episode.Name} style={{float: 'left'}}> {episode?.Name}</IonButton>
+                                    <IonButton routerLink={"/episode/" + episode.Name} style={{float: 'left'}}> Episode {episode?.EpisodeNumber}</IonButton>
                                 </div>
                             })}
+                            <IonButton onClick={() => this.addEpisode()} color="success"><IonIcon icon={addOutline}></IonIcon>Add Episode</IonButton>
                         </div>
 
                     </div>
@@ -120,5 +113,16 @@ export default class SeasonComponent extends EffortlessBaseComponent {
             </IonPage>
 
         );
+    }
+    async addEpisode() {
+        var payload = this.context.createPayload();
+        payload.SeasonEpisode = {
+            ShowSeason : this.state.season.ShowSeasonId,
+            EpisodeNumber : this.state.season.NextEpisodeNumber
+        }
+        var reply = await this.context.moderator.AddSeasonEpisode(payload);
+        if (this.hasNoErrors(reply)) {        
+            window.location.href = '/episode/' + reply.SeasonEpisode.Name;
+        }
     }
 }

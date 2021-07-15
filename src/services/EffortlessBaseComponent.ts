@@ -13,8 +13,11 @@ export class EffortlessBaseComponent extends React.Component<any, any> {
     componentDidMount() {
         var self = this;
         self.context.readiness$.subscribe((ready:any) => {
-            if (ready) self.onReady();
-        })
+            if (ready) {
+                self.onReady();
+                this.setState({isReady:true});
+            }
+        });
     }
 
     async onReady() {

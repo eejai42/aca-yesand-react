@@ -32,30 +32,25 @@ export default class CallComponent extends EffortlessBaseComponent {
         super(props);
         // SOMETHING LIKE THIS: this.state.reloadMatch();
         this.state = {
-            call: undefined,
-            callCode: props.match.params.callCode,
-            reloadRequested: true,
-            dataReady: false,
+            call: undefined
         };
-        console.log( "Call",props.match.params.callCode)
+
         this.reloadCall = this.reloadCall.bind(this);
         this.participantChanged = this.participantChanged.bind(this);
         this.topicChanged = this.topicChanged.bind(this);
     }
 
-    shouldComponentUpdate() {
-        return this.state.reloadRequested;
-    }
-
-
-    async onReady() {
-        this.reloadCall();
+    componentDidUpdate() {
+        console.error('COMPONENT DID LOAD: ', this.state);
+        if (this.state.isReady && (!this.state.call || (this.state.call.Name != this.props.match.params.callCode))) {
+            this.reloadCall();
+        }
     }
 
     async reloadCall() {
         console.error('RELOADING CALL NOW');
         let payload = this.context.createPayload()
-        payload.AirtableWhere = "Name='" + this.state.callCode + "'";
+        payload.AirtableWhere = "Name='" + this.props.match.params.callCode + "'";
         var reply = await this.context.moderator.GetEpisodeCalls(payload);
         if (this.hasNoErrors(reply) && reply.EpisodeCalls && reply.EpisodeCalls.length) {
             var call = reply.EpisodeCalls[0];
@@ -77,7 +72,7 @@ export default class CallComponent extends EffortlessBaseComponent {
             var newState = { call: call,  reloadRequested: true }
             this.setState(newState);
         } else {
-            console.error('GOT ERROR RELOADING CALL NOW!');
+            console.error('GOT ERROR RELOADING CALL NOW!', reply);
         }
     }
 
