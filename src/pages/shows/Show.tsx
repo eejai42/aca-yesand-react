@@ -65,8 +65,9 @@ export default class ShowComponent extends EffortlessBaseComponent<{ showCode: s
         }
     }
 
-    shouldComponentUpdate() {
+    shouldComponentUpdate(){
         var reload = this.props.location.pathname != this.props.match.url;
+        console.log("Reload", this.state.showCode);
         return this.state.reloadRequested || reload;
     }
 

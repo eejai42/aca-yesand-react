@@ -141,10 +141,10 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         this.setState({ topic: this.state.topic });
     }
 
-    topicChanged(topic:any) {
+    topicChanged(topic: any) {
         console.error('TOPIC CHANGED: ', topic);
         if (topic.CallTopicId != this.state.call.CurrentTopic) {
-            this.state.topicChanged({callTopicId:topic.CallTopicId});
+            this.state.topicChanged({ callTopicId: topic.CallTopicId });
         }
     }
 
@@ -163,8 +163,8 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
         const isActive = call.CurrentTopic == topic.CallTopicId;
 
         return (
-            <div style={{ padding: '0.25em', paddingRight: 0, clear: 'both', borderTop: 'solid gray 1px', cursor: 'pointer' }}  className={isActive ? 'activeTopic' : ''}>
-                <div style={{ float: 'right' }}>
+            <div style={{ padding: '0.25em', paddingRight: 0, clear: 'both', borderTop: 'solid gray 1px', cursor: 'pointer' }} className={isActive ? 'activeTopic' : ''}>
+                <div style={{ float: 'left' }}>
                     <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
                     {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
@@ -189,6 +189,7 @@ export default class TopicComponent extends EffortlessBaseComponent<{ call: any,
                 </div>
                 {isActive && <div>
                     <div>
+                        <IonButton style={{ float: 'right' }}>Fallacies</IonButton>
                         <div style={{ padding: '0.75em' }}>
                             {call?.Participants?.map((callparticipant: any) => {
                                 return <div key={callparticipant.CallParticipantId + call.LastModifiedTime} >

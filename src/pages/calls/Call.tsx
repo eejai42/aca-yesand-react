@@ -33,14 +33,14 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
 
     constructor(props: any) {
         super(props);
-
+        // SOMETHING LIKE THIS: this.state.reloadMatch();
         this.state = {
             call: undefined,
             callCode: props.match.params.callCode,
             reloadRequested: true,
             dataReady: false,
         };
-
+        console.log( "Call",props.match.params.callCode)
         this.reloadCall = this.reloadCall.bind(this);
         this.participantChanged = this.participantChanged.bind(this);
         this.topicChanged = this.topicChanged.bind(this);
@@ -77,7 +77,7 @@ export default class CallComponent extends EffortlessBaseComponent<{ callCode: s
             }
 
             console.error('ABOUT TO RENDER CALL: ', call);
-            var newState = { call: call, reloadRequested: true }
+            var newState = { call: call,  reloadRequested: true }
             this.setState(newState);
         } else {
             console.error('GOT ERROR RELOADING CALL NOW!');

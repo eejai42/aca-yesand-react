@@ -1,6 +1,6 @@
 import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import Menu from './components/Menu';
 import Shows from './pages/shows/Shows';
 import Show from './pages/shows/Show';
@@ -50,20 +50,21 @@ const App: React.FC = () => {
             <Route path="/" exact={true}>
               <Redirect to="/shows" />
             </Route>
-            <Route path="/shows" exact={true} component={Shows} />
+            <Route path="/shows" exact={true} component={Shows}  />
             <Route path="/show/:showCode" exact={true} component={Show} />
             <Route path="/hosts" exact={true} component={Hosts} />
             <Route path="/host/:hostCode" exact={true} component={Host} />
             <Route path="/seasons" exact={true} component={Seasons} />
-            <Route path="/season/:seasonCode" exact={true} component={Season} />
-            <Route path="/episodes" exact={true} component={Episodes} />
-            <Route path="/episode/:episodeCode" exact={true} component={Episode} />
+            <Route path="/season/:seasonCode"   exact={true} component={Season} />
+            <Route path="/episodes" exact={true}  component={Episodes} />
+            <Route path="/episode/:episodeCode"  exact={true}  render={(props) => <Episode {...props} episodeCode={props.match.params.episodeCode} />} />
             <Route path="/episode/:episodeCode/addcall" exact={true} component={AddEpisodeCall} />
             <Route path="/calls" exact={true} component={Calls} />
             <Route path="/call/:callCode" exact={true} component={Call} />
             <Route path="/moderators" exact={true} component={Hosts} />
             <Route path="/account" exact={true} component={Profile} />
 
+          
             {/*Note:  Route bellow is for testing ... */}
             <Route path="/d3" exact={true}>
               <D3demo />

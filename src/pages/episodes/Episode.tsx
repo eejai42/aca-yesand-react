@@ -23,11 +23,15 @@ import { useHistory, useParams } from "react-router";
 import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
+import { fastFood } from "ionicons/icons";
 
-export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeCode: string }, {
-    episode: any, reloadRequested: boolean,
-    dataReady: boolean, episodeCode: string
-}> {
+export default class EpisodeComponent extends EffortlessBaseComponent<
+    { episodeCode: string },
+    {
+        episode: any, reloadRequested: boolean,
+        dataReady: boolean, episodeCode: string, mClick: boolean
+    }> {
+    isReady: boolean = false;
 
     constructor(props: any) {
         super(props);
@@ -37,17 +41,45 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
             episodeCode: props.match.params.episodeCode,
             reloadRequested: true,
             dataReady: false,
+            mClick: false,
+
         };
+
 
         this.reloadEpisode = this.reloadEpisode.bind(this);
     }
 
-
     async onReady() {
-        this.reloadEpisode();
+        this.isReady = true;
+        // this.reloadEpisode();
+    }
+    componentDidUpdate(prevProps: any) {
+        if (!this.isReady) {
+            var self = this;
+            setTimeout(() => {
+                self.checkForReload(prevProps);
+            }, 2500)
+        } else this.checkForReload(prevProps);
+    }
+
+    private checkForReload(prevProps: any) {
+        
+        if (!this.state.episode || (this.props.episodeCode != this.state.episodeCode)) {
+            if (this.props.episodeCode != this.state.episodeCode) {
+                this.setState({ episodeCode: this.props.episodeCode, episode: undefined });
+                console.error('SETTING STATE: ', this.state);
+            } 
+            this.reloadEpisode();
+        }
+    }
+
+    componentDidMount() {
+        this.setState({ episodeCode: this.props.episodeCode })
     }
 
     async reloadEpisode() {
+        console.error("Componet Reload", this.props, this.state);
+
         let payload = this.context.createPayload()
         payload.AirtableWhere = "Name='" + this.state.episodeCode + "'";
         var reply = await this.context.moderator.GetSeasonEpisodes(payload);
@@ -64,6 +96,8 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
                 episode.Hosts = reply.EpisodeHosts;
             }
 
+            console.error("Ep: ", episode)
+
             var newState = { episode: episode, reloadRequested: true }
             console.error('NEW STATE: ', newState);
             this.setState(newState);
@@ -71,12 +105,14 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
     }
 
     shouldComponentUpdate() {
-        return this.state.reloadRequested;
+        return true;
     }
 
 
     render() {
         console.error('rendering');
+
+
         const { episode } = this.state;
         return (
             <IonPage>
@@ -95,7 +131,8 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
                             <IonTitle size="large">Episode</IonTitle>
                         </IonToolbar>
                     </IonHeader>
-                    <div>
+                    <div>{this.state.mClick}
+                        <IonButton onClick={() => { this.setState({ mClick: true }) }}>Test</IonButton>
                         <IonButton routerLink={"/season/" + episode?.SeasonName}>{episode?.SeasonName}</IonButton>
                         <div style={{ float: 'right' }}>
                             <button onClick={this.reloadEpisode}>Reload</button>
@@ -104,9 +141,9 @@ export default class EpisodeComponent extends EffortlessBaseComponent<{ episodeC
                         <div>
                             <h2>Hosts ({episode?.Hosts?.length})</h2>
                             {episode?.Hosts.map((host: any) => {
-                                return <div style={{clear: 'both'}}>
+                                return <div style={{ clear: 'both' }}>
                                     {host.HostAvatar && host.HostAvatar.length &&
-                                        <img src={host.HostAvatar[0].url} style={{width: '3em'}} />}
+                                        <img src={host.HostAvatar[0].url} style={{ width: '3em' }} />}
                                     {host.HostName} - {host.Role}
                                 </div>
                             })}
