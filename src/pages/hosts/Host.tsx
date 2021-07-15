@@ -18,8 +18,7 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class HostComponent extends EffortlessBaseComponent<{hostCode:string}, { host : any, reloadRequested: boolean, 
-                                                                            dataReady: boolean, hostCode : string }> {
+export default class HostComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

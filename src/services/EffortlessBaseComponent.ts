@@ -2,7 +2,7 @@ import React from 'react';
 import { GlobalDataService } from '../GlobalDataService';
 
 
-export class EffortlessBaseComponent<P, S> extends React.Component<P, S> {
+export class EffortlessBaseComponent extends React.Component<any, any> {
 
     constructor(props: any) {
         super(props)

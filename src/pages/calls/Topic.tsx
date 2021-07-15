@@ -26,11 +26,7 @@ import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import EditTopic from './EditTopic'
 import TopicParticipant from './TopicParticipant'
 
-export default class TopicComponent extends EffortlessBaseComponent<{ call: any, topic: any, topicChanged: any, participantChanged: any },
-    {
-        call: any, topic: any, callCode: string, editDlgOpen: boolean,
-        topicChanged: any, addAgreementDlg: boolean, participantChanged: any
-    }> {
+export default class TopicComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

@@ -25,8 +25,7 @@ import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import { curveNatural } from "d3";
 
-export default class EditTopicComponent extends EffortlessBaseComponent<{ call: any, topic: any }, 
-{ call: any, topic: any }> {
+export default class EditTopicComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

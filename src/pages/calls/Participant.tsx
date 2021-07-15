@@ -29,8 +29,7 @@ import { BehaviorSubject } from "rxjs";
 // Note: this is a test import element might change in the future
 import TopicParticipant from './TopicParticipant'
 
-export default class ParticipantComponent extends EffortlessBaseComponent<{ call: any, participant: any, changed: any },
-    { call: any, participant: any, changed: any }> {
+export default class ParticipantComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

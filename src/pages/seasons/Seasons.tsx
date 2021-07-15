@@ -24,7 +24,7 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class SeasonsComponent extends EffortlessBaseComponent<{}, {people : any[]}> {
+export default class SeasonsComponent extends EffortlessBaseComponent {
 
     constructor(props : any) {
       super(props)
@@ -71,7 +71,7 @@ export default class SeasonsComponent extends EffortlessBaseComponent<{}, {peopl
             <div>
               PEOPLE: {people?.length}
             </div>
-            {people?.map(person => 
+            {people?.map((person:any) => 
               <div key={person.PersonId}>{person.Name}</div>
             )};
           </IonContent>

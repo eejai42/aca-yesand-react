@@ -27,8 +27,7 @@ import { curveNatural } from "d3";
 import { BehaviorSubject } from "rxjs";
 import { thumbsDownOutline, thumbsUpOutline, thumbsUpSharp } from "ionicons/icons";
 
-export default class TopicParticipantComponent extends EffortlessBaseComponent<{ call: any, callparticipant: any, topicChanged: any, participantChanged : any, topic: any },
-    { call: any, callparticipant: any, topicChanged: any, participantChanged : any, topic: any }> {
+export default class TopicParticipantComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

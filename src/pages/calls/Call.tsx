@@ -26,10 +26,7 @@ import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import Topic from './Topic'
 import Participant from './Participant'
 
-export default class CallComponent extends EffortlessBaseComponent<{ callCode: string }, {
-    call: any, reloadRequested: boolean,
-    dataReady: boolean, callCode: string
-}> {
+export default class CallComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

@@ -9,7 +9,7 @@ import { take } from 'rxjs/operators';
 // import * as d3Array from 'd3-array';
 // import * as d3Axis from 'd3-axis';
 
-class D3demo extends EffortlessBaseComponent<{}, { data: number[] }> {
+class D3demo extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);
@@ -32,7 +32,7 @@ class D3demo extends EffortlessBaseComponent<{}, { data: number[] }> {
 
     loadData(): string {
         const divNode = document.createElement('div')
-        const divElement = d3.select(divNode)
+        var divElement : any = d3.select(divNode)
             .style("font", "10px sans-serif")
             .style("text-align", "right")
             .style("color", "white");
@@ -42,9 +42,9 @@ class D3demo extends EffortlessBaseComponent<{}, { data: number[] }> {
             .style("background", "steelblue")
             .style("padding", "3px")
             .style("margin", "1px")
-            .style("width", d => `${d * 10}px`)
-            .attr('onClick', d => `GDS.d3event$.next({event:'click', value:'${d}'})`)
-            .text(d => d);
+            .style("width", (d:any) => `${d * 10}px`)
+            .attr('onClick', (d:any) => `GDS.d3event$.next({event:'click', value:'${d}'})`)
+            .text((d:any) => d);
         return divElement.node()?.outerHTML + '';
     }
     render() {

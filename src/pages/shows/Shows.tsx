@@ -24,7 +24,7 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class ShowsComponent extends EffortlessBaseComponent<{}, { shows: [], reloadRequested: boolean, dataReady: boolean }>  {
+export default class ShowsComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

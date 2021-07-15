@@ -24,10 +24,7 @@ import { GlobalDataService } from "../../GlobalDataService";
 import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 
-export default class SeasonComponent extends EffortlessBaseComponent<{ seasonCode: string }, {
-    season: any, reloadRequested: boolean,
-    dataReady: boolean, seasonCode: string
-}> {
+export default class SeasonComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);

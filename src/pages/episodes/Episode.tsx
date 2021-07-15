@@ -25,12 +25,7 @@ import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import { fastFood } from "ionicons/icons";
 
-export default class EpisodeComponent extends EffortlessBaseComponent<
-    { episodeCode: string },
-    {
-        episode: any, reloadRequested: boolean,
-        dataReady: boolean, episodeCode: string, mClick: boolean
-    }> {
+export default class EpisodeComponent extends EffortlessBaseComponent {
     isReady: boolean = false;
 
     constructor(props: any) {

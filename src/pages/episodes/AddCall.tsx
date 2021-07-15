@@ -25,10 +25,7 @@ import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import { curveNatural } from "d3";
 
-export default class AddEpisodeCallComponent extends EffortlessBaseComponent<{ episodeCode: string }, {
-    episode: any, reloadRequested: boolean, subject : string,
-    dataReady: boolean, episodeCode: string, guestName : string
-}> {
+export default class AddEpisodeCallComponent extends EffortlessBaseComponent {
 
     constructor(props: any) {
         super(props);
