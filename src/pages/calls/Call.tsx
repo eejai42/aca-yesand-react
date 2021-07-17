@@ -25,6 +25,7 @@ import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import Topic from './Topic'
 import Participant from './Participant'
+import { easeLinear } from "d3";
 
 export default class CallComponent extends EffortlessBaseComponent {
 
@@ -67,6 +68,16 @@ export default class CallComponent extends EffortlessBaseComponent {
             if (this.hasNoErrors(reply)) {
                 call.Agreements = reply.TopicAgreements;
             }
+            console.error("ABOUT TO CHECK FALLACIES:: ", reply)
+
+            reply = await this.context.moderator.GetTopicFallacies(payload);
+            if (this.hasNoErrors(reply)) {
+                console.error("Loading Fallacies in Call", reply.TopicFallacies)
+                call.Fallacies = reply.TopicFallacies;
+            } else {
+                console.error("ERROR:: ", reply)
+                
+            }
 
             console.error('ABOUT TO RENDER CALL: ', call);
             var newState = { call: call,  reloadRequested: true }
@@ -84,6 +95,8 @@ export default class CallComponent extends EffortlessBaseComponent {
         delete payload.EpisodeCall.Topics;
         delete payload.EpisodeCall.Participants;
         delete payload.EpisodeCall.Agreements;
+        delete payload.EpisodeCall.Fallacies;
+
         payload.EpisodeCall.Status = payload.EpisodeCall.Status == "On" ? "Off" : "On";
 
         var reply = await this.context.moderator.UpdateEpisodeCall(payload);
@@ -91,6 +104,7 @@ export default class CallComponent extends EffortlessBaseComponent {
             reply.EpisodeCall.Topics = this.state.call.Topics;
             reply.EpisodeCall.Participants = this.state.call.Participants;
             reply.EpisodeCall.Agreements = this.state.call.Agreements;
+            reply.EpisodeCall.Fallacies = this.state.call.Fallacies;
             this.setState({ call: reply.EpisodeCall, reloadRequested: true });
         }
     }
@@ -132,6 +146,8 @@ export default class CallComponent extends EffortlessBaseComponent {
         delete payload.EpisodeCall.Topics;
         delete payload.EpisodeCall.Participants;
         delete payload.EpisodeCall.Agreements;
+        delete payload.EpisodeCall.Fallacies;
+
         payload.EpisodeCall.Status = payload.EpisodeCall.Status == "On" ? "Off" : "On";
         
         var reply = await this.context.moderator.UpdateEpisodeCall(payload);
@@ -140,6 +156,7 @@ export default class CallComponent extends EffortlessBaseComponent {
             episodeCall.Topics = this.state.call.Topics;
             episodeCall.Participants = this.state.call.Participants;
             episodeCall.Agreements = this.state.call.Agreements;
+            episodeCall.Fallacies = this.state.call.Fallacies;
 
             payload.AirtableWhere = `RECORD_ID()='${callTopicId}'`;
             reply = await this.context.moderator.GetCallTopics(payload);

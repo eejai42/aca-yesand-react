@@ -6,7 +6,7 @@ import generateModeratorActor from '../sassymq/jsActors/smqModerator.js';
 
 declare global {
   interface Window {
-    GDS:any;
+    GDS: any;
   }
 }
 
@@ -33,23 +33,24 @@ export class GDS {
   shows: any;
   moderator: any;
   isReady: boolean = false;
+  fallacies: any;
 
 
   constructor() {
     var self = this;
     window.GDS = this;
-    this.guest  = generateGuestActor();
+    this.guest = generateGuestActor();
     this.guest.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
-    this.guest.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {
+    this.guest.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg: any) => {
       console.error('MESSAGE', msg);
-    }, (connected : any) => {
+    }, (connected: any) => {
       self.loginModerator();
     });
     console.error('connected', this.guest);
   }
   async loginModerator() {
     var payload = {
-      EmailAddress : 'ej@ssot.me'
+      EmailAddress: 'ej@ssot.me'
     }
     var reply = await this.guest.ValidateTemporaryAccessToken(payload)
     if (this.hasNoErrors(reply)) {
@@ -57,8 +58,8 @@ export class GDS {
     }
   }
 
-  groupBy = (key : any) => (array : any) =>
-    array.reduce((objectsByKeyValue : any, obj : any) => {
+  groupBy = (key: any) => (array: any) =>
+    array.reduce((objectsByKeyValue: any, obj: any) => {
       const value = obj[key];
       objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
       return objectsByKeyValue;
@@ -77,12 +78,29 @@ export class GDS {
     return true;
   }
 
-  async loadData(guest: any) {
-    var reply = await guest.GetShows({});
-    console.error('CONNECTED GUEST', reply);
-    this.shows = reply.Shows;
-    return reply.Shows;
-  }  
+  async loadStaticData(moderator: any) {
+    let payload = this.createPayload()
+    let showReply = await moderator.GetShows(payload);
+    console.error('CONNECTED GUEST', showReply);
+    this.shows = showReply.Shows;
+
+    let fallaciesData = JSON.parse(localStorage.getItem("fallacies") || "[]");
+    if (!fallaciesData) {
+      fallaciesData = await this.relaodFallacyData( payload, fallaciesData);
+    } 
+    this.fallacies = fallaciesData
+  }
+
+
+
+  private async relaodFallacyData(payload: any, fallaciesData: string | null) {
+    let fallacyReply = await this.moderator.GetFallacies(payload);
+    fallaciesData = fallacyReply.Fallacies;
+
+    console.error("Fallacies GDS:: ", fallaciesData);
+    localStorage.setItem("fallacies", JSON.stringify(fallaciesData));
+    return fallaciesData;
+  }
 
   dontConnect() {
     console.error('NOT Connecting now');
@@ -90,7 +108,7 @@ export class GDS {
       this.readiness$.next(true);
     }, 1000);
   }
- 
+
   getDate(date: any) {
     if (date && date.getDate) return date;
     else if (typeof date === "string") {
@@ -114,13 +132,14 @@ export class GDS {
   connect() {
     this.moderator = generateModeratorActor();
     this.moderator.rabbitEndpoint = 'wss://effortlessapi-rmq.ssot.me:15673/ws'
-    this.moderator.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg : any) => {}, () => {
+    this.moderator.connect('ej-aca-yesand', 'smqPublic', 'smqPublic', (msg: any) => { }, () => {
       this.isReady = true;
+      this.loadStaticData(this.moderator);
       this.readiness$.next(true);
     });
-}
+  }
   createPayload(): any {
-    return { AccessToken : this.accessToken };
+    return { AccessToken: this.accessToken };
   }
 
   public logout() {

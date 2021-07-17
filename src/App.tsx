@@ -1,6 +1,9 @@
 import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route, RouteComponentProps, withRouter } from 'react-router-dom';
+
+import { EffortlessBaseComponent } from './services/EffortlessBaseComponent'
+
 import Menu from './components/Menu';
 import Shows from './pages/shows/Shows';
 import Show from './pages/shows/Show';
@@ -39,41 +42,75 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 
-const App: React.FC = () => {
-  return (
-    <IonApp>
+class App extends EffortlessBaseComponent {
+  constructor(props: any) {
+    super(props);
+    // SOMETHING LIKE THIS: this.state.reloadMatch();
+    this.state = {
+       fallacies: undefined
+    };
 
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
-          <IonRouterOutlet id="main">
-            <Route path="/" exact={true}>
-              <Redirect to="/shows" />
-            </Route>
-            <Route path="/shows" exact={true} component={Shows}  />
-            <Route path="/show/:showCode" exact={true} component={Show} />
-            <Route path="/hosts" exact={true} component={Hosts} />
-            <Route path="/host/:hostCode" exact={true} component={Host} />
-            <Route path="/seasons" exact={true} component={Seasons} />
-            <Route path="/season/:seasonCode"   exact={true} component={Season} />
-            <Route path="/episodes" exact={true}  component={Episodes} />
-            <Route path="/episode/:episodeCode"  exact={true}  render={(props) => <Episode {...props} episodeCode={props.match.params.episodeCode} />} />
-            <Route path="/episode/:episodeCode/addcall" exact={true} component={AddEpisodeCall} />
-            <Route path="/calls" exact={true} component={Calls} />
-            <Route path="/call/:callCode" exact={true} component={Call} />
-            <Route path="/moderators" exact={true} component={Hosts} />
-            <Route path="/account" exact={true} component={Profile} />
+    // this.loadFallacies = this.loadFallacies.bind(this);
+}
 
-          
-            {/*Note:  Route bellow is for testing ... */}
-            <Route path="/d3" exact={true}>
-              <D3demo />
-            </Route>
-          </IonRouterOutlet>
-        </IonSplitPane>
-      </IonReactRouter>
-    </IonApp>
-  );
+
+componentDidUpdate(){
+  // if(!localStorage.getItem("fallacies") && this.state.isReady){
+  //   this.loadFallacies();
+  // } else{
+  //   console.error("Fallacies Already Exist in LocalStorage")
+  // }
+}
+//   async loadFallacies() {
+//     let payload = this.context.createPayload()
+//     // payload.AirtableWhere = "Name='" + this.props.match.params.callCode + "'";
+//     // if (!this.context.moderator) return;
+//     console.error('LOADING FALLACIES NOW');
+//     let reply = await this.context.moderator.GetFallacies(payload);
+//     if (this.hasNoErrors(reply) && reply.Fallacies && reply.Fallacies.length) {
+//         // console.error("Fallacies:: ", reply.Fallacies);
+//         localStorage.setItem("fallacies",  JSON.stringify( reply.Fallacies) )
+//     } else {
+//         console.error('GOT ERROR LOADING FALLACIES NOW!', reply);
+//     }
+// }
+
+  render(){
+    return (
+      <IonApp>
+  
+        <IonReactRouter>
+          <IonSplitPane contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Route path="/" exact={true}>
+                <Redirect to="/shows" />
+              </Route>
+              <Route path="/shows" exact={true} component={Shows}  />
+              <Route path="/show/:showCode" exact={true} component={Show} />
+              <Route path="/hosts" exact={true} component={Hosts} />
+              <Route path="/host/:hostCode" exact={true} component={Host} />
+              <Route path="/seasons" exact={true} component={Seasons} />
+              <Route path="/season/:seasonCode"   exact={true} component={Season} />
+              <Route path="/episodes" exact={true}  component={Episodes} />
+              <Route path="/episode/:episodeCode"  exact={true}  render={(props) => <Episode {...props} episodeCode={props.match.params.episodeCode} />} />
+              <Route path="/episode/:episodeCode/addcall" exact={true} component={AddEpisodeCall} />
+              <Route path="/calls" exact={true} component={Calls} />
+              <Route path="/call/:callCode" exact={true} component={Call} />
+              <Route path="/moderators" exact={true} component={Hosts} />
+              <Route path="/account" exact={true} component={Profile} />
+  
+            
+              {/*Note:  Route bellow is for testing ... */}
+              <Route path="/d3" exact={true}>
+                <D3demo />
+              </Route>
+            </IonRouterOutlet>
+          </IonSplitPane>
+        </IonReactRouter>
+      </IonApp>
+    );
+  }
 };
 
 export default App;

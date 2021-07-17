@@ -36,7 +36,7 @@ export default class TopicParticipantComponent extends EffortlessBaseComponent {
             call: props.call,
             callparticipant: props.callparticipant,
             topicChanged: props.topicChanged,
-            participantChanged : props.participantChanged,
+            participantChanged: props.participantChanged,
             topic: props.topic
         };
 
@@ -66,40 +66,55 @@ export default class TopicParticipantComponent extends EffortlessBaseComponent {
 
     private async setAgreement(status: string) {
         console.error('Updating Agreement: ', status, this.state.call.Agreements);
-        var payload = this.context.createPayload();
-        var existingAgreements = this.state.call.Agreements.filter((agreement: any) => (
-            (agreement.Topic == this.state.topic.CallTopicId) &&
-            (agreement.CallParticipant == this.state.callparticipant.CallParticipantId)));
-        
+        var existingAgreements = this.lookForExistingAgreement();
+
         var existingAgreement = (existingAgreements && existingAgreements.length) ? existingAgreements[0] : null;
         var reply = null;
 
         if (existingAgreement) {
-            console.error('Updating existing agreement');
-            var index = this.state.call.Agreements.indexOf(existingAgreement);
-            this.state.call.Agreements.splice(index, 1);
-            payload.TopicAgreement = existingAgreement;
-            existingAgreement.Status = status;
-            reply = await this.context.moderator.UpdateTopicAgreement(payload);
+            reply = await this.updateExistingTopicAgreement(existingAgreement, status, reply);
         } else {
-            console.error('Adding new agreement');
-            payload.TopicAgreement = payload.TopicAgreement || {
-                Topic: this.state.topic.CallTopicId,
-                CallParticipant: this.state.callparticipant.CallParticipantId
-            };
-            payload.TopicAgreement.Status = status;
-            reply = await this.context.moderator.AddTopicAgreement(payload);
+            reply = await this.addTopicAgreement(status, reply);
         }
 
         if (this.hasNoErrors(reply)) {
             this.state.call.Agreements.push(reply.TopicAgreement);
         }
-        this.state.topicChanged({callTopicId: this.state.topic.CallTopicId});
+        this.state.topicChanged({ callTopicId: this.state.topic.CallTopicId });
     }
 
-    getParticipantUrl(callparticipant:any) {
+    private async addTopicAgreement(status: string, reply: any) {
+        var payload = this.context.createPayload();
+        console.error('Adding new agreement');
+        payload.TopicAgreement = payload.TopicAgreement || {
+            Topic: this.state.topic.CallTopicId,
+            CallParticipant: this.state.callparticipant.CallParticipantId
+        };
+        payload.TopicAgreement.Status = status;
+        reply = await this.context.moderator.AddTopicAgreement(payload);
+        return reply;
+    }
+
+    private async updateExistingTopicAgreement(existingAgreement: any, status: string, reply: any) {
+        var payload = this.context.createPayload();
+        console.error('Updating existing agreement');
+        var index = this.state.call.Agreements.indexOf(existingAgreement);
+        this.state.call.Agreements.splice(index, 1);
+        payload.TopicAgreement = existingAgreement;
+        existingAgreement.Status = status;
+        reply = await this.context.moderator.UpdateTopicAgreement(payload);
+        return reply;
+    }
+
+    private lookForExistingAgreement() {
+        return this.state.call.Agreements.filter((agreement: any) => (
+            (agreement.Topic == this.state.topic.CallTopicId) &&
+            (agreement.CallParticipant == this.state.callparticipant.CallParticipantId)));
+    }
+
+    getParticipantUrl(callparticipant: any) {
         return (callparticipant.ParticipantAvatar && callparticipant.ParticipantAvatar.length) ?
-                    callparticipant.ParticipantAvatar[0].url : '/assets/avatar.png';
+            callparticipant.ParticipantAvatar[0].url : '/assets/avatar.png';
     }
 
     async relatedTopicSubjectChanged(event: any) {
@@ -107,12 +122,12 @@ export default class TopicParticipantComponent extends EffortlessBaseComponent {
         this.setState({ call: this.state.call });
     }
 
-    keyPressed(event:any) {
+    keyPressed(event: any) {
         if (event?.code == 'Enter') {
-            this.state.topicChanged({relatedTopicSubject: this.state.call.relatedTopicSubject});
+            this.state.topicChanged({ relatedTopicSubject: this.state.call.relatedTopicSubject });
             this.state.call.relatedTopicSubject = "";
 
-            this.setState({topic: this.state.topic});
+            this.setState({ topic: this.state.topic });
         }
     }
 
@@ -129,12 +144,12 @@ export default class TopicParticipantComponent extends EffortlessBaseComponent {
                     <label>{callparticipant?.DisplayName}</label>
                 </div>
 
-                {call.CurrentParticipant == callparticipant.CallParticipantId && <div style={{margin: '0.5em', marginLeft: '2em'}}>
-                                        <label>Add Sub Topic: </label>
-                                        <input type="text" name="newSubTopic" value={call.relatedTopicSubject} onKeyDown={(event:any) => this.keyPressed(event)}
-                                                style={{width: '50%'}} onChange={(event) => this.relatedTopicSubjectChanged(event)}  />
-                                                <div style={{clear: 'both'}}>&nbsp;</div>
-                                    </div>}
+                {call.CurrentParticipant == callparticipant.CallParticipantId && <div style={{ margin: '0.5em', marginLeft: '2em' }}>
+                    <label>Add Sub Topic: </label>
+                    <input type="text" name="newSubTopic" value={call.relatedTopicSubject} onKeyDown={(event: any) => this.keyPressed(event)}
+                        style={{ width: '50%' }} onChange={(event) => this.relatedTopicSubjectChanged(event)} />
+                    <div style={{ clear: 'both' }}>&nbsp;</div>
+                </div>}
 
             </div>
         );

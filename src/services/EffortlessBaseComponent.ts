@@ -7,6 +7,7 @@ export class EffortlessBaseComponent extends React.Component<any, any> {
     constructor(props: any) {
         super(props)
     }
+    
     static contextType = GlobalDataService;
     context!: React.ContextType<typeof GlobalDataService>;
 

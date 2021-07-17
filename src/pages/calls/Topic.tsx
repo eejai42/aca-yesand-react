@@ -8,6 +8,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
 import {
     IonButton,
+    IonButtons,
     IonContent,
     IonIcon,
     IonItem,
@@ -17,7 +18,9 @@ import {
     IonMenu,
     IonMenuToggle,
     IonNote,
+    IonPopover,
     IonRow,
+    IonSearchbar,
 } from '@ionic/react';
 import { useHistory, useParams } from "react-router";
 import { GlobalDataService } from "../../GlobalDataService";
@@ -25,6 +28,8 @@ import { GDS } from "../../services/gds.service";
 import { EffortlessBaseComponent } from '../../services/EffortlessBaseComponent'
 import EditTopic from './EditTopic'
 import TopicParticipant from './TopicParticipant'
+import { NONAME } from 'dns';
+import { threadId } from 'worker_threads';
 
 export default class TopicComponent extends EffortlessBaseComponent {
 
@@ -38,7 +43,10 @@ export default class TopicComponent extends EffortlessBaseComponent {
             editDlgOpen: false,
             addAgreementDlg: false,
             topicChanged: props.topicChanged,
-            participantChanged: props.participantChanged
+            participantChanged: props.participantChanged,
+            fallacyPopOverEvent: undefined,
+            showFallacyPopOver: false,
+            searchText: null
         };
         this.handleClickToOpen = this.handleClickToOpen.bind(this);
         this.handleToClose = this.handleToClose.bind(this);
@@ -153,10 +161,61 @@ export default class TopicComponent extends EffortlessBaseComponent {
         }
     }
 
+    private async setFallacy( fallacy: any, status: string) {
+        // console.error('Updating Agreement: ', status, this.state.call.Agreements);
+        var existingFallacies = this.lookForExistingFallacy(fallacy);
+
+        var existingFallacy = (existingFallacies  && existingFallacies .length) ? existingFallacies [0] : null;
+        var reply = null;
+
+        if (existingFallacy) {
+            reply = await this.updateExistingTopicFallacy(existingFallacy, status);
+        } else {
+            reply = await this.addTopicFallacy(fallacy,status);
+        }
+
+        if (this.hasNoErrors(reply)) {
+            this.state.call.Fallacies.push(reply.TopicFallacies);
+        }
+        this.state.topicChanged({ callTopicId: this.state.topic.CallTopicId });
+    }
+
+    private async addTopicFallacy(fallacy: any, status: string,) {
+        var payload = this.context.createPayload();
+        console.error('Adding new Fallacy');
+        payload.TopicFallacy = payload.TopicFallacy || {
+            CallTopic: this.state.topic.CallTopicId,
+           Fallacy: fallacy.FallacyId
+        };
+        payload.TopicFallacy.Status = status;
+        return await this.context.moderator.AddTopicFallacy(payload);
+
+    }
+
+    private async updateExistingTopicFallacy(existingFallacy: any, status: string) {
+        var payload = this.context.createPayload();
+        console.error('Updating existing Fallacy');
+        var index = this.state.call.Fallacies.indexOf(existingFallacy);
+        this.state.call.Fallacies.splice(index, 1);
+        payload.TopicFallacies = existingFallacy;
+        existingFallacy.Status = status;
+        return await this.context.moderator.UpdateTopicFallacy(payload);
+
+    }
+
+    private lookForExistingFallacy(fallacy: any) {
+        console.error("Fallacies::", this.state.call.Fallacies)
+    
+        return this.state.call.Fallacies.filter((topicFallacy: any) => (
+            (topicFallacy.CallTopic == this.state.topic.CallTopicId) &&
+            (topicFallacy.Fallacy == fallacy.FallacyId)));
+    }
+
     render() {
         const { call, topic } = this.state;
         const childTopics = call?.Topics?.filter((childTopic: any) => childTopic.ParentTopic == topic.CallTopicId);
         const isActive = call.CurrentTopic == topic.CallTopicId;
+        // const fallacies = JSON.parse(localStorage.getItem("fallacies") || "[]");
 
         return (
             <div style={{ padding: '0.25em', paddingRight: 0, clear: 'both', borderTop: 'solid gray 1px', cursor: 'pointer' }} className={isActive ? 'activeTopic' : ''}>
@@ -164,8 +223,8 @@ export default class TopicComponent extends EffortlessBaseComponent {
                     <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
                 </div>
-                <div style={{float: 'right'}}>                        
-                {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
+                <div style={{ float: 'right' }}>
+                    {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
                         .map((agreement: any) =>
                             <div className={(agreement.Status + '').toLowerCase()} style={{ float: 'right' }}>
                                 <div style={{ clear: 'both', display: 'table' }}>
@@ -175,7 +234,33 @@ export default class TopicComponent extends EffortlessBaseComponent {
                                         x</IonButton>
                                 </div>
                             </div>)}
-                    {isActive && <IonButton size="small">Fallacies</IonButton>}
+                    {isActive && <>
+                        <IonPopover
+                            cssClass='my-custom-class'
+                            event={this.state.fallacyPopOverEvent}
+                            isOpen={this.state.showFallacyPopOver}
+                            onDidDismiss={() => this.setState({ fallacyPopOverEvent: undefined, showFallacyPopOver: false })}
+                        >
+                            <IonList>
+                                {this.context.fallacies ? this.context.fallacies.map((fallacy: any) =>
+                                        <IonItem button key={fallacy.FallacyId} onClick={() => this.setFallacy(fallacy, "Proposed") }>
+                                            <IonLabel>{fallacy.Name}</IonLabel>
+                                        </IonItem>
+                                ) : <IonItem >
+                                    <IonLabel>Empty</IonLabel>
+                                </IonItem>}
+                            </IonList>
+                        </IonPopover>
+                        {/* <IonButton size="small">Fallacies</IonButton> */}
+                        <IonButton size="small" onClick={
+                            (e: any) => {
+                                e.persist();
+                                this.setState({ fallacyPopOverEvent: e, showFallacyPopOver: true });
+                            }}
+                        >
+                            Fallacies
+                        </IonButton>
+                    </>}
                 </div>
                 <div onClick={() => this.topicChanged(topic)}>
                     <b>
