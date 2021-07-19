@@ -45,6 +45,7 @@ export default class CallComponent extends EffortlessBaseComponent {
         console.error('COMPONENT DID LOAD: ', this.state);
         if (this.state.isReady && (!this.state.call || (this.state.call.Name != this.props.match.params.callCode))) {
             this.reloadCall();
+            
         }
     }
 

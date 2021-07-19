@@ -34,6 +34,7 @@ export class GDS {
   moderator: any;
   isReady: boolean = false;
   fallacies: any;
+  fallaciesById: any;
 
 
   constructor() {
@@ -89,6 +90,8 @@ export class GDS {
       fallaciesData = await this.relaodFallacyData( payload, fallaciesData);
     } 
     this.fallacies = fallaciesData
+    console.error("Fullstack Fallacy", fallaciesData)
+    // this.fallaciesById = ...;
   }
 
 

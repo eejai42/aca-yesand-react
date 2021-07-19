@@ -129,7 +129,17 @@ export default class TopicComponent extends EffortlessBaseComponent {
             this.state.topicChanged({ callTopicId: this.state.topic.CallTopicId })
         }
     }
-
+    async removeFallacy(fallacy: any) {
+        console.error('REMOVING AGREEMENT', fallacy);
+        var payload = this.context.createPayload();
+        payload.TopicFallacy = fallacy;
+        var reply = await this.context.moderator.DeleteTopicFallacy(payload);
+        if (this.hasNoErrors(reply)) {
+            var index = this.state.call.Fallacies.indexOf(fallacy);
+            if (index >= 0) this.state.call.Fallacies.splice(index, 1);
+            this.state.topicChanged({ callTopicId: this.state.topic.CallTopicId })
+        }
+    }
     getAgreementUrl(agreement: any) {
         return (agreement.CallParticipantAvatar && agreement.CallParticipantAvatar.length) ?
             agreement.CallParticipantAvatar[0].url : '/assets/avatar.png';
@@ -161,21 +171,26 @@ export default class TopicComponent extends EffortlessBaseComponent {
         }
     }
 
-    private async setFallacy( fallacy: any, status: string) {
+    async addFallacy(fallacy: any, status: any){
+        await this.setFallacy(fallacy, status);
+        this.setState({ showFallacyPopOver: false })
+    }
+
+    private async setFallacy(fallacy: any, status: string) {
         // console.error('Updating Agreement: ', status, this.state.call.Agreements);
         var existingFallacies = this.lookForExistingFallacy(fallacy);
 
-        var existingFallacy = (existingFallacies  && existingFallacies .length) ? existingFallacies [0] : null;
+        var existingFallacy = (existingFallacies && existingFallacies.length) ? existingFallacies[0] : null;
         var reply = null;
 
         if (existingFallacy) {
             reply = await this.updateExistingTopicFallacy(existingFallacy, status);
         } else {
-            reply = await this.addTopicFallacy(fallacy,status);
+            reply = await this.addTopicFallacy(fallacy, status);
         }
 
         if (this.hasNoErrors(reply)) {
-            this.state.call.Fallacies.push(reply.TopicFallacies);
+            await this.state.call.Fallacies.push(reply.TopicFallacy);
         }
         this.state.topicChanged({ callTopicId: this.state.topic.CallTopicId });
     }
@@ -185,7 +200,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
         console.error('Adding new Fallacy');
         payload.TopicFallacy = payload.TopicFallacy || {
             CallTopic: this.state.topic.CallTopicId,
-           Fallacy: fallacy.FallacyId
+            Fallacy: fallacy.FallacyId
         };
         payload.TopicFallacy.Status = status;
         return await this.context.moderator.AddTopicFallacy(payload);
@@ -205,16 +220,33 @@ export default class TopicComponent extends EffortlessBaseComponent {
 
     private lookForExistingFallacy(fallacy: any) {
         console.error("Fallacies::", this.state.call.Fallacies)
-    
+
         return this.state.call.Fallacies.filter((topicFallacy: any) => (
-            (topicFallacy.CallTopic == this.state.topic.CallTopicId) &&
-            (topicFallacy.Fallacy == fallacy.FallacyId)));
+            (topicFallacy?.CallTopic == this.state.topic.CallTopicId) &&
+            (topicFallacy?.Fallacy == fallacy?.FallacyId)));
+    }
+
+    fallacyTabs(call: any, topic: any) {
+        return (
+            <div>
+                {call?.Fallacies?.filter((fallacy: any) => fallacy?.CallTopic == topic.CallTopicId).map((fallacy: any) =>
+                    <IonButton key={fallacy} size="small" 
+                        onClick={() => { this.removeFallacy(fallacy) }}>
+                        {fallacy.FallacyName}
+                        {console.error("Clicked fallacy:", fallacy.FallacyName, fallacy)}
+                        </IonButton>
+                )}
+            </div>
+        )
     }
 
     render() {
         const { call, topic } = this.state;
         const childTopics = call?.Topics?.filter((childTopic: any) => childTopic.ParentTopic == topic.CallTopicId);
         const isActive = call.CurrentTopic == topic.CallTopicId;
+
+        // console.error("Call Fallacies: " ,call.Fallacies)
+
         // const fallacies = JSON.parse(localStorage.getItem("fallacies") || "[]");
 
         return (
@@ -234,6 +266,8 @@ export default class TopicComponent extends EffortlessBaseComponent {
                                         x</IonButton>
                                 </div>
                             </div>)}
+
+                    {this.fallacyTabs(call, topic)}
                     {isActive && <>
                         <IonPopover
                             cssClass='my-custom-class'
@@ -243,16 +277,16 @@ export default class TopicComponent extends EffortlessBaseComponent {
                         >
                             <IonList>
                                 {this.context.fallacies ? this.context.fallacies.map((fallacy: any) =>
-                                        <IonItem button key={fallacy.FallacyId} onClick={() => this.setFallacy(fallacy, "Proposed") }>
-                                            <IonLabel>{fallacy.Name}</IonLabel>
-                                        </IonItem>
+                                    <IonItem button key={fallacy.FallacyId} onClick={() => this.addFallacy(fallacy, "Proposed")}>
+                                        <IonLabel>{fallacy.Name}</IonLabel>
+                                    </IonItem>
                                 ) : <IonItem >
                                     <IonLabel>Empty</IonLabel>
                                 </IonItem>}
                             </IonList>
                         </IonPopover>
                         {/* <IonButton size="small">Fallacies</IonButton> */}
-                        <IonButton size="small" onClick={
+                        <IonButton size="small" color="medium"  onClick={
                             (e: any) => {
                                 e.persist();
                                 this.setState({ fallacyPopOverEvent: e, showFallacyPopOver: true });
