@@ -171,7 +171,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
         }
     }
 
-    async addFallacy(fallacy: any, status: any){
+    async addFallacy(fallacy: any, status: any) {
         await this.setFallacy(fallacy, status);
         this.setState({ showFallacyPopOver: false })
     }
@@ -230,11 +230,10 @@ export default class TopicComponent extends EffortlessBaseComponent {
         return (
             <div>
                 {call?.Fallacies?.filter((fallacy: any) => fallacy?.CallTopic == topic.CallTopicId).map((fallacy: any) =>
-                    <IonButton key={fallacy} size="small" 
+                    <IonButton key={fallacy} size="small" color="white"
                         onClick={() => { this.removeFallacy(fallacy) }}>
-                        {fallacy.FallacyName}
-                        {console.error("Clicked fallacy:", fallacy.FallacyName, fallacy)}
-                        </IonButton>
+                        <img style={{ width: '2em', verticalAlign: 'middle', padding: '0.1em' }} src={fallacy.FallacyIcon[0]? fallacy.FallacyIcon[0].url: "" } />
+                    </IonButton>
                 )}
             </div>
         )
@@ -255,6 +254,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
                     <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
                 </div>
+               <span>
                 <div style={{ float: 'right' }}>
                     {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
                         .map((agreement: any) =>
@@ -268,6 +268,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
                             </div>)}
 
                     {this.fallacyTabs(call, topic)}
+                    
                     {isActive && <>
                         <IonPopover
                             cssClass='my-custom-class'
@@ -278,7 +279,9 @@ export default class TopicComponent extends EffortlessBaseComponent {
                             <IonList>
                                 {this.context.fallacies ? this.context.fallacies.map((fallacy: any) =>
                                     <IonItem button key={fallacy.FallacyId} onClick={() => this.addFallacy(fallacy, "Proposed")}>
-                                        <IonLabel>{fallacy.Name}</IonLabel>
+                                        <IonLabel><span>
+                                            <img src={""} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
+                                        </span> {fallacy.Name}</IonLabel>
                                     </IonItem>
                                 ) : <IonItem >
                                     <IonLabel>Empty</IonLabel>
@@ -286,7 +289,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
                             </IonList>
                         </IonPopover>
                         {/* <IonButton size="small">Fallacies</IonButton> */}
-                        <IonButton size="small" color="medium"  onClick={
+                        <IonButton size="small" color="medium" onClick={
                             (e: any) => {
                                 e.persist();
                                 this.setState({ fallacyPopOverEvent: e, showFallacyPopOver: true });
@@ -296,6 +299,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
                         </IonButton>
                     </>}
                 </div>
+                </span>
                 <div onClick={() => this.topicChanged(topic)}>
                     <b>
                         <div className={topic?.HasDisagreement ? 'disagree' : (topic?.HasAgreement ? 'agree' : '')}>
