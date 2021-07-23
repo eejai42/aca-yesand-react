@@ -85,8 +85,9 @@ export class GDS {
     console.error('CONNECTED GUEST', showReply);
     this.shows = showReply.Shows;
 
-    let fallaciesData = JSON.parse(localStorage.getItem("fallacies") || "[]");
-    if (!fallaciesData) {
+    let jsonStr : string = localStorage.getItem("fallacies") || "null";
+    let fallaciesData = JSON.parse(jsonStr);
+    if (!fallaciesData || (fallaciesData.length ==0)) {
       fallaciesData = await this.relaodFallacyData( payload, fallaciesData);
     } 
     this.fallacies = fallaciesData

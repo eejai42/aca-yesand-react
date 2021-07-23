@@ -280,7 +280,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
                                 {this.context.fallacies ? this.context.fallacies.map((fallacy: any) =>
                                     <IonItem button key={fallacy.FallacyId} onClick={() => this.addFallacy(fallacy, "Proposed")}>
                                         <IonLabel><span>
-                                            <img src={""} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
+                                            <img src={fallacy.Icon?.length ? fallacy.Icon[0].url : ""} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                                         </span> {fallacy.Name}</IonLabel>
                                     </IonItem>
                                 ) : <IonItem >
