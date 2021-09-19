@@ -232,7 +232,7 @@ export default class TopicComponent extends EffortlessBaseComponent {
                 {call?.Fallacies?.filter((fallacy: any) => fallacy?.CallTopic == topic.CallTopicId).map((fallacy: any) =>
                     <IonButton key={fallacy} size="small" color="white"
                         onClick={() => { this.removeFallacy(fallacy) }}>
-                        <img style={{ width: '2em', verticalAlign: 'middle', padding: '0.1em' }} src={fallacy.FallacyIcon[0]? fallacy.FallacyIcon[0].url: "" } />
+                        <img style={{ width: '2em', verticalAlign: 'middle', padding: '0.1em' }} src={fallacy.FallacyIcon[0] ? fallacy.FallacyIcon[0].url : ""} />
                     </IonButton>
                 )}
             </div>
@@ -254,51 +254,53 @@ export default class TopicComponent extends EffortlessBaseComponent {
                     <div style={{ float: 'right' }}><img src={this.getTopicUrl(topic)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
                     </div>
                 </div>
-               <span>
-                <div style={{ float: 'right' }}>
-                    {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
-                        .map((agreement: any) =>
-                            <div className={(agreement.Status + '').toLowerCase()} style={{ float: 'right' }}>
-                                <div style={{ clear: 'both', display: 'table' }}>
-                                    <IonButton color={agreement.Status == 'Agree' ? 'success' : 'danger'} size="small"
-                                        onClick={() => this.removeAgreement(agreement)}>
-                                        <img src={this.getAgreementUrl(agreement)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
-                                        x</IonButton>
-                                </div>
-                            </div>)}
+                <span>
+                    <div style={{ float: 'right' }}>
+                        {call?.Agreements?.filter((agreement: any) => agreement.Topic == topic.CallTopicId)
+                            .map((agreement: any) =>
+                                <div className={(agreement.Status + '').toLowerCase()} style={{ float: 'right' }}>
+                                    <div style={{ clear: 'both', display: 'table' }}>
+                                        <IonButton color={agreement.Status == 'Agree' ? 'success' : 'danger'} size="small"
+                                            onClick={() => this.removeAgreement(agreement)}>
+                                            <img src={this.getAgreementUrl(agreement)} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
+                                            x</IonButton>
+                                    </div>
+                                </div>)}
 
-                    {this.fallacyTabs(call, topic)}
-                    
-                    {isActive && <>
-                        <IonPopover
-                            cssClass='my-custom-class'
-                            event={this.state.fallacyPopOverEvent}
-                            isOpen={this.state.showFallacyPopOver}
-                            onDidDismiss={() => this.setState({ fallacyPopOverEvent: undefined, showFallacyPopOver: false })}
-                        >
-                            <IonList>
-                                {this.context.fallacies ? this.context.fallacies.map((fallacy: any) =>
-                                    <IonItem button key={fallacy.FallacyId} onClick={() => this.addFallacy(fallacy, "Proposed")}>
-                                        <IonLabel><span>
-                                            <img src={""} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
-                                        </span> {fallacy.Name}</IonLabel>
-                                    </IonItem>
-                                ) : <IonItem >
-                                    <IonLabel>Empty</IonLabel>
-                                </IonItem>}
-                            </IonList>
-                        </IonPopover>
-                        {/* <IonButton size="small">Fallacies</IonButton> */}
-                        <IonButton size="small" color="medium" onClick={
-                            (e: any) => {
-                                e.persist();
-                                this.setState({ fallacyPopOverEvent: e, showFallacyPopOver: true });
-                            }}
-                        >
-                            Fallacies
-                        </IonButton>
-                    </>}
-                </div>
+                        {this.fallacyTabs(call, topic)}
+
+                        {isActive && <>
+                            <IonPopover
+                                cssClass='my-custom-class'
+                                event={this.state.fallacyPopOverEvent}
+                                isOpen={this.state.showFallacyPopOver}
+                                onDidDismiss={() => this.setState({ fallacyPopOverEvent: undefined, showFallacyPopOver: false })}
+                            >
+                                <IonList>
+                                    {this.context.fallacies ? this.context.fallacies.map((fallacy: any) =>
+                                        <IonItem button key={fallacy.FallacyId} onClick={() => this.addFallacy(fallacy, "Proposed")}>
+                                            <IonLabel>
+                                                <span>
+                                                    <img src={fallacy.Icon?.length ? fallacy.Icon[0].url : ""} style={{ width: '2em', verticalAlign: 'middle', padding: '0.25em' }} />
+                                                </span> {fallacy.Name}
+                                            </IonLabel>
+                                        </IonItem>
+                                    ) : <IonItem >
+                                        <IonLabel>Empty</IonLabel>
+                                    </IonItem>}
+                                </IonList>
+                            </IonPopover>
+                            {/* <IonButton size="small">Fallacies</IonButton> */}
+                            <IonButton size="small" color="medium" onClick={
+                                (e: any) => {
+                                    e.persist();
+                                    this.setState({ fallacyPopOverEvent: e, showFallacyPopOver: true });
+                                }}
+                            >
+                                Fallacies
+                            </IonButton>
+                        </>}
+                    </div>
                 </span>
                 <div onClick={() => this.topicChanged(topic)}>
                     <b>
