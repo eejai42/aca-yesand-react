@@ -37,6 +37,7 @@ export default class ShowComponent extends EffortlessBaseComponent {
     }
 
     async reloadShow() {
+        this.setState({reloadCalled: true});
         let payload = this.context.createPayload()
         payload.AirtableWhere = "ShowCode='" + this.props.match.params.showCode + "'";
         var reply = await this.context.moderator.GetShows(payload);
@@ -48,14 +49,18 @@ export default class ShowComponent extends EffortlessBaseComponent {
             if (this.hasNoErrors(reply)) {
                 show.ShowSeasons = reply.ShowSeasons;
             }
-            var newState = { show: show }
+            var newState = { show: show, reloadCalled: true };
             this.setState(newState);
+        } else {
+            console.error('ERRO LOADING SHOW: ', reply.ErrorMessage);
         }
     }
 
+    
     componentDidUpdate(){
         console.error('Checking Show: ', this.state.show)
-        if (this.state.isReady && (!this.state.show || (this.state.show.ShowCode != this.props.match.params.showCode))) {
+        if (this.state.isReady && 
+            (!this.state.reloadCalled || (this.state.show && (this.state.show.ShowCode != this.props.match.params.showCode)))) {
             this.reloadShow();
         }
     }
